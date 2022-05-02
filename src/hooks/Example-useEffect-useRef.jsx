@@ -21,10 +21,16 @@ const Example2 = () => {
 	}
 
 	/** Caso 1: Ejecutar siempre un snippet de código cada que haya un cambio en el estado del componente */
+	// useEffect( () => {
+	// 	console.log( 'Invoca useEffect' );
+	// 	console.log( elRef );
+	// });
+
+	/** Caso 2: Ejecutar solo cuando cambie el contador 1 */
 	useEffect( () => {
 		console.log( 'Invoca useEffect' );
 		console.log( elRef );
-	});
+	}, [ counter1 ] );
 
 	return (
 		<div className="example-hook">
