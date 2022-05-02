@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 // import { Greeting as GreetingClass } from './components/Greeting-ClassComponent';
 // import { Greeting as GreetingFunction } from './components/Greeting-FunctionComponent';
-import Example1 from './hooks/Example-useState';
+import Example2 from './hooks/Example-useEffect-useRef';
 
 function App() {
   return (
@@ -10,15 +10,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <div className="example-components">
-          {/* <div className="component class-component">
-            <h5>Componente Clase</h5>
-            <GreetingClass name="Juan"></GreetingClass>
-          </div>
-          <div className="component class-component">
-            <h5>Componente Funcional</h5>
-            <GreetingFunction name="Carlos"></GreetingFunction>
-          </div> */}
-		  <Example1></Example1>
+		  <Example2></Example2>
         </div>
       </header>
     </div>
