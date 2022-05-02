@@ -40,4 +40,4 @@ Greeting.propTypes = {
 };
 
 
-export default Greeting;
+export { Greeting };
