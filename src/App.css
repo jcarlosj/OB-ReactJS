@@ -7,9 +7,13 @@
   pointer-events: none;
 }
 
-.example-components {
-  display: flex;
-  justify-content: space-evenly;
+.component-child {
+	border: 1px dotted #FFF;
+	padding: 20px;
+}
+
+button {
+	margin: 20px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
