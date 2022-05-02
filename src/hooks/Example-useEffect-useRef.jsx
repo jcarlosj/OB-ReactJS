@@ -27,10 +27,16 @@ const Example2 = () => {
 	// });
 
 	/** Caso 2: Ejecutar solo cuando cambie el contador 1 */
+	// useEffect( () => {
+	// 	console.log( 'Invoca useEffect' );
+	// 	console.log( elRef );
+	// }, [ counter1 ] );
+
+	/** Caso 3: Ejecutar solo cuando cambie el contador 1 o el contador 2 */
 	useEffect( () => {
 		console.log( 'Invoca useEffect' );
 		console.log( elRef );
-	}, [ counter1 ] );
+	}, [ counter1, counter2 ] );
 
 	return (
 		<div className="example-hook">
