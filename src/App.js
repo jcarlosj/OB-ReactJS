@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
+import Allcycles from './hooks/lifecycle/AllCycles';
 
-import { WillUnmount, WillUnmountHook } from './hooks/lifecycle/Compare-Lifecycle-WillUnmount';
 
 function App() {
   return (
@@ -9,8 +9,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <div className="example-components">
-		      <WillUnmount></WillUnmount>
-          <WillUnmountHook></WillUnmountHook>
+          <Allcycles></Allcycles>
         </div>
       </header>
     </div>
