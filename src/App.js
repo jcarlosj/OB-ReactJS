@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 
-import { DidMount, DidMountHook } from './hooks/lifecycle/Compare-Lifecycle-DidMount';
+import { DidUpdate, DidUpdateHook } from './hooks/lifecycle/Compare-Lifecycle-DidUpdate';
 
 function App() {
   return (
@@ -9,8 +9,8 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <div className="example-components">
-		      <DidMount></DidMount>
-          <DidMountHook></DidMountHook>
+		      <DidUpdate></DidUpdate>
+          <DidUpdateHook></DidUpdateHook>
         </div>
       </header>
     </div>
