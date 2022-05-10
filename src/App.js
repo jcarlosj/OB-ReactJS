@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import Allcycles from './hooks/lifecycle/AllCycles';
 
+import LoginComponent from './components/RenderizadoCondicional-1';
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <div className="example-components">
-          <Allcycles></Allcycles>
+          <LoginComponent name="Elisa"></LoginComponent>
         </div>
       </header>
     </div>
