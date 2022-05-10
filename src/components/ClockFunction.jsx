@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const Clock = () => {
+const FC_Clock = () => {
 
     const 
         initialState = {
@@ -49,4 +49,4 @@ const Clock = () => {
 }
 
 
-export default Clock;
+export default FC_Clock;
