@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import './App.scss';
 import './App.css';
 
 import TaskListComponent from './components/containers/TaskList';
