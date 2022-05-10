@@ -14,11 +14,15 @@ const LoginComponent = ( props ) => {
 
 	const [ logged, setLogged ] = useState( false );
 
+    /** Funciones que retornan elementos JSX */
+	const greeting = () => <p>Hola, { props.name }!!!</p>;
+	const pleaseLogin = () => <p>Please logged.</p>;
+
 	return (
 		<div style={ logged ? loggedStyle : unloggedStyle }>
 			{	logged 
-					?	<p>Hola, { props.name }!</p>
-					:	<p>Please logged.</p>
+					?	greeting()
+					:	pleaseLogin()
 			}
 			<button onClick={ () => {
 				setLogged( ! logged );
