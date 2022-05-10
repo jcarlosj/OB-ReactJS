@@ -11,18 +11,19 @@ const FC_Clock = () => {
         };
 
     const 
+        [ timerID, setTimerID ] = useState( 0 ),
         [ data, setData ] = useState( initialState ),
         { fecha, edad, nombre, apellidos } = data;
 
     useEffect( () => {
-        const timerID = setInterval (
+        setTimerID( setInterval (
             () => tick(), 1000
-        );
+        ));
         
         return () => {
             clearInterval( timerID );
         }
-    }, [ fecha ] );    
+    }, [ timerID ] );    
 
     const tick = () => {
         setData( prevState => {
