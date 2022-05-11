@@ -15,12 +15,22 @@ const TaskComponent = ({ task }) => {
 	}, [ task ] );
 
     return (
-        <>
-            <p>Name: { task.name }</p>
-            <p>Description: { task.description }</p>
-            <p>Level: { task.level }</p>
-            <p>Task is { task.completed ? 'completed' : 'pending' }</p>
-        </>
+        <tr className="fw-normal">
+			<th>
+				<span className="ms-2">{ task.name }</span>
+			</th>
+			<th className="align-middle">
+				<span>{ task.description }</span>
+			</th>
+			<th className="align-middle">
+			{/** TODO: Sustituir por badge */}
+				<span>{ task.level }</span>
+			</th>
+			<th className="align-middle">
+				{/** TODO: Sustituir por iconos */}
+				<span>{ task.completed ? 'completed' : 'pending' }</span>
+			</th>
+        </tr>
     );
 };
 
