@@ -19,17 +19,24 @@ const TaskComponent = ({ task }) => {
 			<th>
 				<span className="ms-2">{ task.name }</span>
 			</th>
-			<th className="align-middle">
+			<td className="align-middle">
 				<span>{ task.description }</span>
-			</th>
-			<th className="align-middle">
+			</td>
+			<td className="align-middle">
 			{/** TODO: Sustituir por badge */}
 				<span>{ task.level }</span>
-			</th>
-			<th className="align-middle">
+			</td>
+			<td className="align-middle">
 				{/** TODO: Sustituir por iconos */}
-				<span>{ task.completed ? 'completed' : 'pending' }</span>
-			</th>
+				{ task.completed
+					?	<i className="bi-toggle-on" style={ { color: 'green' } }></i>
+					:	<i className="bi-toggle-off" style={ { color: 'gray' } }></i>
+				}
+			</td>
+			<td>
+				<i className="bi-trash" style={ { color: 'tomato' } }></i>
+
+			</td>
         </tr>
     );
 };
