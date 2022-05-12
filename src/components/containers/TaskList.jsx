@@ -7,10 +7,13 @@ import TaskComponent from '../pure/Task';
 
 const TaskListComponent = () => {
 
-    const defaultTask = new Task( 'Example', 'Default description', false, LEVELS.NORMAL );
+    const
+		defaultTask1 = new Task( 'Example 1', 'Default description', false, LEVELS.NORMAL ),
+		defaultTask2 = new Task( 'Example 2', 'Default description', false, LEVELS.URGENT ),
+		defaultTask3 = new Task( 'Example 3', 'Default description', false, LEVELS.BLOCKING );
 
 	const
-		[ tasks, setTasks ] = useState( defaultTask ),
+		[ tasks, setTasks ] = useState([ defaultTask1, defaultTask2, defaultTask3 ]),
 		[ loading, setLoading ] = useState( true );
 
 	useEffect( () => {
@@ -44,8 +47,14 @@ const TaskListComponent = () => {
 							</tr>
 						</thead>
 						<tbody>
-							{/* TODO: Aplicar For/Map para renderizar una lista de tareas */}
-							<TaskComponent task={ defaultTask }></TaskComponent>
+
+							{ tasks.map( ( task, index ) => (
+								<TaskComponent
+									key={ index }
+									task={ task }>
+								</TaskComponent>
+							))}
+
 						</tbody>
 					</table>
 
