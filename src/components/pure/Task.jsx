@@ -43,6 +43,17 @@ const TaskComponent = ({ task }) => {
 		}
 	}
 
+	/**
+	 * Function that returns icon depending on completion of the task
+	*/
+	function taskCompletedIcon() {
+		if( task.completed )
+			return <i className="bi-toggle-on" style={ { color: 'green' } }></i>
+
+		return <i className="bi-toggle-off" style={ { color: 'gray' } }></i>
+
+	}
+
     return (
         <tr className="fw-normal">
 			<th>
@@ -55,11 +66,7 @@ const TaskComponent = ({ task }) => {
 				{ taskLevelBadge() }
 			</td>
 			<td className="align-middle">
-				{/** TODO: Sustituir por iconos */}
-				{ task.completed
-					?	<i className="bi-toggle-on" style={ { color: 'green' } }></i>
-					:	<i className="bi-toggle-off" style={ { color: 'gray' } }></i>
-				}
+				{ taskCompletedIcon() }
 			</td>
 			<td>
 				<i className="bi-trash" style={ { color: 'tomato' } }></i>
