@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import { Task } from '../../models/task.class';
 import { LEVELS } from '../../models/levels.enum';
 
+import './Task.scss';
 
-const TaskComponent = ({ task }) => {
+
+const TaskComponent = ({ task, complete }) => {
 
 	useEffect( () => {
 		console.log( 'Task created!' );
@@ -48,9 +50,9 @@ const TaskComponent = ({ task }) => {
 	*/
 	function taskCompletedIcon() {
 		if( task.completed )
-			return <i className="bi-toggle-on" style={ { color: 'green' } }></i>
+			return <i onClick={ () => complete( task ) } className="bi-toggle-on task-action" style={ { color: 'green' } }></i>
 
-		return <i className="bi-toggle-off" style={ { color: 'gray' } }></i>
+		return <i onClick={ () => complete( task ) } className="bi-toggle-off task-action" style={ { color: 'gray' } }></i>
 
 	}
 
@@ -69,7 +71,7 @@ const TaskComponent = ({ task }) => {
 				{ taskCompletedIcon() }
 			</td>
 			<td>
-				<i className="bi-trash" style={ { color: 'tomato' } }></i>
+				<i className="bi-trash task-action" style={ { color: 'tomato' } }></i>
 
 			</td>
         </tr>
@@ -78,7 +80,8 @@ const TaskComponent = ({ task }) => {
 
 
 TaskComponent.propTypes = {
-    task: PropTypes.instanceOf( Task ).isRequired
+    task: PropTypes.instanceOf( Task ).isRequired,
+	complete: PropTypes.func.isRequired
 };
 
 
