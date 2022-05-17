@@ -48,6 +48,17 @@ const TaskListComponent = () => {
 		setTasks( tempTask );
 	}
 
+	function addTask( task ) {
+		console.log( 'Add this task:', task );
+
+		const
+			index = tasks.indexOf( task ),
+			tempTask = [ ...tasks ];
+
+		tempTask.push( task );
+		setTasks( tempTask );
+	}
+
     return (
         <div className="col-12">
 			<div className="card">
@@ -73,6 +84,7 @@ const TaskListComponent = () => {
 									task={ task }
 									complete={ completeTask }
 									remove={ deleteTask }
+									add={ addTask }
 								>
 								</TaskComponent>
 							))}
@@ -81,7 +93,9 @@ const TaskListComponent = () => {
 					</table>
 
 				</div>
-				<TaskForm></TaskForm>
+				<TaskForm
+					add={ addTask }
+				></TaskForm>
 			</div>
         </div>
     );
