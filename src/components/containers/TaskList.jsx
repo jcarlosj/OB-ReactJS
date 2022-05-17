@@ -37,6 +37,17 @@ const TaskListComponent = () => {
 		setTasks( tempTask );
 	}
 
+	function deleteTask( task ) {
+		console.log( 'Delete this task:', task );
+
+		const
+			index = tasks.indexOf( task ),
+			tempTask = [ ...tasks ];
+
+		tempTask.splice( index, 1 );
+		setTasks( tempTask );
+	}
+
     return (
         <div className="col-12">
 			<div className="card">
@@ -61,6 +72,7 @@ const TaskListComponent = () => {
 									key={ index }
 									task={ task }
 									complete={ completeTask }
+									remove={ deleteTask }
 								>
 								</TaskComponent>
 							))}
