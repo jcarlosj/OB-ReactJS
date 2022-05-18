@@ -1,6 +1,6 @@
-import { STATE } from './conected.enum';
+import { STATE } from './Conected.enum';
 
-export class Contact {
+export class ContactModel {
     name = '';
     email = '';
     numberPhone = '';

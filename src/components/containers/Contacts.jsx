@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 
-import { STATE } from '../../models/State.class';
+import { STATE } from '../../models/Conected.enum';
+import { ContactModel } from '../../models/Contact.class';
+import Contact from '../pure/Contact';
 
 
 const Contacts = () => {
@@ -8,9 +10,9 @@ const Contacts = () => {
     const 
         [ loading, setLoading ] = useState( true ),
         [ contacts, setContacts ] = useState([
-            { name: 'Luisa', email: 'luisa@mail.co', state: STATE.CONECTED },
-            { name: 'Juliana', email: 'Juliana@mail.co', state: STATE.DISCONNECTED },
-            { name: 'Elisa', email: 'elisa@mail.co', state: STATE.CONECTED }
+            new ContactModel( 'Luisa', 'luisa@mail.co', '888-889132', STATE.CONECTED ),
+            new ContactModel( 'Juliana', 'juliana@mail.co', '212-342667502', STATE.DISCONNECTED ),
+            new ContactModel( 'Elisa', 'elisa@mail.co', '888-324525', STATE.CONECTED ),
         ]);
 
     useEffect(() => {
@@ -22,7 +24,7 @@ const Contacts = () => {
         };
     }, [ contacts ] );
 
-    const stateContact = ( task ) => {
+    const changeContactStatus = ( task ) => {
         console.log( 'Complete this task:', task );
 
         const
@@ -37,11 +39,11 @@ const Contacts = () => {
         <div className="list-group">
             
             {   contacts.map( ( contact, index ) => (
-                    <a href="#/" key={ index } className="list-group-item list-group-item-action">
-                        <i onClick={ () => stateContact( contact ) } className={ `bi ${ contact.state ? 'bi-toggle-on' : 'bi-toggle-off' }` }></i> 
-                        { contact.name }
-                        
-                    </a>
+                    <Contact
+                        key={ index }
+                        contact={ contact }
+                        changeStatus={ changeContactStatus }
+                    ></Contact>
             ))}
             
         </div>
