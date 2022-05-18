@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { STATE } from '../../models/Conected.enum';
 import { ContactModel } from '../../models/Contact.class';
 import Contact from '../pure/Contact';
+import ContactForm from '../pure/form/ContactForms';
 
 
 const Contacts = () => {
@@ -35,18 +36,34 @@ const Contacts = () => {
         setContacts( tempContacts );
     }
 
+    const addContact = ( contact ) => {
+        console.log( 'Add this contact:', contact );
+
+        setContacts([
+            ...contacts,
+            contact
+        ]);
+    }
+
     return (
-        <div className="list-group">
-            
-            {   contacts.map( ( contact, index ) => (
-                    <Contact
-                        key={ index }
-                        contact={ contact }
-                        changeStatus={ changeContactStatus }
-                    ></Contact>
-            ))}
-            
-        </div>
+        <>
+            <h3>Registre un contacto</h3>
+            <ContactForm
+                add={ addContact }
+            ></ContactForm>
+            <h3>Lista de contactos</h3>
+            <div className="list-group">
+                
+                {   contacts.map( ( contact, index ) => (
+                        <Contact
+                            key={ index }
+                            contact={ contact }
+                            changeStatus={ changeContactStatus }
+                        ></Contact>
+                ))}
+                
+            </div>
+        </>
     );
 };
 
