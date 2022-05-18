@@ -45,6 +45,17 @@ const Contacts = () => {
         ]);
     }
 
+    const deleteContact = ( contact ) => {
+        console.log( 'Delete this contact:', contact );
+
+        const
+            index = contacts.indexOf( contact ),
+            tempContacts = [ ...contacts ];
+
+        tempContacts.splice( index, 1 );
+        setContacts( tempContacts );
+    }
+
     return (
         <>
             <h3>Registre un contacto</h3>
@@ -59,6 +70,7 @@ const Contacts = () => {
                             key={ index }
                             contact={ contact }
                             changeStatus={ changeContactStatus }
+                            remove={ deleteContact }
                         ></Contact>
                 ))}
                 
