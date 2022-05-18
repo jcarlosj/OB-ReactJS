@@ -57,12 +57,12 @@ const Contacts = () => {
     }
 
     return (
-        <>
-            <h3>Registre un contacto</h3>
+        <div className="container">
+            <h3 className="mt-4 mb-4">Registre un contacto</h3>
             <ContactForm
                 add={ addContact }
             ></ContactForm>
-            <h3>Lista de contactos</h3>
+            <h3 className="mt-4 mb-4">Lista de contactos</h3>
             <div className="list-group">
                 
                 {   contacts.map( ( contact, index ) => (
@@ -75,7 +75,7 @@ const Contacts = () => {
                 ))}
                 
             </div>
-        </>
+        </div>
     );
 };
 

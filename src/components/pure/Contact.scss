@@ -1,0 +1,22 @@
+.bi {
+    &-toggle-on::before,
+    &-toggle-off::before,
+    &-trash::before {
+        font-size: 1.6rem;
+    }
+}
+
+/** <a> */
+.list-group-item {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
+    span {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        font-size: 1.1rem;
+        padding: 0 1rem;
+    }
+}

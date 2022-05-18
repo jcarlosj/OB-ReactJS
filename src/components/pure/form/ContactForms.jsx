@@ -48,7 +48,7 @@ const ContactForms = ({ add }) => {
             </div>
             <div className="col-auto">
                 <br />
-                <button type="submit" className="btn btn-primary mb-3 form-control">Add</button>
+                <button type="submit" className="btn btn-primary">Add</button>
             </div>
         </form>
     );
