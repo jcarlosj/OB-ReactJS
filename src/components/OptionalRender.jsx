@@ -1,16 +1,34 @@
 import { useState } from 'react';
 
+/** Constantes como hojas de estilo */
+const loggedStyle = {
+    backgroundColor: 'green',
+    border: 'none',
+    borderRadius: '5px',
+    color: 'white',
+    padding: '6px 14px'
+}
+const unloggedStyle = {
+    backgroundColor: 'tomato',
+    border: 'none',
+    borderRadius: '5px',
+    color: 'white',
+    fontWeight: 'bold',
+    padding: '6px 14px'
+}
+
+
 /** Login Component */
-const LoginButton = ({ loginAction }) => {
+const LoginButton = ({ loginAction, propStyle }) => {
     return (
-        <button onClick={ loginAction }>Login</button>
+        <button style={ propStyle } onClick={ loginAction }>Login</button>
     );
 }
 
 /** Logout Component */
-const LogoutButton = ({ logoutAction }) => {
+const LogoutButton = ({ logoutAction, propStyle }) => {
     return (
-        <button onClick={ logoutAction }>Logout</button>
+        <button style={ propStyle } onClick={ logoutAction }>Logout</button>
     );
 }
 
@@ -33,9 +51,9 @@ const OptionalRender = () => {
     let opButton;
 
     if( access )
-        opButton = <LogoutButton logoutAction={ logoutAction }  />
+        opButton = <LogoutButton propStyle={ unloggedStyle } logoutAction={ logoutAction }  />
     else
-        opButton = <LoginButton loginAction={ loginAction } />
+        opButton = <LoginButton propStyle={ loggedStyle } loginAction={ loginAction } />
 
     let addMessage = () => {
         setTotalMessages( prev => {
