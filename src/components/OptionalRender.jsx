@@ -16,7 +16,9 @@ const LogoutButton = ({ logoutAction }) => {
 
 const OptionalRender = () => {
 
-    const [ access, setAccess ] = useState( true );
+    const
+        [ access, setAccess ] = useState( true ),
+        [ totalMessages, setTotalMessages ] = useState( 0 );
 
     const loginAction = () => {
         console.log( 'Realiza peticion para hacer login' );
@@ -35,9 +37,22 @@ const OptionalRender = () => {
     else
         opButton = <LoginButton loginAction={ loginAction } />
 
+    let addMessage = () => {
+        setTotalMessages( prev => {
+            return totalMessages + 1
+        });
+    }
+
+    // ? (expression true) && expresion => Se renderiza la expresion
+    // ? (expression false) && expresion => No se renderiza la expresion
+
     return (
         <>
             { opButton }
+            { access && totalMessages > 0 && totalMessages === 1 && <p>You have { totalMessages } new message</p> }
+            { access && totalMessages > 1 && <p>You have { totalMessages } new messages</p> }
+            { access && totalMessages === 0 && <p>There are no new messages</p> } 
+            { access && <button onClick={ addMessage }>Add new message</button>}
         </>
     );
 };
