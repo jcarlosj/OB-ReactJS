@@ -49,10 +49,14 @@ const OptionalRender = () => {
     return (
         <>
             { opButton }
-            { access && totalMessages > 0 && totalMessages === 1 && <p>You have { totalMessages } new message</p> }
-            { access && totalMessages > 1 && <p>You have { totalMessages } new messages</p> }
-            { access && totalMessages === 0 && <p>There are no new messages</p> } 
-            { access && <button onClick={ addMessage }>Add new message</button>}
+            {   access 
+                    ?   totalMessages
+                            ?   <p>You have { totalMessages } new message{ totalMessages > 1 ? 's' : '' }</p>
+                            :   <p>There are no new messages</p>
+                    :   null
+            }
+
+            { access && <button onClick={ addMessage }>{ totalMessages === 0 ? 'Add your first message' : 'Add new message' }</button>}
         </>
     );
 };
