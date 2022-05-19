@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 
-import FatherComponent from './components/FatherComponent';
+import OptionalRender from './components/OptionalRender';
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <div className="example-components">
-          <FatherComponent></FatherComponent>
+          <OptionalRender></OptionalRender>
         </div>
       </header>
     </div>
