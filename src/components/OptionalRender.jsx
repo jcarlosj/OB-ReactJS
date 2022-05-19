@@ -1,21 +1,39 @@
 import { useState } from 'react';
 
+/** Login Component */
+const LoginButton = ({ loginAction }) => {
+    return (
+        <button onClick={ loginAction }>Login</button>
+    );
+}
+
+/** Logout Component */
+const LogoutButton = ({ logoutAction }) => {
+    return (
+        <button onClick={ logoutAction }>Logout</button>
+    );
+}
 
 const OptionalRender = () => {
 
     const [ access, setAccess ] = useState( true );
 
-    const updateAccess = () => {
-        setAccess( ! access );
+    const loginAction = () => {
+        console.log( 'Realiza peticion para hacer login' );
+        setAccess( true );
     }
 
-    /** Elementos a renderizar de forma condicional */
+    const logoutAction = () => {
+        console.log( 'Realiza peticion para hacer logout' );
+        setAccess( false );
+    }
+
     let opButton;
 
     if( access )
-        opButton = <button onClick={ updateAccess }>Logout</button>;
+        opButton = <LogoutButton logoutAction={ logoutAction }  />
     else
-        opButton = <button onClick={ updateAccess }>Login</button>;
+        opButton = <LoginButton loginAction={ loginAction } />
 
     return (
         <>
