@@ -51,13 +51,52 @@ const TaskListComponent = () => {
 	function addTask( task ) {
 		console.log( 'Add this task:', task );
 
-		const
-			index = tasks.indexOf( task ),
-			tempTask = [ ...tasks ];
+		const tempTask = [ ...tasks ];
 
 		tempTask.push( task );
 		setTasks( tempTask );
 	}
+
+	/** Component Table */
+	const Table = () => {
+		return (
+			<table>
+				<thead>
+					<tr>
+						<th scope="col">Title</th>
+						<th scope="col">Description</th>
+						<th scope="col">Priority</th>
+						<th scope="col">State</th>
+						<th scope="col">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					{ tasks.map( ( task, index ) => (
+						<TaskComponent
+							key={ index }
+							task={ task }
+							complete={ completeTask }
+							remove={ deleteTask }
+							add={ addTask }
+						>
+						</TaskComponent>
+					))}
+
+				</tbody>
+			</table>
+		)
+	}
+
+	let showInView;
+
+	if( tasks.length > 0 )
+		showInView = <Table></Table>;
+	else
+		showInView = <>
+				<h4>There are no task to show</h4>
+				<p>Please, create one</p>
+			</>
 
     return (
         <div className="col-12">
@@ -66,37 +105,12 @@ const TaskListComponent = () => {
 					<h5 className="card-title">Your tasks</h5>
 				</div>
 				<div className="card-body" data-mdb-perfect-scrollbar='true' style={ { position: 'relative', height: '400px' } }>
-					<table>
-						<thead>
-							<tr>
-								<th scope="col">Title</th>
-								<th scope="col">Description</th>
-								<th scope="col">Priority</th>
-								<th scope="col">State</th>
-								<th scope="col">Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-
-							{ tasks.map( ( task, index ) => (
-								<TaskComponent
-									key={ index }
-									task={ task }
-									complete={ completeTask }
-									remove={ deleteTask }
-									add={ addTask }
-								>
-								</TaskComponent>
-							))}
-
-						</tbody>
-					</table>
-
+					{ showInView }
 				</div>
-				<TaskForm
-					add={ addTask }
-				></TaskForm>
 			</div>
+			<TaskForm
+				add={ addTask }
+			></TaskForm>
         </div>
     );
 };
