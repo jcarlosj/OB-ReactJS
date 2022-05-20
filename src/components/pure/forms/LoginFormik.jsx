@@ -33,52 +33,46 @@ const LoginFormik = () => {
 				} }
 			>
 
-				{/** We obtein props from Formik */}
-				{
-					props => {
-						const {
-							values,			/** Valores del formulario */
-							touched,    	/** Campos que han sido tocados */
-							errors,      	/** Errores del formulario */
-							isSubmitting,	/** Indica si se estan enviando datos del formulario */
-							handleChange,   /** Cuando hay un cambio en un campo */
-							handleBlur, 	/** Cuando hay un cambio de foco */
-							handleSubmit, 	/** Cuando enviamos datos del formulario */
-						} = props;
+				{/** We obtain props from Formik
+				 * values,			(Valores del formulario)
+				 * touched,    		(Campos que han sido tocados)
+				 * errors,      	(Errores del formulario)
+				 * isSubmitting,	(Indica si se estan enviando datos del formulario)
+				 * handleChange,   	(Cuando hay un cambio en un campo)
+				 * handleBlur, 		(Cuando hay un cambio de foco)
+				 * handleSubmit, 	(Cuando enviamos datos del formulario)
+				*/}
+				{ ( { errors, touched, isSubmitting } ) => (
+					<Form>
+						<label htmlFor="email">Email</label>
+						<Field
+							id="email"
+							type="email"
+							name="email"
+							placeholder="example@email.co"
+						/>
+						{	errors.email && touched.email && <div className="error">
+								<p>{ errors.email }</p>
+							</div>
+						}
 
-						return (
-							<Form>
-								<label htmlFor="email">Email</label>
-								<Field
-									id="email"
-									type="email"
-									name="email"
-									placeholder="example@email.co"
-								/>
-								{	errors.email && touched.email && <div className="error">
-										<p>{ errors.email }</p>
-									</div>
-								}
+						<label htmlFor="email">Password</label>
+						<Field
+							id="password"
+							type="password"
+							name="passwd"
+							placeholder="Password"
+						/>
+						{	errors.passwd && touched.passwd && <div className="error">
+								<p>{ errors.passwd }</p>
+							</div>
+						}
 
-								<label htmlFor="email">Password</label>
-								<Field
-									id="password"
-									type="password"
-									name="passwd"
-									placeholder="Password"
-								/>
-								{	errors.passwd && touched.passwd && <div className="error">
-										<p>{ errors.passwd }</p>
-									</div>
-								}
+						<button type="submit">Login</button>
+						{	isSubmitting ? <p>Login you credentials</p> : null }
 
-								<button type="submit">Login</button>
-								{	isSubmitting ? <p>Login you credentials</p> : null }
-
-							</Form>
-						)
-					}
-				}
+					</Form>
+				)}
 
 			</Formik>
 		</>
