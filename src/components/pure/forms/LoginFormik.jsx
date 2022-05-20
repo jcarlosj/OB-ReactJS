@@ -51,7 +51,7 @@ const LoginFormik = () => {
 							name="email"
 							placeholder="example@email.co"
 						/>
-						<ErrorMessage name="email" component="small" />
+						<ErrorMessage name="email" render={ msg => <p><small>{ msg }</small></p>} />
 
 						<label htmlFor="email">Password</label>
 						<Field
@@ -60,7 +60,7 @@ const LoginFormik = () => {
 							name="passwd"
 							placeholder="Password"
 						/>
-						<ErrorMessage name="passwd" component="small" />
+						<ErrorMessage name="passwd" render={ msg => <p><small>{ msg }</small></p>} />
 
 						<button type="submit">Login</button>
 						{	isSubmitting ? <p>Login you credentials</p> : null }
