@@ -3,7 +3,9 @@ import { useState, useEffect } from 'react';
 import { Task } from '../../models/task.class';
 import { LEVELS } from '../../models/levels.enum';
 import TaskComponent from '../pure/Task';
-import TaskForm from '../pure/forms/TasksForm';
+import TaskForm from '../pure/forms/TaskForm';
+
+import './TaskList.scss';
 
 
 const TaskListComponent = () => {
@@ -19,7 +21,10 @@ const TaskListComponent = () => {
 
 	useEffect( () => {
 		console.log( 'Task state has been modified' );
-		setLoading( false );
+
+		setTimeout( () => {
+			setLoading( false );
+		}, 2000 );
 
 		return () => {
 			console.log( `TaskList component is going to unmount` );
@@ -105,11 +110,13 @@ const TaskListComponent = () => {
 					<h5 className="card-title">Your tasks</h5>
 				</div>
 				<div className="card-body" data-mdb-perfect-scrollbar='true' style={ { position: 'relative', height: '400px' } }>
-					{ showInView }
+					{/** TODO: Add loading spinner */}
+					{ loading ? <p>Loading...</p> : showInView }
 				</div>
 			</div>
 			<TaskForm
 				add={ addTask }
+				numberOfTasks={ tasks.length }
 			></TaskForm>
         </div>
     );
