@@ -1,4 +1,4 @@
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 /** Define esquema de analisis para la validacion valores */
@@ -51,10 +51,7 @@ const LoginFormik = () => {
 							name="email"
 							placeholder="example@email.co"
 						/>
-						{	errors.email && touched.email && <div className="error">
-								<p>{ errors.email }</p>
-							</div>
-						}
+						<ErrorMessage name="email" component="small" />
 
 						<label htmlFor="email">Password</label>
 						<Field
@@ -63,10 +60,7 @@ const LoginFormik = () => {
 							name="passwd"
 							placeholder="Password"
 						/>
-						{	errors.passwd && touched.passwd && <div className="error">
-								<p>{ errors.passwd }</p>
-							</div>
-						}
+						<ErrorMessage name="passwd" component="small" />
 
 						<button type="submit">Login</button>
 						{	isSubmitting ? <p>Login you credentials</p> : null }
