@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Task } from '../../models/task.class';
 import { LEVELS } from '../../models/levels.enum';
 import TaskComponent from '../pure/Task';
-import TaskForm from '../pure/forms/TaskForm';
+import TaskFormik from '../pure/forms/TaskFormik';
 
 import './TaskList.scss';
 
@@ -114,10 +114,10 @@ const TaskListComponent = () => {
 					{ loading ? <p>Loading...</p> : showInView }
 				</div>
 			</div>
-			<TaskForm
+			<TaskFormik
 				add={ addTask }
 				numberOfTasks={ tasks.length }
-			></TaskForm>
+			></TaskFormik>
         </div>
     );
 };
