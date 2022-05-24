@@ -1,17 +1,17 @@
+import { Routes, Route } from 'react-router-dom';
+
+import HomePage from './pages/home/HomePage';
+import NotFoundPage from './pages/404/NotFoundPage';
+
 import './App.scss';
 import './App.css';
 
-import TaskListComponent from './components/containers/TaskList';
-// import LoginFormik from './components/pure/forms/LoginFormik';
-// import RegisterFormik from './components/pure/forms/RegisterFormik';
-
 function App() {
 	return (
-		<div className="App">
-			<TaskListComponent></TaskListComponent>
-			{/* <LoginFormik></LoginFormik>
-			<RegisterFormik></RegisterFormik> */}
-		</div>
+		<Routes>		{/** Define conjunto de rutas */}
+			<Route path="/" element={ <HomePage /> } />
+			<Route path="*" element={ <NotFoundPage /> } />
+		</Routes>
 	);
 }
 
