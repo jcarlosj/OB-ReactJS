@@ -5,3 +5,18 @@ body {
 	justify-content: center;
 	padding: 40px 0;
 }
+
+.main-menu {
+	align-items: center;
+	display: flex;
+    justify-content: space-between;
+	padding: 0;
+
+	.item-menu {
+		list-style: none;
+	}
+
+	.anchor-menu {
+		text-decoration: none;
+	}
+}
