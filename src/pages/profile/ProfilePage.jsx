@@ -8,6 +8,7 @@ const ProfilePage = () => {
 	return (
 		<>
 			<h1>Profile User</h1>
+			<button onClick={ () => navigate( '/tasks' ) }>Tasks</button>
 			<button onClick={ () => navigate( -1 ) }>Go back</button>
 		</>
 	);

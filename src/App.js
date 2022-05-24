@@ -4,6 +4,8 @@ import HomePage from './pages/home/HomePage';
 import NotFoundPage from './pages/404/NotFoundPage';
 import AboutPage from './pages/faqs/AboutPage';
 import ProfilePage from './pages/profile/ProfilePage';
+import TaskPage from './pages/task/TaskPage';
+import TaskDetailPage from './pages/task/TaskDetailPage';
 
 import './App.scss';
 import './App.css';
@@ -22,9 +24,13 @@ function App() {
 			<main>
 				<Routes>		{/** Define conjunto de rutas */}
 					<Route path="/" element={ <HomePage /> } />
-					<Route path="/about" element={ <AboutPage /> } />
-					<Route path="/faqs" element={ <AboutPage /> } />
-					<Route path="/profile" element={ <ProfilePage /> } />
+					<Route path="about" element={ <AboutPage /> } />
+					<Route path="faqs" element={ <AboutPage /> } />
+					<Route path="profile" element={ <ProfilePage /> } />
+					<Route path="tasks">
+						<Route index element={ <TaskPage /> } />
+  						<Route path=":id" element={<TaskDetailPage />} />
+					</Route>
 					<Route path="*" element={ <NotFoundPage /> } />
 				</Routes>
 			</main>
