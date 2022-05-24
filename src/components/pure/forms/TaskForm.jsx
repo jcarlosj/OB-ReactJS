@@ -27,44 +27,46 @@ const TasksForm = ({ add, numberOfTasks }) => {
 	}
 
 	return (
-		<form
-			className='d-flex justify-content-center align-items-center mb-4'
-			onSubmit={ addTask }
-		>
-			<div className='form-outline flex-fill'>
-				<input
-					className='form-control form-control-lg'
-					id='inputName'
-					type='text'
-					placeholder='Task name'
-					required
-					autoFocus
-					ref={ nameRef }
-				/>
-				<input
-					className='form-control form-control-lg'
-					id='inputDescription'
-					type='text'
-					placeholder='Task description'
-					required
-					ref={ descriptionRef }
-				/>
-				<select
-					class="form-select form-select-lg"
-					id='selectLevel'
-					ref={ levelRef }
-					defaultValue={ LEVELS.NORMAL }
-				>
-					<option value={ LEVELS.NORMAL }>Normal</option>
-					<option value={ LEVELS.BLOCKING }>Blocking</option>
-					<option value={ LEVELS.URGENT }>Urgent</option>
-				</select>
-				<button
-					type="submit"
-					className="btn btn-success btn-lg ms-2"
-				>{ numberOfTasks > 0 ? 'Add new task' : 'Create your first task' }</button>
-			</div>
-		</form>
+		<div className="container mt-5">
+			<form
+				className='d-flex justify-content-center align-items-center mb-4'
+				onSubmit={ addTask }
+			>
+				<div className='form-outline flex-fill'>
+					<input
+						className='form-control form-control-lg'
+						id='inputName'
+						type='text'
+						placeholder='Task name'
+						required
+						autoFocus
+						ref={ nameRef }
+					/>
+					<input
+						className='form-control form-control-lg'
+						id='inputDescription'
+						type='text'
+						placeholder='Task description'
+						required
+						ref={ descriptionRef }
+					/>
+					<select
+						className="form-select form-select-lg"
+						id='selectLevel'
+						ref={ levelRef }
+						defaultValue={ LEVELS.NORMAL }
+					>
+						<option value={ LEVELS.NORMAL }>Normal</option>
+						<option value={ LEVELS.BLOCKING }>Blocking</option>
+						<option value={ LEVELS.URGENT }>Urgent</option>
+					</select>
+					<button
+						type="submit"
+						className="btn btn-success btn-lg ms-2"
+					>{ numberOfTasks > 0 ? 'Add new task' : 'Create your first task' }</button>
+				</div>
+			</form>
+		</div>
 	);
 };
 

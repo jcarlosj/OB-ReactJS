@@ -50,7 +50,7 @@ const RegisterFormik = () => {
 	}
 
 	return (
-		<>
+		<div className="container mt-5">
 			<h4>Register Formik</h4>
 			<Formik
 				initialValues = { initialValues }
@@ -106,7 +106,7 @@ const RegisterFormik = () => {
 					</Form>
 				)}
 			</Formik>
-		</>
+		</div>
 	);
 };
 

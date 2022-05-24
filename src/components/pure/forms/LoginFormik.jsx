@@ -21,7 +21,7 @@ const LoginFormik = () => {
 	}
 
 	return (
-		<>
+		<div className="container mt-5">
 			<h4>Login Formik</h4>
 			<Formik
 				initialValues={ initialCredentials }
@@ -69,7 +69,7 @@ const LoginFormik = () => {
 				)}
 
 			</Formik>
-		</>
+		</div>
 	);
 };
 

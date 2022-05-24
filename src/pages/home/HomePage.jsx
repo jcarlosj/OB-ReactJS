@@ -9,10 +9,10 @@ const HomePage = () => {
 	console.log( 'We are in Route:', location.pathname );
 
     return (
-        <>
+        <div className="container mt-5">
             <h1>Home Page</h1>
 			<button onClick={ () => navigate( '/profile' ) } >Go to profile</button>
-        </>
+        </div>
     );
 }
 

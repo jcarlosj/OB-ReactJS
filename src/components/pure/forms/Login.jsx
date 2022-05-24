@@ -12,8 +12,8 @@ const Login = () => {
 	const [ credentials, setCredentials ] = useState( initialCredentials );
 
 	return (
-		<div>
-
+		<div className="container mt-5">
+			<h1>Login Form</h1>
 		</div>
 	);
 };

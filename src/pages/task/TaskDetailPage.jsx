@@ -6,7 +6,7 @@ const TaskDetailPage = () => {
 	const { id } = useParams();
 
 	return (
-		<div>
+		<div className="container mt-5">
 			<h1>Task Detail Page - { id }</h1>
 		</div>
 	);

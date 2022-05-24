@@ -14,8 +14,8 @@ const Register = () => {
 	const [ data, setData ] = useState( initialData );
 
 	return (
-		<div>
-
+		<div className="container mt-5">
+			<h1>Register Form</h1>
 		</div>
 	);
 };

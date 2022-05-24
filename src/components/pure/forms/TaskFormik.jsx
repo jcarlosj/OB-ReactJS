@@ -49,7 +49,7 @@ const TasksFormik = ({ add, numberOfTasks }) => {
 	}
 
 	return (
-		<>
+		<div className="container mt-5">
 			<Formik
 				className='d-flex justify-content-center align-items-center mb-4'
 				initialValues = { initialValues }
@@ -116,7 +116,7 @@ const TasksFormik = ({ add, numberOfTasks }) => {
 				)}
 
 			</Formik>
-		</>
+		</div>
 	);
 };
 

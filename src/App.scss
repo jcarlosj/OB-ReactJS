@@ -3,7 +3,12 @@ body {
 	align-items: center;
 	display: flex;
 	justify-content: center;
-	padding: 40px 0;
+	padding: 0;
+
+	#root {
+		max-width: 100%;
+		width: 100%;
+	}
 }
 
 .main-menu {
@@ -19,4 +24,8 @@ body {
 	.anchor-menu {
 		text-decoration: none;
 	}
+}
+
+.navbar-dark .navbar-nav .nav-link.active {
+	color: yellow;
 }

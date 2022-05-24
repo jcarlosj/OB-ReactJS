@@ -2,7 +2,7 @@ import TaskListComponent from '../../components/containers/TaskList';
 
 const TaskPage = () => {
     return (
-        <div>
+        <div className="container mt-5">
             <TaskListComponent></TaskListComponent>
         </div>
     );

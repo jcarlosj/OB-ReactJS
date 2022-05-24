@@ -21,12 +21,12 @@ const AboutPage = () => {
 	}
 
 	return (
-		<>
+		<div className="container mt-5">
 			<h1>About page | FAQs</h1>
 			<button onClick={ () => goPage( '/' ) } >Go to home</button>
 			<button onClick={ goBack }>Go back</button>
 			<button onClick={ goForward }>Go forward</button>
-		</>
+		</div>
 	);
 };
 
