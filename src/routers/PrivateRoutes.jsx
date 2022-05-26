@@ -1,10 +1,12 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 
-const PrivateRoutes = ({ children, user }) => {
+const PrivateRoutes = ({ isLogged }) => {
 
-	return user.logged
-			?	children
+	console.log( 'PrivateRoutes', isLogged );
+
+	return isLogged
+			?	<Outlet />
 			:	<Navigate to="/" />
 	;
 };

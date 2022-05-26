@@ -1,11 +1,13 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 
-const PublicRoutes = ({ children, user }) => {
+const PublicRoutes = ({ isLogged }) => {
 
-	return user.logged
-			?	<Navigate to="/dashboard" />
-			:	children
+	console.log( 'PublicRoutes', isLogged );
+
+	return ! isLogged
+		?	<Outlet />
+		:	<Navigate to="/dashboard" />
 	;
 };
 

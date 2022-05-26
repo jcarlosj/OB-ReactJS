@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
@@ -43,10 +44,45 @@ const RegisterFormik = () => {
 		role: ROLES.USER
 	}
 
-	let user = new User();
+	const [ state, setState ] = useState({
+		user: {
+			username: '',
+			email: '',
+			passwd: '',
+			logged: false,
+			role: ROLES.USER
+		},
+		registered_users: []
+	});
+
+	const { user, registered_users } = state;
+
+	useEffect( () => {
+		const
+			stringUsers = localStorage.getItem( 'registered' ),
+			data = JSON.parse( stringUsers );
+
+			console.log( 'registered:', data );
+	}, [ state.user ] );
 
 	const handleSubmit = ( values ) => {
-		alert( 'Register user' );
+
+		const newUser = new User(
+			values.username,
+			values.email,
+			values.passwd,
+			ROLES.USER
+		);
+
+		console.log( 'Register user', newUser );
+
+		setState({
+			...state,
+			registered_users: [ ...registered_users, newUser ]
+		});
+
+		localStorage.setItem( 'registered', JSON.stringify( [ ...registered_users, newUser ] ) );
+
 	}
 
 	return (
@@ -58,7 +94,8 @@ const RegisterFormik = () => {
 				onSubmit={ async ( values ) => {
 					await new Promise( ( response ) => setTimeout( response, 2000 ) );
 					alert( JSON.stringify( values, null, 4 ) );
-					// localStorage.setItem( 'credentials', values );
+
+					handleSubmit( values );
 				} }
 			>
 				{/** We obtain props from Formik */}

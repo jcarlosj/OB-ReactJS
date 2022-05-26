@@ -1,5 +1,10 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+
+import { isAuthenticated } from '../../../helpers/validateCredentials';
+import { setCredentials } from '../../../helpers/localStorage';
 
 /** Define esquema de analisis para la validacion valores */
 const loginSchema = Yup.object().shape({
@@ -13,12 +18,51 @@ const loginSchema = Yup.object().shape({
 
 
 /** Functional Component */
-const LoginFormik = () => {
+const LoginFormik = ({ data, setData }) => {
+
+	console.log( 'data', data );
 
 	const initialCredentials = {
 		email: '',
 		passwd: ''
 	}
+
+	const navigate = useNavigate();
+
+	const [ state, setState ] = useState({});
+
+	useEffect( () => {
+
+		( async () => {
+			console.log( 'data: ', data );
+
+			// setState({
+			// 	...state,
+			// 	...data
+			// });
+		})();
+
+		console.log( 'state', state );
+
+	}, [] );
+
+	const handleSubmit = ( values ) => {
+
+		console.log( 'values', values );
+		console.log( isAuthenticated( data.users, values ) );
+
+		if( isAuthenticated( data.users, values ) ) {
+			setData({
+				...data,
+				logged_user: values,
+				logged: true
+			});
+			setCredentials( values );
+		}
+
+	}
+
+	console.log( 'state', state );
 
 	return (
 		<div className="container mt-5">
@@ -29,7 +73,8 @@ const LoginFormik = () => {
 				onSubmit={ async ( values ) => {
 					await new Promise( ( response ) => setTimeout( response, 2000 ) );
 					alert( JSON.stringify( values, null, 4 ) );
-					localStorage.setItem( 'credentials', values )
+
+					handleSubmit( values );
 				} }
 			>
 
