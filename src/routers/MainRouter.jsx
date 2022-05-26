@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import { ROLES } from '../models/roles.enum';
 
-import { PublicRoutes } from './PublicRoutes';
-import { PrivateRoutes } from './PrivateRoutes';
+import { RestrictedRoutes } from './RestrictedRoutes';
+import { ProtectedRoutes } from './ProtectedRoutes';
 import { AppRoutes } from './AppRoutes';
 import { DashboardRoutes } from './DashboardRoutes';
 
@@ -88,23 +88,20 @@ const MainRouter = () => {
 			<BrowserRouter>
 				<Navbar data={ data } setData={ setData }/>
 				<Routes>
-					{/*
-					<Route path="/" element={
-						data?.logged
-							?	<DashboardPage data={ data } />
-							: 	<HomePage data={ data } />
-					}/> */}
 
+					{/* Rutas publicas: Total acceso */}
 					<Route path="/" element={ <HomePage data={ data } /> } />
 					<Route path="about" element={ <AboutPage /> } />
 					<Route path="faqs" element={ <AboutPage /> } />
 
-					<Route element={ <PublicRoutes isLogged={ data?.logged } /> } >
+					{/** Rutas Restringidas: Exclusivamente se accede sin login */}
+					<Route element={ <RestrictedRoutes isLogged={ data?.logged } /> } >
 						<Route path="login" element={ <LoginPage data={ data } setData={ setData } /> } />
 						<Route path="register" element={ <RegisterPage data={ data } setData={ setData } /> } />
 					</Route>
 
-					<Route element={ <PrivateRoutes isLogged={ data?.logged } /> } >
+					{/** Rutas Protegidas: Exclusivamente se accede con login */}
+					<Route element={ <ProtectedRoutes isLogged={ data?.logged } /> } >
 						<Route path="dashboard" element={ <DashboardPage /> } />
 						<Route path="profile" element={ <ProfilePage /> } />
 						<Route path="tasks">
@@ -112,17 +109,8 @@ const MainRouter = () => {
 							<Route path=":id" element={ <TaskDetailPage />} />
 						</Route>
 					</Route>
-					{/* <Route path="/" element={
-						<PublicRoutes data={ data }>
-							<AppRoutes data={ data } />
-						</PublicRoutes>
-					}/> */}
-					{/* <Route path="/*" element={
-						<PrivateRoutes data={ data }>
-							<DashboardRoutes data={ data } />
-						</PrivateRoutes>
-					}/> */}
 
+					{/* Rutas publica: Total acceso (Ruta no existente) */}
 					<Route path="*" element={ <NotFoundPage /> } />
 				</Routes>
 			</BrowserRouter>
