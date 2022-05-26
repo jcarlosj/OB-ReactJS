@@ -29,3 +29,7 @@ body {
 .navbar-dark .navbar-nav .nav-link.active {
 	color: yellow;
 }
+
+.navbar-expand-lg .navbar-nav .dropdown-menu.dropdown-logged {
+	left: -180px;
+}

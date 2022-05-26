@@ -35,11 +35,6 @@ const LoginFormik = ({ data, setData }) => {
 
 		( async () => {
 			console.log( 'data: ', data );
-
-			// setState({
-			// 	...state,
-			// 	...data
-			// });
 		})();
 
 		console.log( 'state', state );

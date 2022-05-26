@@ -31,7 +31,6 @@ const Navbar = ({ data, setData }) => {
 	return (
 
 		<>
-			{ 	data.logged ? 'logueado' : 'no logueado' }
 			<div className="bg-dark">
 
 				<div className="container">
@@ -82,6 +81,14 @@ const Navbar = ({ data, setData }) => {
 											<li className="nav-item">
 												<NavLink
 													className={ ({ isActive }) => `dropdown-item ${ isActive ? 'active' : '' }` }
+													to={`/tasks`}
+												>
+													Tasks
+												</NavLink>
+											</li>
+											<li className="nav-item">
+												<NavLink
+													className={ ({ isActive }) => `dropdown-item ${ isActive ? 'active' : '' }` }
 													to={`/tasks/33`}
 												>
 													Tasks 33
@@ -94,21 +101,37 @@ const Navbar = ({ data, setData }) => {
 								<ul className="navbar-nav ml-auto">
 									{	data?.logged
 											?	<>
-													<span className="nav-item nav-link text-info">
-														{	data?.logged_user?.email &&
-																<Link to="/profile">
-																	<i className="bi bi-person-circle"></i>
-																	<code>[{ data?.logged_user?.email }]</code>
-																</Link>
-														}
+													<li className="nav-item dropdown">
 
-													</span>
-													<button
-														className="nav-item nav-link btn"
-														onClick={ handleLogout }
-													>
-														Logout
-													</button>
+														<Link to="" className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+															<i className="bi bi-person-circle"></i>
+														</Link>
+														<ul className="dropdown-menu dropdown-logged" aria-labelledby="navbarDropdown">
+															<li className="nav-item">
+																<Link
+																	className="dropdown-item"
+																	to={`/profile`}
+																>
+																	<div>Profile</div>
+																	<div>
+																		<small>
+																			<code>[{ data?.logged_user?.email }]</code>
+																		</small>
+																	</div>
+																</Link>
+															</li>
+															<li><hr class="dropdown-divider" /></li>
+															<li className="nav-item">
+																<Link to=""
+																	className="dropdown-item"
+																	onClick={ handleLogout }
+																>
+																	Logout
+																</Link>
+															</li>
+															<></>
+														</ul>
+													</li>
 												</>
 											:	<>
 													<button
