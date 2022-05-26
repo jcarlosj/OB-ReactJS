@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
@@ -26,41 +25,37 @@ const LoginFormik = ({ data, setData }) => {
 		passwd: ''
 	}
 
-	const navigate = useNavigate();
-
-	const [ state, setState ] = useState({});
-
-	useEffect( () => {
-
-		( async () => {
-			console.log( 'data: ', data );
-		})();
-
-		console.log( 'state', state );
-
-	}, [] );
-
 	const handleSubmit = ( values ) => {
 
 		// console.log( 'values', values );
 		// console.log( 'data.users', data.users );
 		// console.log( 'authenticate user: ', getAuthenticatedUser( data.users, values ) );
 
-		const user_credentials = getAuthenticatedUser( data.users, values );
+		if( data?.users ) {
+			const user_credentials = getAuthenticatedUser( data.users, values );
 
-		if( user_credentials ) {
+			console.log( user_credentials );
 
-			setData({
-				...data,
-				logged_user: user_credentials,
-				logged: true
-			});
-			setUserCredentialData( user_credentials );
+			if( user_credentials ) {
+
+				setData({
+					...data,
+					logged_user: user_credentials,
+					logged: true
+				});
+				setUserCredentialData( user_credentials );
+
+			}
+		}
+
+		/** Limpia campos del formulario */
+		for ( const key in values ) {
+			values[ key ] = '';
 		}
 
 	}
 
-	console.log( 'state', state );
+	console.log( 'data', data );
 
 	return (
 		<div className="container mt-5">
