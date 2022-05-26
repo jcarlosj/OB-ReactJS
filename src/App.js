@@ -1,4 +1,4 @@
-import MainRouter from './routers/MainRouter';
+import MainRoutes from './routes/Main.routes';
 
 import './App.scss';
 import './App.css';
@@ -7,7 +7,7 @@ function App() {
 
 	return (
 		<>
-			<MainRouter />
+			<MainRoutes />
 		</>
 	);
 }

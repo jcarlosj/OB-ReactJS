@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const RestrictedRoutes = ({ isLogged }) => {
+const RestrictedRouter = ({ isLogged }) => {
 
 	console.log( 'PublicRoutes', isLogged );
 
@@ -12,9 +12,9 @@ const RestrictedRoutes = ({ isLogged }) => {
 };
 
 
-RestrictedRoutes.propTypes = {
+RestrictedRouter.propTypes = {
 	isLogged: PropTypes.bool.isRequired
 };
 
 
-export { RestrictedRoutes };
+export { RestrictedRouter };

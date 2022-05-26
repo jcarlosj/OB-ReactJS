@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { ROLES } from '../models/roles.enum';
 
-import { RestrictedRoutes } from './RestrictedRoutes';
-import { ProtectedRoutes } from './ProtectedRoutes';
-import { AppRoutes } from './AppRoutes';
-import { DashboardRoutes } from './DashboardRoutes';
+import { RestrictedRouter } from '../routers/Restricted.router';
+import { ProtectedRouter } from '../routers/Protected.router';
 
 import HomePage from '../pages/home/HomePage';
 import DashboardPage from '../pages/dashboard/DashboardPage';
@@ -23,7 +21,7 @@ import { isAuthenticated } from '../helpers/validateCredentials';
 
 import Navbar from '../components/ui/Navbar';
 
-const MainRouter = () => {
+const MainRoutes = () => {
 
 	const [ data, setData ] = useState({
 		logged_user: {
@@ -95,13 +93,13 @@ const MainRouter = () => {
 					<Route path="faqs" element={ <AboutPage /> } />
 
 					{/** Rutas Restringidas: Exclusivamente se accede sin login */}
-					<Route element={ <RestrictedRoutes isLogged={ data?.logged } /> } >
+					<Route element={ <RestrictedRouter isLogged={ data?.logged } /> } >
 						<Route path="login" element={ <LoginPage data={ data } setData={ setData } /> } />
 						<Route path="register" element={ <RegisterPage data={ data } setData={ setData } /> } />
 					</Route>
 
 					{/** Rutas Protegidas: Exclusivamente se accede con login */}
-					<Route element={ <ProtectedRoutes isLogged={ data?.logged } /> } >
+					<Route element={ <ProtectedRouter isLogged={ data?.logged } /> } >
 						<Route path="dashboard" element={ <DashboardPage /> } />
 						<Route path="profile" element={ <ProfilePage /> } />
 						<Route path="tasks">
@@ -119,9 +117,9 @@ const MainRouter = () => {
 };
 
 
-MainRouter.propTypes = {
+MainRoutes.propTypes = {
 
 };
 
 
-export default MainRouter;
+export default MainRoutes;
