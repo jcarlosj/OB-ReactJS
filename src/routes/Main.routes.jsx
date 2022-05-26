@@ -16,8 +16,7 @@ import ProfilePage from '../pages/profile/ProfilePage';
 import TaskPage from '../pages/task/TaskPage';
 import TaskDetailPage from '../pages/task/TaskDetailPage';
 
-import { getRegistered, getCredentials } from '../helpers/localStorage';
-import { isAuthenticated } from '../helpers/validateCredentials';
+import { getRegisteredUserData, getUserCredentialData, getAuthenticatedUser } from '../helpers/localStorage';
 
 import Navbar from '../components/ui/Navbar';
 
@@ -35,15 +34,15 @@ const MainRoutes = () => {
 		logged: false
 	});
 
-	const { users, total_records, logged } = data;
+	const { logged_user: { username, email, passwd, role }, total_records, logged } = data;
 
 	/** Seguimiento a cambios en el estado para obtener usuarios registrados */
 	useEffect( () => {
 
 		( async() => {
 
-			const registered_users = await getRegistered();
-			console.log( registered_users );
+			const registered_users = await getRegisteredUserData();
+			// console.log( registered_users );
 
 			if( registered_users?.length > 0 ) {
 				setData({
@@ -55,30 +54,27 @@ const MainRoutes = () => {
 
 		})();
 
-	}, [ total_records ] );
-
-	/** Seguimiento a cambios en el estado para obtener usuarios registrados y verificar autenticacion de usuario */
-	useEffect( () => {
-
 		( async() => {
 
-			const auth_user = await getCredentials();
+			const auth_user = await getUserCredentialData();
 
-			console.log( auth_user );
-			console.log( isAuthenticated( users, auth_user ) );
+			// console.log( auth_user );
+			// console.log( data.users );
+			// console.log( 'authenticate user: ', getAuthenticatedUser( users, auth_user ) );
 
-			if( isAuthenticated( users, auth_user ) ) {
+			const user_credentials = getAuthenticatedUser( data.users, auth_user );
+
+			if( user_credentials ) {
 				setData({
 					...data,
-					logged_user: auth_user,
+					logged_user: user_credentials,
 					logged: true
 				});
 			}
 
 		})();
 
-	}, [ logged ] );
-
+	}, [ username, email, passwd, role, logged, total_records ] );
 
 	console.log( 'data', data );
 

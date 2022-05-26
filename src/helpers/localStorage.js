@@ -1,4 +1,9 @@
-const getRegistered = async () => {
+/** LocalStorage: Operaciones para almacenar usuarios registrados */
+const setRegisteredUserData = ( data ) => {
+	localStorage.setItem( 'registered_users', JSON.stringify( data ) )
+}
+
+const getRegisteredUserData = async () => {
 	const
 		string = await localStorage.getItem( 'registered_users' ),
 		registered = await JSON.parse( string );
@@ -6,25 +11,33 @@ const getRegistered = async () => {
 	return registered ? registered : [];
 }
 
-const getCredentials = async () => {
+/** LocalStorage: Operaciones para almacenar credenciales de un usuario autenticado */
+const getUserCredentialData = async () => {
 	const
 		string = await localStorage.getItem( 'authenticated_user' ),
 		authenticated_user = await JSON.parse( string );
 
-	return authenticated_user ? authenticated_user : null;
+	return authenticated_user;
 };
 
-const removeCredentials = async () => {
+const deleteUserCredentialData = async () => {
 	await localStorage.removeItem( 'authenticated_user' );
 }
 
-const setCredentials = async ( user ) => {
+const setUserCredentialData = async ( user ) => {
 	await localStorage.setItem( 'authenticated_user', JSON.stringify( user ) );
 }
 
+/** Validaciones: Obtiene usuario cuando email y contraseña son conhincidentes */
+const getAuthenticatedUser = ( registered, credentials ) => {
+	return registered?.find( item => item?.email == credentials?.email && item?.passwd == credentials?.passwd );
+}
+
 export {
-	getCredentials,
-	getRegistered,
-	removeCredentials,
-	setCredentials
+	getUserCredentialData,
+	getRegisteredUserData,
+	deleteUserCredentialData,
+	setUserCredentialData,
+	setRegisteredUserData,
+	getAuthenticatedUser
 };

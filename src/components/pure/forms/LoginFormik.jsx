@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import { isAuthenticated } from '../../../helpers/validateCredentials';
-import { setCredentials } from '../../../helpers/localStorage';
+import { setUserCredentialData, getAuthenticatedUser } from '../../../helpers/localStorage';
 
 /** Define esquema de analisis para la validacion valores */
 const loginSchema = Yup.object().shape({
@@ -43,16 +42,20 @@ const LoginFormik = ({ data, setData }) => {
 
 	const handleSubmit = ( values ) => {
 
-		console.log( 'values', values );
-		console.log( isAuthenticated( data.users, values ) );
+		// console.log( 'values', values );
+		// console.log( 'data.users', data.users );
+		// console.log( 'authenticate user: ', getAuthenticatedUser( data.users, values ) );
 
-		if( isAuthenticated( data.users, values ) ) {
+		const user_credentials = getAuthenticatedUser( data.users, values );
+
+		if( user_credentials ) {
+
 			setData({
 				...data,
-				logged_user: values,
+				logged_user: user_credentials,
 				logged: true
 			});
-			setCredentials( values );
+			setUserCredentialData( user_credentials );
 		}
 
 	}

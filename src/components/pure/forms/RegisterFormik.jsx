@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 import { User } from '../../../models/user.class';
 import { ROLES } from '../../../models/roles.enum';
 
+import { setRegisteredUserData } from '../../../helpers/localStorage';
+
 /** Define esquema de analisis para la validacion valores */
 const registerSchema = Yup.object().shape({
 	username: Yup.string()
@@ -81,8 +83,12 @@ const RegisterFormik = () => {
 			registered_users: [ ...registered_users, newUser ]
 		});
 
-		localStorage.setItem( 'registered', JSON.stringify( [ ...registered_users, newUser ] ) );
+		setRegisteredUserData( [ ...registered_users, newUser ] );
 
+		/** Limpia campos del formulario */
+		for ( const key in values ) {
+			values[ key ] = '';
+		}
 	}
 
 	return (
@@ -93,7 +99,9 @@ const RegisterFormik = () => {
 				validationSchema={ registerSchema }
 				onSubmit={ async ( values ) => {
 					await new Promise( ( response ) => setTimeout( response, 2000 ) );
+
 					alert( JSON.stringify( values, null, 4 ) );
+					console.log( values );
 
 					handleSubmit( values );
 				} }

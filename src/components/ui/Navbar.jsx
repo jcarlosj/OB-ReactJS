@@ -1,6 +1,6 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
-import { removeCredentials } from '../../helpers/localStorage';
+import { deleteUserCredentialData } from '../../helpers/localStorage';
 import { ROLES } from '../../models/roles.enum';
 
 
@@ -23,7 +23,7 @@ const Navbar = ({ data, setData }) => {
 			logged: false
 		});
 
-		removeCredentials();
+		deleteUserCredentialData();
 	}
 
 	console.log( 'data', data );

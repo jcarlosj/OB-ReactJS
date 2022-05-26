@@ -9,7 +9,7 @@ const Login = () => {
 		passwd: ''
 	}
 
-	const [ credentials, setCredentials ] = useState( initialCredentials );
+	const [ credentials, setUserCredentialData ] = useState( initialCredentials );
 
 	return (
 		<div className="container mt-5">
