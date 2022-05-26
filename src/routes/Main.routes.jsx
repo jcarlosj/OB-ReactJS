@@ -35,7 +35,7 @@ const MainRoutes = () => {
 		logged: false
 	});
 
-	const { logged_user: { email }, users, total_records, logged } = data;
+	const { users, total_records, logged } = data;
 
 	/** Seguimiento a cambios en el estado para obtener usuarios registrados */
 	useEffect( () => {
@@ -76,7 +76,8 @@ const MainRoutes = () => {
 			}
 
 		})();
-	}, [ email, logged, total_records ] );
+
+	}, [ logged ] );
 
 
 	console.log( 'data', data );
