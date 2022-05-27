@@ -6,7 +6,7 @@ const HomePage = ({ data }) => {
 		location = useLocation(),		/** Obtiene la ruta en un momento concreto */
 		navigate = useNavigate();		/** Permite navegar a traves de la pila de navegacion */
 
-	console.log( 'We are in Route:', location.pathname );
+	// console.log( 'We are in Route:', location.pathname );
 
     return (
 		<>

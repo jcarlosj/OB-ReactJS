@@ -1,65 +1,69 @@
 import { useState, useEffect } from 'react';
 
 import { Task } from '../../models/task.class';
-import { LEVELS } from '../../models/levels.enum';
 import TaskComponent from '../pure/Task';
 import TaskFormik from '../pure/forms/TaskFormik';
+
+
 
 import './TaskList.scss';
 
 
-const TaskListComponent = () => {
+const TaskListComponent = ({ data, setData }) => {
 
-    const
-		defaultTask1 = new Task( 'Example 1', 'Default description', false, LEVELS.NORMAL ),
-		defaultTask2 = new Task( 'Example 2', 'Default description', false, LEVELS.URGENT ),
-		defaultTask3 = new Task( 'Example 3', 'Default description', false, LEVELS.BLOCKING );
-
-	const
-		[ tasks, setTasks ] = useState([ defaultTask1, defaultTask2, defaultTask3 ]),
-		[ loading, setLoading ] = useState( true );
+	const [ loading, setLoading ] = useState( true );
 
 	useEffect( () => {
-		console.log( 'Task state has been modified' );
+		// console.log( 'Task state has been modified' );
+		console.log( 'data', data );
 
 		setTimeout( () => {
 			setLoading( false );
-		}, 2000 );
+		}, 1000 );
 
 		return () => {
-			console.log( `TaskList component is going to unmount` );
+			// console.log( `TaskList component is going to unmount` );
 		};
-	}, [ tasks ]);
+	}, [ loading, setLoading ] );
 
 	function completeTask( task ) {
 		console.log( 'Complete this task:', task );
 
 		const
-			index = tasks.indexOf( task ),
-			tempTask = [ ...tasks ];
+			index = data.tasks.indexOf( task ),
+			tempTask = [ ...data.tasks ];
 
 		tempTask[ index ].completed = ! tempTask[ index ].completed;
-		setTasks( tempTask );
+		setData({
+			...data,
+			tasks: tempTask
+		});
 	}
 
 	function deleteTask( task ) {
 		console.log( 'Delete this task:', task );
 
 		const
-			index = tasks.indexOf( task ),
-			tempTask = [ ...tasks ];
+			index = data.tasks.indexOf( task ),
+			tempTask = [ ...data.tasks ];
 
 		tempTask.splice( index, 1 );
-		setTasks( tempTask );
+		setData({
+			...data,
+			tasks: tempTask
+		});
 	}
 
 	function addTask( task ) {
+		const newTask = new Task( task.name, task.description, task.complete, task.level );
 		console.log( 'Add this task:', task );
 
-		const tempTask = [ ...tasks ];
+		setData({
+			...data,
+			tasks: [ ...data.tasks, newTask ]
+		});
+		setLoading( true );
 
-		tempTask.push( task );
-		setTasks( tempTask );
 	}
 
 	/** Component Table */
@@ -78,7 +82,7 @@ const TaskListComponent = () => {
 					</thead>
 					<tbody>
 
-						{ tasks.map( ( task, index ) => (
+						{ data.tasks.map( ( task, index ) => (
 							<TaskComponent
 								key={ index }
 								task={ task }
@@ -97,7 +101,7 @@ const TaskListComponent = () => {
 
 	let showInView;
 
-	if( tasks.length > 0 )
+	if( data?.tasks?.length > 0 )
 		showInView = <Table></Table>;
 	else
 		showInView = <>
@@ -118,7 +122,7 @@ const TaskListComponent = () => {
 			</div>
 			<TaskFormik
 				add={ addTask }
-				numberOfTasks={ tasks.length }
+				numberOfTasks={ data?.tasks?.length }
 			></TaskFormik>
         </div>
     );

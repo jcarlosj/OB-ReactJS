@@ -1,9 +1,9 @@
 import TaskListComponent from '../../components/containers/TaskList';
 
-const TaskPage = () => {
+const TaskPage = ({ data, setData }) => {
     return (
         <div className="container mt-5">
-            <TaskListComponent></TaskListComponent>
+            <TaskListComponent data={ data } setData={ setData }></TaskListComponent>
         </div>
     );
 }

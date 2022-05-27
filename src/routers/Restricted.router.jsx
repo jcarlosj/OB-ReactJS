@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const RestrictedRouter = ({ isLogged }) => {
 
-	console.log( 'PublicRoutes', isLogged );
+	// console.log( 'PublicRoutes', isLogged );
 
 	return ! isLogged
 		?	<Outlet />

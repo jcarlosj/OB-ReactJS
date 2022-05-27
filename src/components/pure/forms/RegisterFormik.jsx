@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
@@ -36,7 +37,10 @@ const registerSchema = Yup.object().shape({
 
 
 /** Functional Component */
-const RegisterFormik = () => {
+const RegisterFormik = ({ data, setData }) => {
+
+	const navigate = useNavigate();
+	const [ loading, setLoading ] = useState( true );
 
 	const initialValues = {
 		username: '',
@@ -46,26 +50,16 @@ const RegisterFormik = () => {
 		role: ROLES.USER
 	}
 
-	const [ state, setState ] = useState({
-		user: {
-			username: '',
-			email: '',
-			passwd: '',
-			logged: false,
-			role: ROLES.USER
-		},
-		registered_users: []
-	});
-
-	const { user, registered_users } = state;
-
 	useEffect( () => {
-		const
-			stringUsers = localStorage.getItem( 'registered' ),
-			data = JSON.parse( stringUsers );
+		setTimeout( () => {
+			console.log( 'data', data );
+			setLoading( false );
+		}, 500 );
 
-			console.log( 'registered:', data );
-	}, [ state.user ] );
+		return () => {
+			// console.log( `RegisterFormik component is going to unmount` );
+		};
+	}, [ loading, setLoading ] );
 
 	const handleSubmit = ( values ) => {
 
@@ -78,17 +72,16 @@ const RegisterFormik = () => {
 
 		console.log( 'Register user', newUser );
 
-		setState({
-			...state,
-			registered_users: [ ...registered_users, newUser ]
-		});
+		setData( ( prevState ) => ({
+			...prevState,
+			users: [ ...data.users, newUser ]
+		}));
 
-		setRegisteredUserData( [ ...registered_users, newUser ] );
+		setRegisteredUserData( [ ...data.users, newUser ] );
 
-		/** Limpia campos del formulario */
-		for ( const key in values ) {
-			values[ key ] = '';
-		}
+		console.log( `${ newUser.username } se ha registrado!` );
+		setLoading( true );
+
 	}
 
 	return (
@@ -97,13 +90,12 @@ const RegisterFormik = () => {
 			<Formik
 				initialValues = { initialValues }
 				validationSchema={ registerSchema }
-				onSubmit={ async ( values ) => {
-					await new Promise( ( response ) => setTimeout( response, 2000 ) );
+				onSubmit={ async ( values, actions ) => {
 
-					alert( JSON.stringify( values, null, 4 ) );
-					console.log( values );
-
+					await new Promise( ( response ) => setTimeout( response, 500 ) );
 					handleSubmit( values );
+					actions.resetForm();
+
 				} }
 			>
 				{/** We obtain props from Formik */}

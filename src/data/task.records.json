@@ -1,0 +1,5 @@
+[
+	{ "name": "Estudiar Angular", "description": "Estudiar curso de fernando herrera", "complete": false, "level": "normal" },
+	{ "name": "Estudiar Python", "description": "Estudiar de la plataforma de OpenBootcamp", "complete": true, "level": "urgent" },
+	{ "name": "Estudiar React", "description": "Estudiar de la plataforma de OpenBootcamp", "complete": false, "level": "blocking" }
+]

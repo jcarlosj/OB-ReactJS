@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { Task } from '../../models/task.class';
@@ -8,15 +8,6 @@ import './Task.scss';
 
 
 const TaskComponent = ({ task, complete, remove }) => {
-
-	useEffect( () => {
-		console.log( 'Task created!' );
-
-		return () => {
-			console.log( `Task component '${ task.name }' is going to unmount` );
-		};
-	}, [ task ] );
-
 	/**
 	 * Function that return a Badge depending on the level of the task
 	 */
@@ -50,9 +41,17 @@ const TaskComponent = ({ task, complete, remove }) => {
 	*/
 	function taskCompletedIcon() {
 		if( task.completed )
-			return <i onClick={ () => complete( task ) } className="bi-toggle-on task-action" style={ { color: 'green' } }></i>
+			return 	<i
+						onClick={ () => complete( task ) }
+						className="bi-toggle-on task-action"
+						style={ { color: 'green' } }>
+					</i>
 
-		return <i onClick={ () => complete( task ) } className="bi-toggle-off task-action" style={ { color: 'gray' } }></i>
+		return	<i
+					onClick={ () => complete( task ) }
+					className="bi-toggle-off task-action"
+					style={ { color: 'gray' } }>
+				</i>
 
 	}
 
@@ -61,11 +60,10 @@ const TaskComponent = ({ task, complete, remove }) => {
 			className={ `fw-normal ${ task.completed ? 'task-completed' : 'task-pending' }` }
 		>
 			<th>
-				<span className="ms-2">{ task.name }</span>
+				<Link to={ `/tasks/${ task.id }` }>
+					<span className="ms-2">{ task.name }</span>
+				</Link>
 			</th>
-			<td className="align-middle">
-				<span>{ task.description }</span>
-			</td>
 			<td className="align-middle">
 				{ taskLevelBadge() }
 			</td>

@@ -17,10 +17,6 @@ import Navbar from '../components/ui/Navbar';
 
 const MainRoutes = ({ data, setData }) => {
 
-
-
-	console.log( 'data', data );
-
 	return (
 		<>
 			<BrowserRouter>
@@ -43,8 +39,8 @@ const MainRoutes = ({ data, setData }) => {
 						<Route path="dashboard" element={ <DashboardPage /> } />
 						<Route path="profile" element={ <ProfilePage /> } />
 						<Route path="tasks">
-							<Route index element={ <TaskPage /> } />
-							<Route path=":id" element={ <TaskDetailPage />} />
+							<Route index element={ <TaskPage data={ data } setData={ setData } /> } />
+							<Route path=":id" element={ <TaskDetailPage data={ data } />} />
 						</Route>
 					</Route>
 

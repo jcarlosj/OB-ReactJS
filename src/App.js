@@ -3,10 +3,9 @@ import { useState, useEffect } from 'react';
 import MainRoutes from './routes/Main.routes';
 
 import { ROLES } from '../src/models/roles.enum';
-import { getRegisteredUserData, getUserCredentialData, getAuthenticatedUser } from '../src/helpers/localStorage';
-import { getTasks } from '../src/helpers/data';
 
-import { Task } from '../src/models/task.class';
+import { getRegisteredUserData, getUserCredentialData, getAuthenticatedUser } from '../src/helpers/localStorage';
+import { getStaticTaskRecords } from '../src/helpers/staticRecords';
 
 import './App.scss';
 import './App.css';
@@ -26,8 +25,6 @@ function App() {
 		tasks: []
 	});
 
-	const { logged_user: { username, email, passwd, role }, total_records, logged, tasks } = data;
-
 	/** Seguimiento a cambios en el estado para obtener usuarios registrados */
 	useEffect( () => {
 
@@ -37,53 +34,47 @@ function App() {
 			// console.log( registered_users );
 
 			if( registered_users?.length > 0 ) {
-				setData({
-					...data,
+				setData( ( prevData ) => ({
+					...prevData,
 					users: registered_users,
 					total_records: registered_users.length
-				});
+				}));
 			}
 
-		})();
 
-		( async() => {
 
 			const auth_user = await getUserCredentialData();
 
 			// console.log( auth_user );
 			// console.log( data.users );
-			// console.log( 'authenticate user: ', getAuthenticatedUser( users, auth_user ) );
 
 			const user_credentials = getAuthenticatedUser( data.users, auth_user );
 
 			if( user_credentials ) {
-				setData({
-					...data,
+				// console.log( user_credentials );
+				setData( ( prevData ) => ({
+					...prevData,
 					logged_user: user_credentials,
 					logged: true
-				});
+				}));
 			}
 
-		})();
 
-		( async() => {
-			const dataTasks = getTasks();
+			const dataTasks = getStaticTaskRecords();
 
 			if( dataTasks.length > 0 ) {
-
-				setData({
-					...data,
-					tasks: dataTasks.map( task => {
-						return new Task( task.name, task.description, task.complete, task.level );
-					})
-				});
+				// console.log( dataTasks );
+				setData( ( prevData ) => ( {
+					...prevData,
+					tasks: dataTasks
+				}));
 			}
 
 		})();
 
-	}, [ username, email, passwd, role, logged, total_records, tasks ] );
+		console.log( 'App', data );
 
-	console.log( 'data', data );
+	}, [] );
 
 	return (
 		<>

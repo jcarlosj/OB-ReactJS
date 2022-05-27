@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
@@ -18,44 +18,51 @@ const loginSchema = Yup.object().shape({
 /** Functional Component */
 const LoginFormik = ({ data, setData }) => {
 
-	console.log( 'data', data );
+	const [ loading, setLoading ] = useState( true );
 
 	const initialCredentials = {
 		email: '',
 		passwd: ''
 	}
 
+	useEffect( () => {
+
+		setTimeout( () => {
+			console.log( 'data', data );
+			setLoading( false );
+		}, 500 );
+
+		return () => {
+			// console.log( `LoginFormik component is going to unmount` );
+		};
+	}, [ loading, setLoading ] );
+
 	const handleSubmit = ( values ) => {
 
 		// console.log( 'values', values );
-		// console.log( 'data.users', data.users );
 		// console.log( 'authenticate user: ', getAuthenticatedUser( data.users, values ) );
 
-		if( data?.users ) {
+		if( data?.users?.length > 0 ) {
 			const user_credentials = getAuthenticatedUser( data.users, values );
 
 			console.log( user_credentials );
 
 			if( user_credentials ) {
-
-				setData({
-					...data,
+				setData( ( prevData ) => ({
+					...prevData,
 					logged_user: user_credentials,
 					logged: true
-				});
+				}));
+
 				setUserCredentialData( user_credentials );
+
+				console.log( `${ user_credentials.username } se ha logueado!` );
+				setLoading( true );
 
 			}
 		}
 
-		/** Limpia campos del formulario */
-		for ( const key in values ) {
-			values[ key ] = '';
-		}
-
 	}
-
-	console.log( 'data', data );
 
 	return (
 		<div className="container mt-5">
@@ -63,11 +70,12 @@ const LoginFormik = ({ data, setData }) => {
 			<Formik
 				initialValues={ initialCredentials }
 				validationSchema={ loginSchema }
-				onSubmit={ async ( values ) => {
-					await new Promise( ( response ) => setTimeout( response, 2000 ) );
-					alert( JSON.stringify( values, null, 4 ) );
+				onSubmit={ async ( values, actions ) => {
 
+					await new Promise( ( response ) => setTimeout( response, 500 ) );
 					handleSubmit( values );
+					actions.resetForm();
+
 				} }
 			>
 

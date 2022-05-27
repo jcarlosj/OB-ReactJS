@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const ProtectedRouter = ({ isLogged }) => {
 
-	console.log( 'PrivateRoutes', isLogged );
+	// console.log( 'PrivateRoutes', isLogged );
 
 	return isLogged
 			?	<Outlet />

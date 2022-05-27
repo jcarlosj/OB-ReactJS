@@ -9,7 +9,7 @@ const Navbar = ({ data, setData }) => {
 	const navigate = useNavigate();
 
 	const handleLogout = () => {
-		console.log( 'Logout' );
+		// console.log( 'Logout' );
 
 		setData({
 			logged_user: {
@@ -26,7 +26,7 @@ const Navbar = ({ data, setData }) => {
 		deleteUserCredentialData();
 	}
 
-	console.log( 'data', data );
+	// console.log( 'data', data );
 
 	return (
 

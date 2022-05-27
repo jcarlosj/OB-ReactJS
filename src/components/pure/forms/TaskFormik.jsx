@@ -2,12 +2,11 @@ import PropTypes from 'prop-types';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import { Task } from '../../../models/task.class';
 import { LEVELS } from '../../../models/levels.enum';
 
 /** Define esquema de analisis para validacion de valores */
 const taskSchema = Yup.object().shape({
-	taskname: Yup.string()
+	name: Yup.string()
 				.min( 3, 'Task name too short' )
 				.required( 'Task name is required!' ),
 	description: Yup.string()
@@ -27,25 +26,9 @@ const taskSchema = Yup.object().shape({
 const TasksFormik = ({ add, numberOfTasks }) => {
 
 	const initialValues = {
-		taskname: '',
+		name: '',
 		description: '',
 		level: ''
-	}
-
-	console.log( '' );
-
-	function addTask( values ) {
-
-		console.log( values );
-
-		const newTask = new Task(
-			values.taskname,
-			values.description,
-			false,
-			values.level
-		);
-
-		add( newTask );
 	}
 
 	return (
@@ -55,11 +38,10 @@ const TasksFormik = ({ add, numberOfTasks }) => {
 				initialValues = { initialValues }
 				validationSchema={ taskSchema }
 				onSubmit={ async ( values, actions ) => {
-					await new Promise( ( response ) => setTimeout( response, 2000 ) );
-					alert( JSON.stringify( values, null, 4 ) );
-					addTask( values );
-					// localStorage.setItem( 'credentials', values );
-					// actions.setSubmitting( false );
+
+					await new Promise( ( response ) => setTimeout( response, 500 ) );
+					add( values );
+
 				} }
 			>
 
@@ -68,17 +50,17 @@ const TasksFormik = ({ add, numberOfTasks }) => {
 					<Form
 						className='form-outline flex-fill'
 					>
-						<label htmlFor="taskname">Task name</label>
+						<label htmlFor="name">Task name</label>
 						<Field
-							id="taskname"
+							id="name"
 							className='form-control form-control-lg'
 							type="text"
-							name="taskname"
+							name="name"
 							placeholder="Ej: Learn Angular"
 							required
 							autoFocus
 						/>
-						<ErrorMessage name="taskname" render={ msg => <p><small>{ msg }</small></p>} />
+						<ErrorMessage name="name" render={ msg => <p><small>{ msg }</small></p>} />
 
 						<label htmlFor="description">Description</label>
 						<Field
