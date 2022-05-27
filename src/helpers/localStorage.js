@@ -28,7 +28,17 @@ const getUserCredentialData = async () => {
 		string = await localStorage.getItem( 'authenticated_user' ),
 		authenticated_user = await JSON.parse( string );
 
-	return authenticated_user;
+	// console.log( authenticated_user );
+
+	if( authenticated_user )
+		return new User(
+			authenticated_user.username,
+			authenticated_user.email,
+			authenticated_user.passwd,
+			authenticated_user.role
+		);
+
+	return null;
 };
 
 const deleteUserCredentialData = async () => {
@@ -41,7 +51,13 @@ const setUserCredentialData = async ( user ) => {
 
 /** Validaciones: Obtiene usuario cuando email y contraseña son conhincidentes */
 const getAuthenticatedUser = ( registered, credentials ) => {
-	return registered?.find( item => item?.email == credentials?.email && item?.passwd == credentials?.passwd );
+
+	// console.log( registered );
+	// console.log( credentials );
+
+	const authenticated_user = registered?.find( item => item?.email === credentials?.email && item?.passwd === credentials?.passwd );
+
+	return authenticated_user;
 }
 
 export {

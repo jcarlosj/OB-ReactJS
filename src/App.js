@@ -24,9 +24,12 @@ function App() {
 		logged: false,
 		tasks: []
 	});
+	const [ loading, setLoading ] = useState( true );
 
 	/** Seguimiento a cambios en el estado para obtener usuarios registrados */
 	useEffect( () => {
+
+		setLoading( false );
 
 		( async() => {
 
@@ -39,26 +42,13 @@ function App() {
 					users: registered_users,
 					total_records: registered_users.length
 				}));
+				setLoading( true );
 			}
 
+			setLoading( false );
+		})();
 
-
-			const auth_user = await getUserCredentialData();
-
-			// console.log( auth_user );
-			// console.log( data.users );
-
-			const user_credentials = getAuthenticatedUser( data.users, auth_user );
-
-			if( user_credentials ) {
-				// console.log( user_credentials );
-				setData( ( prevData ) => ({
-					...prevData,
-					logged_user: user_credentials,
-					logged: true
-				}));
-			}
-
+		( async() => {
 
 			const dataTasks = getStaticTaskRecords();
 
@@ -68,13 +58,42 @@ function App() {
 					...prevData,
 					tasks: dataTasks
 				}));
+				setLoading( true );
 			}
+
+			setLoading( false );
+		})();
+
+	}, [ setLoading ] );
+
+	useEffect(() => {
+
+		setLoading( false );
+
+		( async() => {
+			const auth_user = await getUserCredentialData();
+
+			// console.log( auth_user );
+			// console.log( data.users );
+
+			const user_credentials = getAuthenticatedUser( data.users, auth_user );
+
+			// console.log( user_credentials );
+			if( user_credentials ) {
+				setData( ( prevData ) => ({
+					...prevData,
+					logged_user: user_credentials,
+					logged: true
+				}));
+				setLoading( true );
+			}
+
 
 		})();
 
-		console.log( 'App', data );
+	}, [ data.users, setLoading ]);
 
-	}, [] );
+	console.log( 'App', data );
 
 	return (
 		<>
