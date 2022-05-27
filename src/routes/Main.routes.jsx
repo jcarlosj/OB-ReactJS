@@ -1,7 +1,4 @@
-import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-import { ROLES } from '../models/roles.enum';
 
 import { RestrictedRouter } from '../routers/Restricted.router';
 import { ProtectedRouter } from '../routers/Protected.router';
@@ -16,65 +13,11 @@ import ProfilePage from '../pages/profile/ProfilePage';
 import TaskPage from '../pages/task/TaskPage';
 import TaskDetailPage from '../pages/task/TaskDetailPage';
 
-import { getRegisteredUserData, getUserCredentialData, getAuthenticatedUser } from '../helpers/localStorage';
-
 import Navbar from '../components/ui/Navbar';
 
-const MainRoutes = () => {
+const MainRoutes = ({ data, setData }) => {
 
-	const [ data, setData ] = useState({
-		logged_user: {
-			username: '',
-			email: '',
-			passwd: '',
-			role: ROLES.USER
-		},
-		users: [],
-		total_records: 0,
-		logged: false
-	});
 
-	const { logged_user: { username, email, passwd, role }, total_records, logged } = data;
-
-	/** Seguimiento a cambios en el estado para obtener usuarios registrados */
-	useEffect( () => {
-
-		( async() => {
-
-			const registered_users = await getRegisteredUserData();
-			// console.log( registered_users );
-
-			if( registered_users?.length > 0 ) {
-				setData({
-					...data,
-					users: registered_users,
-					total_records: registered_users.length
-				});
-			}
-
-		})();
-
-		( async() => {
-
-			const auth_user = await getUserCredentialData();
-
-			// console.log( auth_user );
-			// console.log( data.users );
-			// console.log( 'authenticate user: ', getAuthenticatedUser( users, auth_user ) );
-
-			const user_credentials = getAuthenticatedUser( data.users, auth_user );
-
-			if( user_credentials ) {
-				setData({
-					...data,
-					logged_user: user_credentials,
-					logged: true
-				});
-			}
-
-		})();
-
-	}, [ username, email, passwd, role, logged, total_records ] );
 
 	console.log( 'data', data );
 
