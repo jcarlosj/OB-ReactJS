@@ -4,6 +4,9 @@ import MainRoutes from './routes/Main.routes';
 
 import { ROLES } from '../src/models/roles.enum';
 import { getRegisteredUserData, getUserCredentialData, getAuthenticatedUser } from '../src/helpers/localStorage';
+import { getTasks } from '../src/helpers/data';
+
+import { Task } from '../src/models/task.class';
 
 import './App.scss';
 import './App.css';
@@ -19,10 +22,11 @@ function App() {
 		},
 		users: [],
 		total_records: 0,
-		logged: false
+		logged: false,
+		tasks: []
 	});
 
-	const { logged_user: { username, email, passwd, role }, total_records, logged } = data;
+	const { logged_user: { username, email, passwd, role }, total_records, logged, tasks } = data;
 
 	/** Seguimiento a cambios en el estado para obtener usuarios registrados */
 	useEffect( () => {
@@ -62,7 +66,24 @@ function App() {
 
 		})();
 
-	}, [ username, email, passwd, role, logged, total_records ] );
+		( async() => {
+			const dataTasks = getTasks();
+
+			if( dataTasks.length > 0 ) {
+
+				setData({
+					...data,
+					tasks: dataTasks.map( task => {
+						return new Task( task.name, task.description, task.complete, task.level );
+					})
+				});
+			}
+
+		})();
+
+	}, [ username, email, passwd, role, logged, total_records, tasks ] );
+
+	console.log( 'data', data );
 
 	return (
 		<>
