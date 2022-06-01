@@ -1,4 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 const HomePage = ({ data }) => {
 
@@ -12,7 +13,7 @@ const HomePage = ({ data }) => {
 		<>
 			<div className="container mt-5">
 				<h1>Home Page</h1>
-				<button onClick={ () => navigate( '/profile' ) } >Go to profile</button>
+				<Button variant="contained" onClick={ () => navigate( '/profile' ) } >Go to profile</Button>
 			</div>
 		</>
 

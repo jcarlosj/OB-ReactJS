@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 
 const ProfilePage = () => {
@@ -8,8 +9,8 @@ const ProfilePage = () => {
 	return (
 		<div className="container mt-5">
 			<h1>Profile User</h1>
-			<button onClick={ () => navigate( '/tasks' ) }>Tasks</button>
-			<button onClick={ () => navigate( -1 ) }>Go back</button>
+			<Button variant="contained" onClick={ () => navigate( '/tasks' ) }>Tasks</Button>
+			<Button variant="contained" onClick={ () => navigate( -1 ) }>Go back</Button>
 		</div>
 	);
 };

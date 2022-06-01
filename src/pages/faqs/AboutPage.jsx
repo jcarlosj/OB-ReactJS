@@ -1,4 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 const AboutPage = () => {
 
@@ -23,9 +24,9 @@ const AboutPage = () => {
 	return (
 		<div className="container mt-5">
 			<h1>About page | FAQs</h1>
-			<button onClick={ () => goPage( '/' ) } >Go to home</button>
-			<button onClick={ goBack }>Go back</button>
-			<button onClick={ goForward }>Go forward</button>
+			<Button variant="contained" onClick={ () => goPage( '/' ) } >Go to home</Button>
+			<Button variant="contained" onClick={ goBack }>Go back</Button>
+			<Button variant="contained" onClick={ goForward }>Go forward</Button>
 		</div>
 	);
 };
