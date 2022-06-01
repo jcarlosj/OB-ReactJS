@@ -24,6 +24,7 @@ const Navbar = ({ data, setData }) => {
 		});
 
 		deleteUserCredentialData();
+		navigate( '/login' );
 	}
 
 	// console.log( 'data', data );
@@ -118,6 +119,14 @@ const Navbar = ({ data, setData }) => {
 																			<code>[{ data?.logged_user?.email }]</code>
 																		</small>
 																	</div>
+																</Link>
+															</li>
+															<li className="nav-item">
+																<Link
+																	className="dropdown-item"
+																	to={`/dashboard`}
+																>
+																	<div>Dashboard</div>
 																</Link>
 															</li>
 															<li><hr className="dropdown-divider" /></li>

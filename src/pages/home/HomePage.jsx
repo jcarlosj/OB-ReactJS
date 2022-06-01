@@ -1,6 +1,8 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@mui/material';
 
+import Footer from '../../components/ui/Footer';
+
 const HomePage = ({ data }) => {
 
 	const
@@ -15,6 +17,7 @@ const HomePage = ({ data }) => {
 				<h1>Home Page</h1>
 				<Button variant="contained" onClick={ () => navigate( '/profile' ) } >Go to profile</Button>
 			</div>
+			<Footer />
 		</>
 
     );

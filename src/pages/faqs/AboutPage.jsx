@@ -1,6 +1,9 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@mui/material';
 
+import Footer from '../../components/ui/Footer';
+
+
 const AboutPage = () => {
 
 	const
@@ -27,6 +30,7 @@ const AboutPage = () => {
 			<Button variant="contained" onClick={ () => goPage( '/' ) } >Go to home</Button>
 			<Button variant="contained" onClick={ goBack }>Go back</Button>
 			<Button variant="contained" onClick={ goForward }>Go forward</Button>
+			<Footer />
 		</div>
 	);
 };
