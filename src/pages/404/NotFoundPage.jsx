@@ -1,5 +1,7 @@
 import { useLocation } from 'react-router-dom';
 
+import Footer from '../../components/ui/Footer';
+
 const NotFoundPage = () => {
 
 	const location = useLocation();
@@ -9,6 +11,7 @@ const NotFoundPage = () => {
 	return (
 		<div className="container mt-5">
 			<h1> 404 - Page Not Found</h1>
+			<Footer />
 		</div>
 	);
 }

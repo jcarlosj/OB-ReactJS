@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import Footer from '../../components/ui/Footer'
+
 
 const TaskDetailPage = ({ data }) => {
 
@@ -23,6 +25,7 @@ const TaskDetailPage = ({ data }) => {
 			<h1>Task Detail Page - { id }</h1>
 			<p><b>Name: </b>{ task.name }</p>
 			<p><b>Description: </b>{ task.description }</p>
+			<Footer />
 		</div>
 	);
 };

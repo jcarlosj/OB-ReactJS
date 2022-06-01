@@ -120,6 +120,14 @@ const Navbar = ({ data, setData }) => {
 																	</div>
 																</Link>
 															</li>
+															<li className="nav-item">
+																<Link
+																	className="dropdown-item"
+																	to={`/dashboard`}
+																>
+																	<div>Dashboard</div>
+																</Link>
+															</li>
 															<li><hr className="dropdown-divider" /></li>
 															<li className="nav-item">
 																<Link to=""
