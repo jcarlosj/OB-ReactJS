@@ -30,3 +30,36 @@
 	border: 1px dotted gray;
 	padding: .5rem 1rem;
 }
+
+.page_title {
+	text-align: center;
+}
+
+.title_note {
+	text-align: center;
+}
+
+.form-control {
+    padding: 0.3rem 1rem;
+    text-align: center;
+}
+
+.table-task-list {
+	border: 1px dotted gray;
+	margin: 1.5rem auto;
+	max-width: 75%;
+	padding: 0.4rem;
+	width: 100%;
+}
+
+.table-task-list .actions {
+	align-items: center;
+	display: flex;
+    flex-direction: row;
+    gap: 0.3rem;
+    justify-content: center;
+}
+
+.table-task-list .actions .item a {
+	padding: 0.2rem 0.5rem;
+}
