@@ -9,21 +9,33 @@ const Menu = ({ list }) => {
 	}
 
 	return (
-		<ul className="main-menu">
-			{	list.map( ({ text, path }, index ) => (
-					<li
-						className="item"
-						key={ index }
-						onClick={ () => navigateTo( path ) }
-
+		<div className="container bg-menu">
+			<header className="header-page">
+				<div>
+					<Link 
+						to="/"
+						className="logo"
 					>
-						<Link to={ path }>
-							<span>{ text }</span>
-						</Link>
-					</li>
-				))
-			}
-		</ul>
+						Brand logo
+					</Link>
+				</div>
+				<ul className="main-menu">
+					{	list.map( ({ text, path }, index ) => (
+							<li
+								className="item"
+								key={ index }
+								onClick={ () => navigateTo( path ) }
+
+							>
+								<Link to={ path }>
+									<span>{ text }</span>
+								</Link>
+							</li>
+						))
+					}
+				</ul>
+			</header>
+		</div>
 	);
 };
 
