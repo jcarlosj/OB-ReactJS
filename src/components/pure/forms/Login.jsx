@@ -1,28 +1,56 @@
 import { Link } from 'react-router-dom';
 
+import { useForm } from '../../../hooks/useForm';
+
 
 const Login = () => {
+
+    const
+        [ formValues, handleInputChange, setError, reset, emailIsValid ] = useForm({
+            email: '',
+            password: '',
+            errors: []
+        }),
+        { email, password, errors } = formValues;
+
+    const isFormValid = () => {
+        if( ! emailIsValid( email ) ) {
+            setError({ 'email': 'Email is not valid!' });
+        }
+        if( password.length <= 5 ) {
+            setError({ 'password': 'Password must be at least 5 characters' });
+        }
+
+        console.log( errors );
+    }
+
+    const handleLogin = ( event ) => {
+        event.preventDefault();
+
+        isFormValid();
+    }
+
     return (
         <div className="container">
 
             <h1 className="page_title page_login">Login Page</h1>
             <form
-                // onSubmit={ handleLogin }
+                onSubmit={ handleLogin }
             >
-                {/* {
-                    errorMessage &&
-                        <div className="auth__alert-error">
-                            { errorMessage }
-                        </div>
-                } */}
+                {
+                    errors &&
+                        <code className="auth__alert-error">
+                            { JSON.stringify( errors ) }
+                        </code>
+                }
                 <div className="form-control">
                     <input
                         type="text"
                         placeholder="Email"
                         name="email"
                         className="auth__input"
-                        // value={ email }
-                        // onChange={ handleInputChange }
+                        value={ email }
+                        onChange={ handleInputChange }
                     />
                 </div>
                 <div className="form-control">
@@ -31,8 +59,8 @@ const Login = () => {
                         placeholder="Password"
                         name="password"
                         className="auth__input"
-                        // value={ password }
-                        // onChange={ handleInputChange }
+                        value={ password }
+                        onChange={ handleInputChange }
                     />
                 </div>
                 <div className="form-control">
