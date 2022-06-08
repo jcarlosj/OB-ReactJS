@@ -25,7 +25,7 @@ function App() {
 				setLoading( true );
 			}
 		}
-		fetchData();
+		// fetchData();
 
 		setLoading( false );
 

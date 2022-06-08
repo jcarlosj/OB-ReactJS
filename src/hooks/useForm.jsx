@@ -18,6 +18,7 @@ export const useForm = ( initialState = { errorMessages: [] } ) => {
 
     const setError = ( error ) => {
 
+        /** Si el objeto tiene propiedades */
         if( Object.keys( error ).length === 0 ) {
             setValues( preState => ({
                 ...preState,
@@ -29,7 +30,7 @@ export const useForm = ( initialState = { errorMessages: [] } ) => {
 
         setValues( preState => ({
             ...preState,
-            errorMessages: [ ...preState.errorMessages, error ],
+            errorMessages: [ ...preState?.errorMessages, error ],
         }));
     }
 

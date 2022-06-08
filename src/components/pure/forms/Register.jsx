@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom';
 import { useForm } from '../../../hooks/useForm';
 
 import { validateName, validateEmail, validatePassword, validateAndConfirmPassword } from '../../../helpers/validate';
+import { registerUser } from '../../../helpers/localStorage';
 
 const Register = () => {
 
     const
         [ loading, setLoading ] = useState( true ),
+        [ message, setMessage ] = useState( '' ),
         [ formValues, handleInputChange, setError, reset ] = useForm({
             name: '',
             email: '',
@@ -20,15 +22,15 @@ const Register = () => {
 
     useEffect(() => {
 
-        console.log( errorMessages );
+        // console.log( errorMessages );
 
         setLoading( false );
-    }, [ loading, errorMessages ]);
+    }, [ loading ]);
 
     const isFormValid = () => {
         
         setError({});           //  Inicializa campos de error cada que se valida el formulario
-        setLoading( true );
+        // setLoading( true );
 
         /** Validaciones: Agregara mensajes de error de ser necesario */
         const
@@ -40,15 +42,14 @@ const Register = () => {
         return nameValid && emailValid && passwordValid && confirmPasswordValid;
     }
 
-    const handleRegister = ( event ) => {
+    const handleRegister = async ( event ) => {
         event.preventDefault();
 
         if( isFormValid() ) {
-            console.log( JSON.stringify({ name, email, password }) );
+            // console.log( JSON.stringify({ name, email, password }) );
 
-            // TODO: Valida si el usuario esta registrado
-            // TODO: En caso de estar registrado agregar mensaje 'de error'
-            // TODO: En caso de no estar registrado guardar en localStorage datos del usuario
+            const confirmationMessage = await registerUser({ name, email, password });
+            setMessage( confirmationMessage );
 
             reset();
         }
@@ -128,6 +129,12 @@ const Register = () => {
                         Already registered?
                     </Link>
                 </div>
+                {
+                    message &&
+                        <code className="auth__alert-error">
+                            { message }
+                        </code>
+                }
             </form>
         </div>
     );
