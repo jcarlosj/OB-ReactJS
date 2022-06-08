@@ -9,7 +9,7 @@ const Login = () => {
 
     const
         [ loading, setLoading ] = useState( true ),
-        [ formValues, handleInputChange, setError ] = useForm({
+        [ formValues, handleInputChange, setError, reset ] = useForm({
             email: '',
             password: '',
             errorMessages: []
@@ -23,28 +23,46 @@ const Login = () => {
         setLoading( false );
     }, [ loading, errorMessages ]);
 
-    const validateForm = () => {
+    const isFormValid = () => {
+        let
+            emailValid = false,
+            passwordValid = false;
         setError({});
 
-        // TODO: Mejorar validacion de campos del formulario
+        // ? Valida correo
         if( ! email )
             setError({ 'email': 'Email is required!' });
         else if( ! emailIsValid( email ) )
             setError({ 'email': 'Email is not valid!' });
+        else
+            emailValid = true;
 
+        // ? Valida password
         if( ! password )
             setError({ 'password': 'Password is required!' });
         else if( ! minLength( password, 5 ) )
             setError({ 'password': 'Password must be at least 5 characters' });
+        else
+            passwordValid = true;
 
         setLoading( true );
+
+        return emailValid && passwordValid;
     }
 
     const handleLogin = ( event ) => {
         event.preventDefault();
 
-        validateForm();
-        console.log( JSON.stringify({ email, password }) );
+        if( isFormValid() ) {
+            console.log( JSON.stringify({ email, password }) );
+
+            // TODO: Valida si el usuario esta registrado
+            // TODO: En caso de estar registrado guardar en localStorage datos del usuario logueado
+            // TODO: Redireccionar en caso de loguearse
+
+            reset();
+        }
+        
     }
 
     return (
