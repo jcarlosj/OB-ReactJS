@@ -32,6 +32,40 @@ const registerUser = async ( newUser ) => {
     return 'Successful registration!';
 }
 
-module.exports = {
-    registerUser
+const loginUser = async ( userCredentials ) => {
+    const registeredUsers = await getRegisteredUsers();
+
+    // Valida si NO hay usuarios registrados... registra
+    if( ! registeredUsers ) {
+
+        return {
+            authenticated: false,
+            message: 'There are no registered users. Register now!'
+        };
+    }
+
+    // Verifica si el usuario esta registrado con correo y contraseña validos
+    const verifiedUser = registeredUsers.find( user => {
+        return user.email === userCredentials.email && user.password === userCredentials.password;
+    });
+
+    // Valida si el usuario existe
+    if( ! verifiedUser ) {
+        return {
+            authenticated: false,
+            message: 'Invalid user credentials!'
+        };
+    }
+
+    await localStorage.setItem( 'authenticated_user', JSON.stringify( verifiedUser ) );
+
+    return {
+        authenticated: true,
+        message: 'Authenticated user'
+    };
+}
+
+export {
+    registerUser,
+    loginUser
 }

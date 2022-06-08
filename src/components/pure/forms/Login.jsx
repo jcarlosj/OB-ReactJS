@@ -1,20 +1,24 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useForm } from '../../../hooks/useForm';
 
 import { validateEmail, validatePassword } from '../../../helpers/validate';
+import { loginUser } from '../../../helpers/localStorage';
 
 const Login = () => {
 
     const
         [ loading, setLoading ] = useState( true ),
+        [ message, setMessage ] = useState( '' ),
         [ formValues, handleInputChange, setError, reset ] = useForm({
             email: '',
             password: '',
             errorMessages: []
         }),
         { email, password, errorMessages } = formValues;
+
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -36,17 +40,27 @@ const Login = () => {
         return emailValid && passwordValid;
     }
 
-    const handleLogin = ( event ) => {
+    const handleLogin = async ( event ) => {
         event.preventDefault();
 
         if( isFormValid() ) {
             console.log( JSON.stringify({ email, password }) );
 
-            // TODO: Valida si el usuario esta registrado
-            // TODO: En caso de estar registrado guardar en localStorage datos del usuario logueado
-            // TODO: Redireccionar en caso de loguearse
+            const { authenticated, message } = await loginUser({ email, password });
+            setMessage( message );
 
             reset();
+
+            setTimeout( () => {
+                setMessage( '' );
+            }, 2000 );
+
+            if( authenticated ) {
+                setTimeout( () => {
+                    navigate( '/task-list' );       //  Redirecciona
+                }, 4000 );    
+            }
+            
         }
         
     }
@@ -101,7 +115,12 @@ const Login = () => {
                         Create new account
                     </Link>
                 </div>
-
+                {
+                    message &&
+                        <p className="auth__alert-error">
+                            { message }
+                        </p>
+                }
             </form>
 
         </div>
