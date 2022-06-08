@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 /** Hook Personalizado */
-export const useForm = ( initialState = { errors: [] } ) => {
+export const useForm = ( initialState = { errorMessages: [] } ) => {
     
     const [ values, setValues ] = useState( initialState );
 
@@ -21,21 +21,17 @@ export const useForm = ( initialState = { errors: [] } ) => {
         if( Object.keys( error ).length === 0 ) {
             setValues( preState => ({
                 ...preState,
-                errors: []
+                errorMessages: []
             }));
 
             return;
         }
-        
+
         setValues( preState => ({
             ...preState,
-            errors: [ ...preState.errors, error ]
+            errorMessages: [ ...preState.errorMessages, error ],
         }));
     }
 
-    const emailIsValid = ( email ) => {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( email );
-    }
-
-    return [ values, handleInputChange, setError, reset, emailIsValid ];
+    return [ values, handleInputChange, setError, reset ];
 }

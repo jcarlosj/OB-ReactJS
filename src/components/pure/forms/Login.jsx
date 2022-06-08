@@ -1,33 +1,50 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useForm } from '../../../hooks/useForm';
 
+import { minLength, emailIsValid } from '../../../helpers/validate';
 
 const Login = () => {
 
     const
-        [ formValues, handleInputChange, setError, reset, emailIsValid ] = useForm({
+        [ loading, setLoading ] = useState( true ),
+        [ formValues, handleInputChange, setError ] = useForm({
             email: '',
             password: '',
-            errors: []
+            errorMessages: []
         }),
-        { email, password, errors } = formValues;
+        { email, password, errorMessages } = formValues;
 
-    const isFormValid = () => {
-        if( ! emailIsValid( email ) ) {
+    useEffect(() => {
+
+        console.log( errorMessages );
+
+        setLoading( false );
+    }, [ loading, errorMessages ]);
+
+    const validateForm = () => {
+        setError({});
+
+        // TODO: Mejorar validacion de campos del formulario
+        if( ! email )
+            setError({ 'email': 'Email is required!' });
+        else if( ! emailIsValid( email ) )
             setError({ 'email': 'Email is not valid!' });
-        }
-        if( password.length <= 5 ) {
-            setError({ 'password': 'Password must be at least 5 characters' });
-        }
 
-        console.log( errors );
+        if( ! password )
+            setError({ 'password': 'Password is required!' });
+        else if( ! minLength( password, 5 ) )
+            setError({ 'password': 'Password must be at least 5 characters' });
+
+        setLoading( true );
     }
 
     const handleLogin = ( event ) => {
         event.preventDefault();
 
-        isFormValid();
+        validateForm();
+        console.log( JSON.stringify({ email, password }) );
     }
 
     return (
@@ -38,9 +55,9 @@ const Login = () => {
                 onSubmit={ handleLogin }
             >
                 {
-                    errors &&
+                    errorMessages &&
                         <code className="auth__alert-error">
-                            { JSON.stringify( errors ) }
+                            { JSON.stringify( errorMessages ) }
                         </code>
                 }
                 <div className="form-control">
