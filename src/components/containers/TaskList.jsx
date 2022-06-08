@@ -4,10 +4,13 @@ import { Link } from 'react-router-dom';
 const TaskList = () => {
     return (
         <div className="container">
-            <h1 className="page_title page_register">Taks List Page</h1>
-            <div className="title_note">
-                <small>(Página estática)</small>
-            </div>
+            <h1 className="page_title page_register">
+                Taks List Page
+                <div className="title_note">
+                    <small>(Static page)</small>
+                </div>
+            </h1>
+            <p className="text-center">(Protected: authenticated user required)</p>
             <table className="table-task-list">
                 <thead>
                     <tr>

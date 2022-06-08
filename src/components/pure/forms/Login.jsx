@@ -69,14 +69,17 @@ const Login = () => {
         <div className="container">
 
             <h1 className="page_title page_login">Login Page</h1>
+            <p className="text-center">(Restricted: unauthenticated is required)</p>
             <form
                 onSubmit={ handleLogin }
             >
                 {
                     errorMessages &&
-                        <code className="auth__alert-error">
-                            { JSON.stringify( errorMessages ) }
-                        </code>
+                        <pre>
+                            <code className="alert alert-error">
+                                { JSON.stringify( errorMessages ) }
+                            </code>
+                        </pre>
                 }
                 <div className="form-control">
                     <input
@@ -117,7 +120,7 @@ const Login = () => {
                 </div>
                 {
                     message &&
-                        <p className="auth__alert-error">
+                        <p className="alert alert-success">
                             { message }
                         </p>
                 }

@@ -52,6 +52,10 @@ const Register = () => {
             setMessage( confirmationMessage );
 
             reset();
+
+            setTimeout( () => {
+                setMessage( '' );
+            }, 2000 );
         }
         
     }
@@ -59,12 +63,13 @@ const Register = () => {
     return (
         <div className="container">
             <h1 className="page_title page_register">Register Page</h1>
+            <p className="text-center">(Restricted: unauthenticated is required)</p>
             <form
                 onSubmit={ handleRegister }
             >
                 {
                     errorMessages &&
-                        <code className="auth__alert-error">
+                        <code className="alert alert-error">
                             { JSON.stringify( errorMessages ) }
                         </code>
                 }
@@ -131,7 +136,7 @@ const Register = () => {
                 </div>
                 {
                     message &&
-                        <code className="auth__alert-error">
+                        <code className="alert alert-success">
                             { message }
                         </code>
                 }
