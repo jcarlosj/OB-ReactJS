@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { useForm } from '../../../hooks/useForm';
 
-import { minLength, emailIsValid } from '../../../helpers/validate';
+import { validateEmail, validatePassword } from '../../../helpers/validate';
 
 const Login = () => {
 
@@ -24,28 +24,14 @@ const Login = () => {
     }, [ loading, errorMessages ]);
 
     const isFormValid = () => {
-        let
-            emailValid = false,
-            passwordValid = false;
-        setError({});
 
-        // ? Valida correo
-        if( ! email )
-            setError({ 'email': 'Email is required!' });
-        else if( ! emailIsValid( email ) )
-            setError({ 'email': 'Email is not valid!' });
-        else
-            emailValid = true;
-
-        // ? Valida password
-        if( ! password )
-            setError({ 'password': 'Password is required!' });
-        else if( ! minLength( password, 5 ) )
-            setError({ 'password': 'Password must be at least 5 characters' });
-        else
-            passwordValid = true;
-
+        setError({});           //  Inicializa campos de error cada que se valida el formulario
         setLoading( true );
+
+        /** Validaciones: Agregara mensajes de error de ser necesario */
+        const
+            emailValid = validateEmail( email, setError ),
+            passwordValid = validatePassword( password, setError );
 
         return emailValid && passwordValid;
     }

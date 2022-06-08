@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { useForm } from '../../../hooks/useForm';
 
-import { minLength, emailIsValid } from '../../../helpers/validate';
+import { validateName, validateEmail, validatePassword, validateAndConfirmPassword } from '../../../helpers/validate';
 
 const Register = () => {
 
@@ -26,46 +26,16 @@ const Register = () => {
     }, [ loading, errorMessages ]);
 
     const isFormValid = () => {
-        let
-            nameValid = false,
-            emailValid = false,
-            passwordValid = false,
-            confirmPasswordValid = false;
-        setError({});
-
-         // ? Valida name
-        if( ! name )
-            setError({ 'name': 'Name is required!' });
-        else
-            nameValid = true;
-
-        // ? Valida email
-        if( ! email )
-            setError({ 'email': 'Email is required!' });
-        else if( ! emailIsValid( email ) )
-            setError({ 'email': 'Email is not valid!' });
-        else
-            emailValid = true;
-
-        // ? Valida password
-        if( ! password )
-            setError({ 'password': 'Password is required!' });
-        else if( ! minLength( password, 5 ) )
-            setError({ 'password': 'Password must be at least 5 characters' });
-        else
-            passwordValid = true;
-
-        // ? Valida confirm password
-        if( ! confirm_password )
-            setError({ 'confirm_password': 'Confirm password is required!' });
-        else if( ! minLength( confirm_password, 5 ) )
-            setError({ 'confirm_password': 'Password must be at least 5 characters' });
-        else if( password !== confirm_password )
-            setError({ 'confirm_password': 'Passwords do not match!' });
-        else
-            confirmPasswordValid = true;
-
+        
+        setError({});           //  Inicializa campos de error cada que se valida el formulario
         setLoading( true );
+
+        /** Validaciones: Agregara mensajes de error de ser necesario */
+        const
+            nameValid = validateName( name, setError ),
+            emailValid = validateEmail( email, setError ),
+            passwordValid = validatePassword( password, setError ),
+            confirmPasswordValid = validateAndConfirmPassword( confirm_password, password, setError );
 
         return nameValid && emailValid && passwordValid && confirmPasswordValid;
     }
@@ -77,8 +47,8 @@ const Register = () => {
             console.log( JSON.stringify({ name, email, password }) );
 
             // TODO: Valida si el usuario esta registrado
-            // TODO: En caso de estar registrado guardar en localStorage datos del usuario logueado
-            // TODO: Redireccionar en caso de loguearse
+            // TODO: En caso de estar registrado agregar mensaje 'de error'
+            // TODO: En caso de no estar registrado guardar en localStorage datos del usuario
 
             reset();
         }
