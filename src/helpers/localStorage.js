@@ -65,7 +65,20 @@ const loginUser = async ( userCredentials ) => {
     };
 }
 
+const getAuthenticatedUser = async () => {
+    const
+        result = await localStorage.getItem( 'authenticated_user' ),
+        authenticatedUser =  await JSON.parse( result );
+    
+    if( authenticatedUser ) {
+        delete authenticatedUser[ 'password' ];
+    }
+
+    return authenticatedUser;
+}
+
 export {
     registerUser,
-    loginUser
+    loginUser,
+    getAuthenticatedUser
 }

@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 
 import MainRoute from './routes/Main.route';
 
+import { getAuthenticatedUser } from './helpers/localStorage';
+
 import './App.css';
 
 function App() {
@@ -13,7 +15,7 @@ function App() {
 	useEffect( () => {
 		console.log( 'App' );
 		async function fetchData() {
-			const user = await localStorage.getItem( 'authenticated_user' );
+			const user = await getAuthenticatedUser();
 
 			console.group( 'state component' );
 			console.log( user );
@@ -25,11 +27,11 @@ function App() {
 				setLoading( true );
 			}
 		}
-		// fetchData();
+		fetchData();
 
 		setLoading( false );
 
-	}, [ loading, userLogged ]);
+	}, []);
 
 	return (
 		<div className="App">
