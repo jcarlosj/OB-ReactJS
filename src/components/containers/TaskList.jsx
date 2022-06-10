@@ -1,11 +1,7 @@
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
-const TaskList = ({ userLogged }) => {
-    if ( ! userLogged ) {
-        return <Navigate to="/" replace />;
-    }
-
+const TaskList = () => {
     return (
         <div className="container">
             <h1 className="page_title page_register">

@@ -1,11 +1,4 @@
-import { Navigate } from 'react-router-dom';
-
-
-const Profile = ({ userLogged }) => {
-    if ( ! userLogged ) {
-        return <Navigate to="/" replace />;
-    }
-
+const Profile = () => {
     return (
         <div className="container">
             <h1 className="page_title page_profile">

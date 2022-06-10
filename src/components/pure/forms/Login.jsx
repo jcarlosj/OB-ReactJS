@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { useForm } from '../../../hooks/useForm';
 
 import { validateEmail, validatePassword } from '../../../helpers/validate';
 import { loginUser } from '../../../helpers/localStorage';
 
-const Login = ({ userLogged, setUserLogged }) => {
+const Login = ({ setUserLogged }) => {
 
     const
         [ loading, setLoading ] = useState( true ),
@@ -17,8 +17,6 @@ const Login = ({ userLogged, setUserLogged }) => {
             errorMessages: []
         }),
         { email, password, errorMessages } = formValues;
-
-    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -48,8 +46,12 @@ const Login = ({ userLogged, setUserLogged }) => {
 
             const { message, authenticated_user } = await loginUser({ email, password });
             setMessage( message );
+            console.log( message );
+            console.log( authenticated_user );
+            if( authenticated_user ) {
+                setUserLogged( authenticated_user );
+            }
             
-            setUserLogged( authenticated_user );
             reset();
 
             setTimeout( () => {
@@ -58,10 +60,6 @@ const Login = ({ userLogged, setUserLogged }) => {
             
         }
         
-    }
-
-    if ( userLogged ) {
-        return <Navigate to="/task-list" replace />;
     }
 
     return (

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { useForm } from '../../../hooks/useForm';
 
 import { validateName, validateEmail, validatePassword, validateAndConfirmPassword } from '../../../helpers/validate';
 import { registerUser } from '../../../helpers/localStorage';
 
-const Register = ({ userLogged }) => {
+const Register = () => {
 
     const
         [ loading, setLoading ] = useState( true ),
@@ -58,10 +58,6 @@ const Register = ({ userLogged }) => {
             }, 2000 );
         }
         
-    }
-
-    if ( userLogged ) {
-        return <Navigate to="/" replace />;
     }
 
     return (

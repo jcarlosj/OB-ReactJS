@@ -14,7 +14,6 @@ const Menu = ({ userLogged, setUserLogged }) => {
 		logoutUser();
 		setUserLogged();
 		console.log( 'Logout!' )
-		navigateTo( '/' );
 	}
 
 	return (
@@ -49,10 +48,8 @@ const Menu = ({ userLogged, setUserLogged }) => {
 							<Link to="/register">Register</Link>
 						</li>
 						<li className="item">
-							<Link to="#"
-								onClick={ () => {
-									logout();
-								}}
+							<Link to="/"
+								onClick={ () => logout() }
 							>Logout</Link>
 						</li>
 					</ul>
