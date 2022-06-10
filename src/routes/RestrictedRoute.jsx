@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
-const RestrictedRoute = ({ userLogged, redirectPath='/task-list', children }) => {
-    if ( userLogged ) {
+const RestrictedRoute = ({ isAllowed, redirectPath='/task-list', children }) => {
+    if ( isAllowed ) {
         return <Navigate to={ redirectPath } replace />;
     }
 

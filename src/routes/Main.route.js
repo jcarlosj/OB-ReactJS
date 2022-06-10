@@ -14,18 +14,22 @@ import ProtectedRoute from '../routes/ProtectedRoute';
 import RestrictedRoute from '../routes/RestrictedRoute';
 
 const MainRoute = ({ userLogged, setUserLogged }) => {
+    console.log( 'userLogged', userLogged );        // * Sin loguear (undefined) / Logueado {} objecto con la data
+    console.log( '!userLogged', !userLogged );      // * Sin loguear true / Logueado false
+    console.log( '!!userLogged', !!userLogged );    // * Sin loguear false / Logueado true
+
     return (
         <div>
             <Menu userLogged={ userLogged } setUserLogged={ setUserLogged } />
             <Routes>
                 {/* Define componentes de diseño <Outlet> permitiendo a rutas con el mismo nivel de autorizacion a ser anidadas bajo el mismo componente de ruta restringida */}
                 <Route path="/" element={ <Home /> } />
-                <Route element={ <RestrictedRoute userLogged={ userLogged } /> }>
+                <Route element={ <RestrictedRoute isAllowed={ !!userLogged } /> }>
                     <Route path="/register" element={ <Register /> } />
                     <Route path="/login" element={ <Login setUserLogged={ setUserLogged }/> } />
                 </Route>
                 {/* Define componentes de diseño <Outlet> permitiendo a rutas con el mismo nivel de autorizacion a ser anidadas bajo el mismo componente de ruta protegida */}
-                <Route element={ <ProtectedRoute userLogged={ userLogged } /> } >
+                <Route element={ <ProtectedRoute isAllowed={ !!userLogged } /> } >
                     <Route path="/admin" element={ <Admin /> } />
                     <Route path="/dashboard" element={ <Dashboard /> } />
                     <Route path="/task-list" element={ <TaskList /> } />
@@ -34,7 +38,7 @@ const MainRoute = ({ userLogged, setUserLogged }) => {
                 <Route
                     path="/profile"
                     element={
-                        <ProtectedRoute userLogged={ userLogged }>
+                        <ProtectedRoute isAllowed={ !!userLogged }>
                             <Profile />
                         </ProtectedRoute>
                     }

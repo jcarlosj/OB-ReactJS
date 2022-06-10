@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
-const ProtectedRoute = ({ userLogged, redirectPath='/', children }) => {
-    if ( ! userLogged ) {
+const ProtectedRoute = ({ isAllowed, redirectPath='/', children }) => {
+    if ( ! isAllowed ) {
         return <Navigate to={ redirectPath } replace />;
     }
 
