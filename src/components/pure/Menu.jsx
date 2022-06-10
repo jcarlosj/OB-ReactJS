@@ -1,11 +1,20 @@
 import { useNavigate, Link } from 'react-router-dom';
 
-const Menu = ({ list }) => {
+import { logoutUser } from '../../helpers/localStorage';
+
+const Menu = ({ userLogged, setUserLogged }) => {
 
 	const navigate = useNavigate();
 
 	const navigateTo = path => {
 		navigate( path );
+	}
+
+	const logout = () => {
+		logoutUser();
+		setUserLogged();
+		console.log( 'Logout!' )
+		navigateTo( '/' );
 	}
 
 	return (
@@ -19,21 +28,35 @@ const Menu = ({ list }) => {
 						Brand logo
 					</Link>
 				</div>
-				<ul className="main-menu">
-					{	list.map( ({ text, path }, index ) => (
-							<li
-								className="item"
-								key={ index }
-								onClick={ () => navigateTo( path ) }
-
-							>
-								<Link to={ path }>
-									<span>{ text }</span>
-								</Link>
-							</li>
-						))
-					}
-				</ul>
+				<nav>
+					<ul className="main-menu">
+						<li className="item">
+							<Link to="/admin">Admin</Link>
+						</li>
+						<li className="item">
+							<Link to="/dashboard">Dashboard</Link>
+						</li>
+						<li className="item">
+							<Link to="/profile">Profile</Link>
+						</li>
+						<li className="item">
+							<Link to="/task-list">Tasks</Link>
+						</li>
+						<li className="item">
+							<Link to="/login">Login</Link>
+						</li>
+						<li className="item">
+							<Link to="/register">Register</Link>
+						</li>
+						<li className="item">
+							<Link to="#"
+								onClick={ () => {
+									logout();
+								}}
+							>Logout</Link>
+						</li>
+					</ul>
+				</nav>
 			</header>
 		</div>
 	);

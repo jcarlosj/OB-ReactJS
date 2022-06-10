@@ -57,11 +57,14 @@ const loginUser = async ( userCredentials ) => {
         };
     }
 
+    delete verifiedUser[ 'password' ];
+
     await localStorage.setItem( 'authenticated_user', JSON.stringify( verifiedUser ) );
 
     return {
         authenticated: true,
-        message: 'Authenticated user'
+        message: 'Authenticated user',
+        authenticated_user: verifiedUser
     };
 }
 
@@ -77,8 +80,13 @@ const getAuthenticatedUser = async () => {
     return authenticatedUser;
 }
 
+const logoutUser = async () => {
+    const result = await localStorage.removeItem( 'authenticated_user' );
+}
+
 export {
     registerUser,
     loginUser,
-    getAuthenticatedUser
+    getAuthenticatedUser,
+    logoutUser
 }

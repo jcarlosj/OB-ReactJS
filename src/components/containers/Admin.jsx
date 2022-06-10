@@ -1,4 +1,11 @@
-const Admin = () => {
+import { Navigate } from 'react-router-dom';
+
+
+const Admin = ({ userLogged }) => {
+    if ( ! userLogged ) {
+        return <Navigate to="/" replace />;
+    }
+
     return (
         <div className="container">
             <h1 className="page_title page_admin">

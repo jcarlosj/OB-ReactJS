@@ -10,27 +10,18 @@ import Profile from '../components/containers/Profile';
 import TaskList from '../components/containers/TaskList';
 import NotFoundPage from '../components/pure/NotFoundPage';
 
-const MainRoute = () => {
-    const linkList = [
-        { text: 'Login', path: '/login' },
-        { text: 'Register', path: '/register' },
-        { text: 'Admin', path: '/admin' },
-        { text: 'Dashboard', path: '/dashboard' },
-        { text: 'Profile', path: '/profile' },
-        { text: 'Task list', path: '/task-list' }
-    ];
-
+const MainRoute = ({ userLogged, setUserLogged }) => {
     return (
         <div>
-            <Menu list={ linkList } />
+            <Menu userLogged={ userLogged } setUserLogged={ setUserLogged } />
             <Routes>
                 <Route path="/" element={ <Home /> } />
-                <Route path="/login" element={ <Login /> } />
-                <Route path="/register" element={ <Register /> } />
-                <Route path="/admin" element={ <Admin /> } />
-                <Route path="/dashboard" element={ <Dashboard /> } />
-                <Route path="/profile" element={ <Profile /> } />
-                <Route path="/task-list" element={ <TaskList /> } />
+                <Route path="/login" element={ <Login userLogged={ userLogged } setUserLogged={ setUserLogged } /> } />
+                <Route path="/register" element={ <Register userLogged={ userLogged } /> } />
+                <Route path="/admin" element={ <Admin userLogged={ userLogged } /> } />
+                <Route path="/dashboard" element={ <Dashboard userLogged={ userLogged } /> } />
+                <Route path="/profile" element={ <Profile userLogged={ userLogged } /> } />
+                <Route path="/task-list" element={ <TaskList userLogged={ userLogged } /> } />
                 <Route path="*" element={ <NotFoundPage /> } />
             </Routes>
         </div>

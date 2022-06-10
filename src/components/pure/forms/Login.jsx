@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 
 import { useForm } from '../../../hooks/useForm';
 
 import { validateEmail, validatePassword } from '../../../helpers/validate';
 import { loginUser } from '../../../helpers/localStorage';
 
-const Login = () => {
+const Login = ({ userLogged, setUserLogged }) => {
 
     const
         [ loading, setLoading ] = useState( true ),
@@ -46,23 +46,22 @@ const Login = () => {
         if( isFormValid() ) {
             console.log( JSON.stringify({ email, password }) );
 
-            const { authenticated, message } = await loginUser({ email, password });
+            const { message, authenticated_user } = await loginUser({ email, password });
             setMessage( message );
-
+            
+            setUserLogged( authenticated_user );
             reset();
 
             setTimeout( () => {
                 setMessage( '' );
             }, 2000 );
-
-            if( authenticated ) {
-                setTimeout( () => {
-                    navigate( '/task-list' );       //  Redirecciona
-                }, 4000 );    
-            }
             
         }
         
+    }
+
+    if ( userLogged ) {
+        return <Navigate to="/task-list" replace />;
     }
 
     return (

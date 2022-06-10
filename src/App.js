@@ -35,7 +35,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<MainRoute />
+			<MainRoute userLogged={ userLogged } setUserLogged={ setUserLogged } />
 		</div>
 	);
 }
