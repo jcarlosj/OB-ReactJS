@@ -19,54 +19,16 @@ const MainRoute = ({ userLogged, setUserLogged }) => {
             <Menu userLogged={ userLogged } setUserLogged={ setUserLogged } />
             <Routes>
                 <Route path="/" element={ <Home /> } />
-                <Route
-                    path="/login"
-                    element={
-                        <RestrictedRoute userLogged={ userLogged }>
-                            <Login setUserLogged={ setUserLogged } />
-                        </RestrictedRoute>
-                    }
-                />
-                <Route
-                    path="/register"
-                    element={
-                        <RestrictedRoute userLogged={ userLogged }>
-                            <Register />
-                        </RestrictedRoute>
-                    }
-                />
-                <Route
-                    path="/admin"
-                    element={
-                        <ProtectedRoute userLogged={ userLogged }>
-                            <Admin />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/dashboard"
-                    element={
-                        <ProtectedRoute userLogged={ userLogged }>
-                            <Dashboard />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/profile"
-                    element={
-                        <ProtectedRoute userLogged={ userLogged }>
-                            <Profile />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/task-list"
-                    element={
-                        <ProtectedRoute userLogged={ userLogged }>
-                            <TaskList />
-                        </ProtectedRoute>
-                    }
-                />
+                <Route element={ <RestrictedRoute userLogged={ userLogged } /> }>
+                    <Route path="/register" element={ <Register /> } />
+                    <Route path="/login" element={ <Login setUserLogged={ setUserLogged }/> } />
+                </Route>
+                <Route element={ <ProtectedRoute userLogged={ userLogged } /> } >
+                    <Route path="/admin" element={ <Admin /> } />
+                    <Route path="/dashboard" element={ <Dashboard /> } />
+                    <Route path="/profile" element={ <Profile /> } />
+                    <Route path="/task-list" element={ <TaskList /> } />
+                </Route>
                 <Route path="*" element={ <NotFoundPage /> } />
             </Routes>
         </div>
