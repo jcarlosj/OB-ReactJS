@@ -1,11 +1,11 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
-const RestrictedRoute = ({ userLogged, redirectPath='/task-list' }) => {
+const RestrictedRoute = ({ userLogged, redirectPath='/task-list', children }) => {
     if ( userLogged ) {
         return <Navigate to={ redirectPath } replace />;
     }
 
-    return <Outlet />;
+    return children ? children : <Outlet />;        //  ! Ahora este componente de abstraccion funciona como componente de envoltura (children) o diseño (<Outlet />)
 };
 
 export default RestrictedRoute;

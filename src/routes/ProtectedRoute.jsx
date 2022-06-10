@@ -1,11 +1,11 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
-const ProtectedRoute = ({ userLogged, redirectPath='/' }) => {
+const ProtectedRoute = ({ userLogged, redirectPath='/', children }) => {
     if ( ! userLogged ) {
         return <Navigate to={ redirectPath } replace />;
     }
 
-    return <Outlet />;
+    return children ? children : <Outlet />;        //  ! Ahora este componente de abstraccion funciona como componente de envoltura (children) o diseño (<Outlet />)
 };
 
 export default ProtectedRoute;

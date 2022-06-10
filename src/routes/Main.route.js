@@ -18,17 +18,27 @@ const MainRoute = ({ userLogged, setUserLogged }) => {
         <div>
             <Menu userLogged={ userLogged } setUserLogged={ setUserLogged } />
             <Routes>
+                {/* Define componentes de diseño <Outlet> permitiendo a rutas con el mismo nivel de autorizacion a ser anidadas bajo el mismo componente de ruta restringida */}
                 <Route path="/" element={ <Home /> } />
                 <Route element={ <RestrictedRoute userLogged={ userLogged } /> }>
                     <Route path="/register" element={ <Register /> } />
                     <Route path="/login" element={ <Login setUserLogged={ setUserLogged }/> } />
                 </Route>
+                {/* Define componentes de diseño <Outlet> permitiendo a rutas con el mismo nivel de autorizacion a ser anidadas bajo el mismo componente de ruta protegida */}
                 <Route element={ <ProtectedRoute userLogged={ userLogged } /> } >
                     <Route path="/admin" element={ <Admin /> } />
                     <Route path="/dashboard" element={ <Dashboard /> } />
-                    <Route path="/profile" element={ <Profile /> } />
                     <Route path="/task-list" element={ <TaskList /> } />
                 </Route>
+                {/* Define componente de envoltura, que requiere un envoltorio separado para cada componente de ruta protegida y/o restringida */}
+                <Route
+                    path="/profile"
+                    element={
+                        <ProtectedRoute userLogged={ userLogged }>
+                            <Profile />
+                        </ProtectedRoute>
+                    }
+                />
                 <Route path="*" element={ <NotFoundPage /> } />
             </Routes>
         </div>
