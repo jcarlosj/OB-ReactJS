@@ -29,16 +29,22 @@ const MainRoute = ({ userLogged, setUserLogged }) => {
                     <Route path="/login" element={ <Login setUserLogged={ setUserLogged }/> } />
                 </Route>
                 {/* Define componentes de diseño <Outlet> permitiendo a rutas con el mismo nivel de autorizacion a ser anidadas bajo el mismo componente de ruta protegida */}
-                <Route element={ <ProtectedRoute isAllowed={ !!userLogged } /> } >
+                <Route element={ <ProtectedRoute isAllowed={ !!userLogged && userLogged.roles.includes( 'superadmin' ) } /> } >
                     <Route path="/admin" element={ <Admin /> } />
+                </Route>
+                {/* Define componentes de diseño <Outlet> permitiendo a rutas con el mismo nivel de autorizacion a ser anidadas bajo el mismo componente de ruta protegida */}
+                <Route element={ <ProtectedRoute isAllowed={ !!userLogged && userLogged.roles.includes( 'admin' ) } /> } >
                     <Route path="/dashboard" element={ <Dashboard /> } />
+                </Route>
+                {/* Define componentes de diseño <Outlet> permitiendo a rutas con el mismo nivel de autorizacion a ser anidadas bajo el mismo componente de ruta protegida */}
+                <Route element={ <ProtectedRoute isAllowed={ !!userLogged && userLogged.roles.includes( 'editor' ) } /> } >
                     <Route path="/task-list" element={ <TaskList /> } />
                 </Route>
                 {/* Define componente de envoltura, que requiere un envoltorio separado para cada componente de ruta protegida y/o restringida */}
                 <Route
                     path="/profile"
                     element={
-                        <ProtectedRoute isAllowed={ !!userLogged }>
+                        <ProtectedRoute isAllowed={ !!userLogged && userLogged.roles.includes( 'user' ) }>
                             <Profile />
                         </ProtectedRoute>
                     }

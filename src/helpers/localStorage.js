@@ -88,9 +88,9 @@ const logoutUser = async () => {
 
 const registerUsersByDefault = async () => {
     const defaultUsers = [
-        { name: 'Sofía', email: 'admin@correo.co', password: 'admin', roles: [ 'admin' ] },
-        { name: 'Juan', email: 'superadmin@correo.co', password: 'superadmin', roles: [ 'superadmin' ] },
-        { name: 'Milo', email: 'editor@correo.co', password: 'editor', roles: [ 'editor' ] }
+        { name: 'Sofía', email: 'admin@correo.co', password: 'admin', roles: [ 'admin', 'editor', 'user' ] },
+        { name: 'Juan', email: 'superadmin@correo.co', password: 'superadmin', roles: [ 'superadmin', 'editor', 'user' ] },
+        { name: 'Milo', email: 'editor@correo.co', password: 'editor', roles: [ 'editor', 'user' ] }
     ];
 
     const registeredUsers = await getRegisteredUsers();

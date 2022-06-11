@@ -7,7 +7,7 @@ const Admin = () => {
                     <small>(Static page)</small>
                 </div>
             </h1>
-            <p className="text-center">(Protected: authenticated user with role 'admin' required)</p>
+            <p className="text-center">(Protected: authenticated user with role 'superadmin' required)</p>
         </div>
     );
 };

@@ -7,7 +7,7 @@ const Profile = () => {
                     <small>(Static page)</small>
                 </div>
             </h1>
-            <p className="text-center">(Protected: authenticated user required)</p>
+            <p className="text-center">(Protected: authenticated 'user' required)</p>
         </div>
     );
 };
