@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 
 import MainRoute from './routes/Main.route';
 
-import { getAuthenticatedUser } from './helpers/localStorage';
+import { getAuthenticatedUser, registerUsersByDefault } from './helpers/localStorage';
 
 import './App.css';
 
 function App() {
 
 	const
+		[ defaultLogs, setDefaultLogs ] = useState( false ),
 		[ userLogged, setUserLogged ] = useState(),
 		[ loading, setLoading ] = useState( true );
 
@@ -16,6 +17,12 @@ function App() {
 		console.log( 'App' );
 		async function fetchData() {
 			const user = await getAuthenticatedUser();
+
+			if( ! defaultLogs ) {
+				registerUsersByDefault();
+				setDefaultLogs( true );
+			}
+			
 
 			console.group( 'state component' );
 			console.log( user );

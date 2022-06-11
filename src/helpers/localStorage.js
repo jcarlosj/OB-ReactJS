@@ -7,6 +7,8 @@ const getRegisteredUsers = async () => {
 }
 
 const registerUser = async ( newUser ) => {
+    newUser.roles = [ 'user' ];         //  Agrega rol por defecto a todo usuario que desea registrarse
+    
     const registeredUsers = await getRegisteredUsers();
 
     // Valida si NO hay usuarios registrados... registra
@@ -84,9 +86,36 @@ const logoutUser = async () => {
     const result = await localStorage.removeItem( 'authenticated_user' );
 }
 
+const registerUsersByDefault = async () => {
+    const defaultUsers = [
+        { name: 'Sofía', email: 'admin@correo.co', password: 'admin', roles: [ 'admin' ] },
+        { name: 'Juan', email: 'superadmin@correo.co', password: 'superadmin', roles: [ 'superadmin' ] },
+        { name: 'Milo', email: 'editor@correo.co', password: 'editor', roles: [ 'editor' ] }
+    ];
+
+    const registeredUsers = await getRegisteredUsers();
+
+    if( ! registeredUsers ) {
+        await localStorage.setItem( 'users', JSON.stringify( [ ...defaultUsers ] ) );
+        return true;
+    }
+
+    const unRegisteredUsers = defaultUsers?.filter( user => ! registeredUsers?.map( user => user.email ).includes( user.email ) );
+
+    if( ! unRegisteredUsers ) {
+        return false;
+    }
+
+    await localStorage.setItem( 'users', JSON.stringify( [ ...unRegisteredUsers, ...registeredUsers ] ) );    
+    console.log( 'unregisteredUsers:', unRegisteredUsers );
+
+    return true;
+}
+
 export {
     registerUser,
     loginUser,
     getAuthenticatedUser,
-    logoutUser
+    logoutUser,
+    registerUsersByDefault
 }
