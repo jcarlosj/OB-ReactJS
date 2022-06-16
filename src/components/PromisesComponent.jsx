@@ -12,7 +12,7 @@ const PromisesComponent = () => {
             .finally( () => alert( `Successfully completed` ) );
     }
 
-    // Funcion asincrona que retorna una promesa
+    // Funcion asincrona que retorna una promesa resuelta exitosamente
     async function generatePromiseNumber(){
         return Promise.resolve( 2 );
     }
@@ -56,6 +56,28 @@ const PromisesComponent = () => {
 
     }
 
+    // Funcion asincrona que retorna una promesa NO resuelta
+    const returnError = async() => {
+        await Promise.reject( new Error( 'Oooops!' ) );
+    }
+
+    const consumeError = () => {
+        returnError()
+            .then( ( response ) => alert( `Everything is OK: ${ response }` ) )
+            .catch ( ( error ) => alert( `Something went wrong: ${ error } ` ) )
+            .finally( () => alert( 'Finally executed' ) );
+    }
+
+    // Funcion asincrona que hace una peticion a una URL errada o inexistente
+    const urlNotFound = async () => {
+        try {
+            let response = await fetch( 'https://invalidURL.com' );
+            alert( `Response: ${ JSON.stringify( response ) }` );
+        }
+        catch ( error ) {
+            alert( `Something went wrong with your URL: ${ error } (check your console)` );
+        }
+    }
 
 
     return (
@@ -69,7 +91,7 @@ const PromisesComponent = () => {
                     >Obtener valor</button>
                 </div>
                 <div className="example">
-                    <p>Resolver funcion Asincrona que retorna una promesa</p>
+                    <p>Resolver funcion Asincrona que retorna una promesa resuelta exitosamente</p>
                     <button
                         onClick={ obtainPromiseNumber }
                     >Obtener valor de una promesa</button>
@@ -85,6 +107,18 @@ const PromisesComponent = () => {
                     <button
                         onClick={ obtainMessage }
                     >Recibe mensaje en 2 segundos</button>
+                </div>
+                <div className="example">
+                    <p>Resolver funcion Asincrona que retorna una promesa NO resuelta</p>
+                    <button
+                        onClick={ consumeError }
+                    >Error</button>
+                </div>
+                <div className="example">
+                    <p>Resolver funcion asincrona que hace una peticion a una URL errada o inexistente</p>
+                    <button
+                        onClick={ urlNotFound }
+                    >URL errada o inexistente</button>
                 </div>
             </div>
         </div>
