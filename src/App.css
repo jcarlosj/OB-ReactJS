@@ -40,3 +40,17 @@ button {
   }
 }
 
+h1 span {
+  display: block;
+  font-size: 16px;
+}
+
+.buttons {
+  align-items: center;
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+.buttons p {
+  font-size: 16px;
+}
