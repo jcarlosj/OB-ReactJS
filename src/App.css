@@ -46,13 +46,11 @@ h1 span {
 }
 
 .buttons {
-  align-items: baseline;
+  align-items: center;
   display: flex;
+  flex-direction: column;
   gap: 2rem;
   justify-content: center;
-}
-.example {
-  flex-basis: 33.3%;
 }
 .buttons p {
   font-size: 16px;

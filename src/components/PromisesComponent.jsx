@@ -43,6 +43,18 @@ const PromisesComponent = () => {
             });
     }
 
+    // Funcion que crea la instancia de una promesa que se resuelve usando Async/Await
+    async function obtainMessage(){
+
+        let promise = new Promise( ( resolve, reject ) => {
+            setTimeout(() => resolve( 'Hello World' ), 2000 );
+        });
+
+        let message = await promise;
+
+        await alert( `Message received: ${ message }` );
+
+    }
 
 
 
@@ -66,7 +78,13 @@ const PromisesComponent = () => {
                     <p>Resolver funcion Asincrona que retorna en una promesa un valor obtenido del sessionStorage</p>
                     <button
                         onClick={ showStorage }
-                    >Obtener valor del sessionStorage de una promesa</button>
+                    >Obtener valor del sessionStorage</button>
+                </div>
+                <div className="example">
+                    <p>Funcion que crea la instancia de una promesa que se resuelve usando Async/Await</p>
+                    <button
+                        onClick={ obtainMessage }
+                    >Recibe mensaje en 2 segundos</button>
                 </div>
             </div>
         </div>
