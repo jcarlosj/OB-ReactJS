@@ -79,10 +79,25 @@ const PromisesComponent = () => {
         }
     }
 
+    // Funcion que resuelve varias promesas al tiempo
+    const multiplePromise = async () => {
+        let results = await Promise.all(
+            [
+                fetch( 'https://reqres.in/api/users' ),
+                fetch( 'https://reqres.in/api/users?page=2' )
+            ]
+        )
+        .catch( ( error ) => alert( `Something went wrong with your URLs: ${ error } (check your console)` ) );
+
+        console.log( results );
+    }
+
+
 
     return (
         <div>
             <h1>Promises <span>(Ejemplos)</span></h1>
+            <p>Se recomienda ver siempre la consola</p>
             <div className="buttons">
                 <div className="example">
                     <p>Resolver funcion Asincrona que retorna un valor</p>
@@ -119,6 +134,12 @@ const PromisesComponent = () => {
                     <button
                         onClick={ urlNotFound }
                     >URL errada o inexistente</button>
+                </div>
+                <div className="example">
+                    <p>Resolver varias promesas al tiempo en una funcion</p>
+                    <button
+                        onClick={ multiplePromise }
+                    >Multiple promises</button>
                 </div>
             </div>
         </div>

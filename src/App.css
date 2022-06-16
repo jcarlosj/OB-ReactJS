@@ -53,5 +53,7 @@ h1 span {
   justify-content: center;
 }
 .buttons p {
-  font-size: 16px;
+  font-size: 15px;
+    margin: 0.3rem 0;
+    color: gray
 }
