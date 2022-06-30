@@ -5,3 +5,11 @@ export const getAllUsers = async () => {
 
     return await response.json();
 }
+
+export const getAllPagedUsers = async ( page ) => {
+    let response = await fetch( `https://reqres.in/api/users?page=${ page }` );
+
+    console.log( response );
+
+    return await response.json();
+}
