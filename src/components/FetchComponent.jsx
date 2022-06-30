@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { getAllUsers, getAllPagedUsers, getUserById } from '../services/fetchService.js';
+import { getAllUsers, getAllPagedUsers, getUserById, login } from '../services/fetchService.js';
 
 
 const FetchComponent = () => {
@@ -76,10 +76,19 @@ const FetchComponent = () => {
             });
     }
 
+    const authUser = () => {
+        login( "eve.holt@reqres.in", "cityslicka" );
+    }
+
     return (
         <div>
             <h1>FetchComponent <span>(Ejemplos)</span></h1>
             <p>Se recomienda ver siempre la consola</p>
+            <h3>Login</h3>
+            <button
+                onClick={ () => authUser () }
+            >Login</button>
+
 
             <h3>Users</h3>
             {   users.map( ( user, index ) => (

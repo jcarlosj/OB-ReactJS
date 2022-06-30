@@ -21,3 +21,26 @@ export const getUserById = async ( id ) => {
 
     return await response.json();
 }
+
+// ! Simular un login
+export const login = async ( email, password ) => {
+    let body = {
+        email,
+        password
+    }
+
+    console.log( body );
+
+    const response = await fetch( 'https://reqres.in/api/login', {
+        method: 'POST',
+        mode: 'no-cors',
+        credentials: 'omit',
+        cache: 'no-cache',
+        headers: { 'Content-type': 'application/json' },
+        body
+    });
+
+    console.log( response );
+
+    return await response.json();
+}
