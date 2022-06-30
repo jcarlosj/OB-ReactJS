@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 
-import FetchComponent from './components/FetchComponent';
+import AxiosComponent from './components/AxiosComponent';
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <div className="example-components">
-          <FetchComponent></FetchComponent>
+          <AxiosComponent></AxiosComponent>
         </div>
       </header>
     </div>
