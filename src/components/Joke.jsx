@@ -1,4 +1,7 @@
-import Box from '@mui/material/Box';
+import { useState, useEffect } from 'react';
+import useFetch from '../hooks/useFetch';
+
+
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -7,16 +10,31 @@ import Typography from '@mui/material/Typography';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 
-const bull = (
-    <Box
-        component="span"
-        sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-        •
-    </Box>
-  );
 
 const Joke = () => {
+
+    const
+        { joke, error, loading } = useFetch( '/random' ),
+        [ state, setState ] = useState({
+            count: 0,
+            points: {
+                likes: 0,
+                unlikes: 0
+            }
+        });
+        
+    console.log( joke, loading );
+
+    useEffect( () => {
+        console.log( loading );
+
+        setState( prevState => ({
+            ...prevState,
+            joke: '',
+            count: prevState.count + 1
+        }));
+    }, [ loading ] );
+
     return (
         <div>
             <h1>Joke</h1>  
@@ -26,7 +44,7 @@ const Joke = () => {
                         Chuck say:
                     </Typography>
                     <Typography variant="h5" component="div">
-                        Joke
+                        { joke }
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
                         Joke # 1
