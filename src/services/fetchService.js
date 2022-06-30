@@ -13,3 +13,11 @@ export const getAllPagedUsers = async ( page ) => {
 
     return await response.json();
 }
+
+export const getUserById = async ( id ) => {
+    let response = await fetch( `https://reqres.in/api/users/${ id }` );
+
+    console.log( response );
+
+    return await response.json();
+}
