@@ -14,7 +14,7 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 const Joke = () => {
 
     const
-        { joke, error, loading } = useFetch( '/random' ),
+        { joke, error, loading, getData } = useFetch( '/random' ),
         [ state, setState ] = useState({
             count: 0,
             points: {
@@ -57,7 +57,10 @@ const Joke = () => {
                     <Button size="small">
                         <ThumbDownIcon />
                     </Button>
-                    <Button size="small">New Joke!</Button>
+                    <Button
+                        size="small"
+                        onClick={ () => getData() }
+                    >New Joke!</Button>
                 </CardActions>
             </Card>    
         </div>

@@ -9,30 +9,30 @@ const useFetch = ( uri ) => {
     const [ loading, setLoading ] = useState( false );
 
     useEffect( () => {
-        (
-            async function(){
-                try{
-                    setLoading( true )
-                    const response = await instance.get( uri, {
-                        validateStatus: function( status ) {
-                            return status < 500;        // ? Resolve only if the status code is less than 500 
-                        }
-                    });
+        getData();
+    }, [] );
 
-                    // console.log( response );
-                    setJoke( response.data.value );
+    const getData = async () => {
+        try{
+            setLoading( true )
+            const response = await instance.get( uri, {
+                validateStatus: function( status ) {
+                    return status < 500;        // ? Resolve only if the status code is less than 500 
                 }
-                catch( err ) {
-                    setError( err );
-                }
-                finally{
-                    setLoading( false );
-                }
-            }
-        )()
-    }, [ uri ] );
+            });
 
-    return { joke, error, loading }
+            // console.log( response );
+            setJoke( response.data.value );
+        }
+        catch( err ) {
+            setError( err );
+        }
+        finally{
+            setLoading( false );
+        }
+    }
+
+    return { joke, error, loading, getData }
 }
 
 export default useFetch;
