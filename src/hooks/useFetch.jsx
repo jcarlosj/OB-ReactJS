@@ -7,6 +7,7 @@ const useFetch = ( uri ) => {
     const [ joke, setJoke ] = useState( null );
     const [ error, setError ] = useState( null );
     const [ loading, setLoading ] = useState( false );
+    const [ counter, setCounter ] = useState( 0 );
 
     useEffect( () => {
         getData();
@@ -22,6 +23,7 @@ const useFetch = ( uri ) => {
             });
 
             // console.log( response );
+            setCounter( counter => counter + 1 )
             setJoke( response.data.value );
         }
         catch( err ) {
@@ -32,7 +34,7 @@ const useFetch = ( uri ) => {
         }
     }
 
-    return { joke, error, loading, getData }
+    return { joke, error, loading, counter, getData }
 }
 
 export default useFetch;

@@ -14,14 +14,12 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 const Joke = () => {
 
     const
-        { joke, error, loading, getData } = useFetch( '/random' ),
+        { joke, error, loading, counter, getData } = useFetch( '/random' ),
         [ state, setState ] = useState({
-            count: 0,
-            points: {
-                likes: 0,
-                unlikes: 0
-            }
-        });
+            likes: 0,
+            unlikes: 0
+        }),
+        { likes, unlikes } = state;
         
     console.log( joke, loading );
 
@@ -47,14 +45,16 @@ const Joke = () => {
                         { joke }
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        Joke # 1
+                        Joke # { counter }
                     </Typography>
                 </CardContent>
                 <CardActions>
                     <Button size="small">
+                        <span>{ likes }</span>
                         <ThumbUpIcon />
                     </Button>
                     <Button size="small">
+                        <span>{ unlikes }</span>
                         <ThumbDownIcon />
                     </Button>
                     <Button
