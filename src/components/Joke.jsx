@@ -12,6 +12,7 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import Alert from '@mui/material/Alert';
 import SentimentVerySatisfiedOutlinedIcon from '@mui/icons-material/SentimentVerySatisfiedOutlined';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import HelpOutlineSharpIcon from '@mui/icons-material/HelpOutlineSharp';
 
 
 const Joke = () => {
@@ -23,14 +24,15 @@ const Joke = () => {
                 like: 0,
                 unlike: 0,
             },
-            total: {
+            total_votes: {
                 likes: 0,
                 unlikes: 0,
             },
+            total_not_voted: 0,
             voted: false
         }),
 
-        { current: { like, unlike }, total: { likes, unlikes }, voted } = stateComponent;
+        { current: { like, unlike }, total_votes: { likes, unlikes }, total_not_voted, voted } = stateComponent;
         
     console.log( joke, loading, error );
 
@@ -43,9 +45,9 @@ const Joke = () => {
                     ...prevState.current,
                     like: prevState.current.like + 1
                 },
-                total: {
-                    ...prevState.total,
-                    likes: prevState.total.likes + 1
+                total_votes: {
+                    ...prevState.total_votes,
+                    likes: prevState.total_votes.likes + 1
                 },
                 voted: true
             }));
@@ -60,9 +62,9 @@ const Joke = () => {
                     like: prevState.current.like + 1,
                     unlike: prevState.current.unlike - 1
                 },
-                total: {
-                    likes: prevState.total.likes + 1,
-                    unlikes: prevState.total.unlikes - 1
+                total_votes: {
+                    likes: prevState.total_votes.likes + 1,
+                    unlikes: prevState.total_votes.unlikes - 1
                 }
             }));
         }
@@ -78,9 +80,9 @@ const Joke = () => {
                     ...prevState.current,
                     unlike: prevState.current.unlike + 1
                 },
-                total: {
-                    ...prevState.total,
-                    unlikes: prevState.total.unlikes + 1
+                total_votes: {
+                    ...prevState.total_votes,
+                    unlikes: prevState.total_votes.unlikes + 1
                 },
                 voted: true
             }));
@@ -95,9 +97,9 @@ const Joke = () => {
                     like: prevState.current.like - 1,
                     unlike: prevState.current.unlike + 1
                 },
-                total: {
-                    likes: prevState.total.likes - 1,
-                    unlikes: prevState.total.unlikes + 1
+                total_votes: {
+                    likes: prevState.total_votes.likes - 1,
+                    unlikes: prevState.total_votes.unlikes + 1
                 }
             }));
         }
@@ -111,6 +113,7 @@ const Joke = () => {
                 like: 0,
                 unlike: 0
             },
+            total_not_voted: ( prevState.current.like === 0 && prevState.current.unlike === 0 ) ? prevState.total_not_voted + 1 : prevState.total_not_voted,
             voted: false
         }));
 
@@ -167,9 +170,13 @@ const Joke = () => {
                             <span>{ unlikes }</span>
                             <SentimentVeryDissatisfiedIcon />
                         </div>
+                        <div className="icon icon-question">
+                            <span>{ total_not_voted }</span>
+                            <HelpOutlineSharpIcon />
+                        </div>
                     </div>
                 </CardContent>
-                <Alert severity="info">Las votaciones son simuladas. Solo se puede votar una ves por chiste, se puede cambiar el voto haciendo click en el botón contrario.</Alert>  
+                <Alert severity="info">Las votaciones simuladas. Solo se puede votar una ves por chiste. Se cambia el voto haciendo click en la opción contraria. Se muestra la cantidad de chistes que se han visualizado y el total de votos: los que gustan, los que no gustan, la cantidad de chistes sin voto.</Alert>  
             </Card>
         </div>
     );
