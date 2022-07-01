@@ -14,24 +14,24 @@ const useFetch = ( uri ) => {
     }, [] );
 
     const getData = async () => {
-        try{
-            setLoading( true )
-            const response = await instance.get( uri, {
-                validateStatus: function( status ) {
-                    return status < 500;        // ? Resolve only if the status code is less than 500 
-                }
+
+        setLoading( true );
+
+        instance.get( uri )
+            .then( response => {
+                console.log( response );
+
+                setCounter( counter => counter + 1 )
+                setJoke( response.data.value );
+            })
+            .catch( err => {
+                console.log( err );
+                setError( 'An error has occurred' );
+            })
+            .finally( () => {
+                setLoading( false );
             });
 
-            // console.log( response );
-            setCounter( counter => counter + 1 )
-            setJoke( response.data.value );
-        }
-        catch( err ) {
-            setError( err );
-        }
-        finally{
-            setLoading( false );
-        }
     }
 
     return { joke, error, loading, counter, getData }

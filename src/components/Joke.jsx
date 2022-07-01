@@ -23,7 +23,7 @@ const Joke = () => {
         }),
         { likes, unlikes, voted } = state;
         
-    console.log( joke, loading );
+    console.log( joke, loading, error );
 
     useEffect( () => {
         console.log( loading );
@@ -97,10 +97,11 @@ const Joke = () => {
                         Chuck say:
                     </Typography>
                     <Typography variant="h5" component="div">
-                        {   error && <>An error occurred</> }
-                        {   loading 
-                            ?   <>Loading...</> 
-                            :   <>{ joke }</>
+                        {   ! error 
+                                ?   loading 
+                                    ?   <>Loading...</> 
+                                    :   <>{ joke }</>
+                                :   <>{ error }</>
                         }
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
