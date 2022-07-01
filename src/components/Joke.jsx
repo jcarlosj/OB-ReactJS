@@ -18,43 +18,41 @@ const Joke = () => {
 
     const
         { joke, error, loading, counter, getData } = useFetch( '/random' ),
-        [ state, setState ] = useState({
-            likes: 0,
-            unlikes: 0,
+        [ stateComponent, setStateComponent ] = useState({
+            current: {
+                like: 0,
+                unlike: 0,
+            },
             voted: false
         }),
-        { likes, unlikes, voted } = state;
+
+        { current: { like, unlike }, voted } = stateComponent;
         
     console.log( joke, loading, error );
-
-    useEffect( () => {
-        console.log( loading );
-
-        setState( prevState => ({
-            ...prevState,
-            joke: '',
-            count: prevState.count + 1
-        }));
-    }, [ loading ] );
 
     const handleLike = () => {
 
         if( ! voted ) {
-            setState({
-                ...state,
-                likes: state.likes + 1,
+            setStateComponent( prevState => ({
+                ...prevState,
+                current: {
+                    ...prevState.current,
+                    like: prevState.current.like + 1
+                },
                 voted: true
-            });
+            }));
 
             return;
         }
 
-        if( likes === 0 ) {
-            setState({
-                ...state,
-                likes: state.likes + 1,
-                unlikes: state.unlikes - 1
-            });
+        if( like === 0 ) {
+            setStateComponent( prevState => ({
+                ...prevState,
+                current: {
+                    like: prevState.current.like + 1,
+                    unlike: prevState.current.unlike - 1
+                }
+            }));
         }
 
     }
@@ -62,31 +60,39 @@ const Joke = () => {
     const handleUnlike = () => {
 
         if( ! voted ) {
-            setState({
-                ...state,
-                unlikes: state.unlikes + 1,
+            setStateComponent( prevState => ({
+                ...prevState,
+                current: {
+                    ...prevState.current,
+                    unlike: prevState.current.unlike + 1
+                },
                 voted: true
-            });
+            }));
 
             return;
         }
 
-        if( unlikes === 0 ) {
-            setState({
-                ...state,
-                unlikes: state.unlikes + 1,
-                likes: state.likes - 1
-            });
+        if( unlike === 0 ) {
+            setStateComponent( prevState => ({
+                ...prevState,
+                current: {
+                    like: prevState.current.like - 1,
+                    unlike: prevState.current.unlike + 1
+                }
+            }));
         }
 
     }
 
     const handleNewJoke = () => {
-        setState({
-            likes: 0,
-            unlikes: 0,
+        setStateComponent( prevState => ({
+            current: {
+                like: 0,
+                unlike: 0
+            },
             voted: false
-        });
+        }));
+
         getData();
     }
 
@@ -115,14 +121,14 @@ const Joke = () => {
                         size="small"
                         onClick={ handleLike }
                     >
-                        <span>{ likes }</span>
+                        <span>{ like }</span>
                         <ThumbUpIcon />
                     </Button>
                     <Button
                         size="small"
                         onClick={ handleUnlike }
                     >
-                        <span>{ unlikes }</span>
+                        <span>{ unlike }</span>
                         <ThumbDownIcon />
                     </Button>
                     <Button
@@ -133,11 +139,11 @@ const Joke = () => {
                 <CardContent>
                     <div className="icons">
                         <div className="icon icon-satisfied">
-                            <span>{ likes }</span>
+                            <span>{ like }</span>
                             <SentimentVerySatisfiedOutlinedIcon />
                         </div>
                         <div className="icon icon-dissatisfied">
-                            <span>{ unlikes }</span>
+                            <span>{ unlike }</span>
                             <SentimentVeryDissatisfiedIcon />
                         </div>
                     </div>
