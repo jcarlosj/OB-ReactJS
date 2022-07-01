@@ -23,10 +23,14 @@ const Joke = () => {
                 like: 0,
                 unlike: 0,
             },
+            total: {
+                likes: 0,
+                unlikes: 0,
+            },
             voted: false
         }),
 
-        { current: { like, unlike }, voted } = stateComponent;
+        { current: { like, unlike }, total: { likes, unlikes }, voted } = stateComponent;
         
     console.log( joke, loading, error );
 
@@ -38,6 +42,10 @@ const Joke = () => {
                 current: {
                     ...prevState.current,
                     like: prevState.current.like + 1
+                },
+                total: {
+                    ...prevState.total,
+                    likes: prevState.total.likes + 1
                 },
                 voted: true
             }));
@@ -51,6 +59,10 @@ const Joke = () => {
                 current: {
                     like: prevState.current.like + 1,
                     unlike: prevState.current.unlike - 1
+                },
+                total: {
+                    likes: prevState.total.likes + 1,
+                    unlikes: prevState.total.unlikes - 1
                 }
             }));
         }
@@ -66,6 +78,10 @@ const Joke = () => {
                     ...prevState.current,
                     unlike: prevState.current.unlike + 1
                 },
+                total: {
+                    ...prevState.total,
+                    unlikes: prevState.total.unlikes + 1
+                },
                 voted: true
             }));
 
@@ -78,6 +94,10 @@ const Joke = () => {
                 current: {
                     like: prevState.current.like - 1,
                     unlike: prevState.current.unlike + 1
+                },
+                total: {
+                    likes: prevState.total.likes - 1,
+                    unlikes: prevState.total.unlikes + 1
                 }
             }));
         }
@@ -86,6 +106,7 @@ const Joke = () => {
 
     const handleNewJoke = () => {
         setStateComponent( prevState => ({
+            ...prevState,
             current: {
                 like: 0,
                 unlike: 0
@@ -139,11 +160,11 @@ const Joke = () => {
                 <CardContent>
                     <div className="icons">
                         <div className="icon icon-satisfied">
-                            <span>{ like }</span>
+                            <span>{ likes }</span>
                             <SentimentVerySatisfiedOutlinedIcon />
                         </div>
                         <div className="icon icon-dissatisfied">
-                            <span>{ unlike }</span>
+                            <span>{ unlikes }</span>
                             <SentimentVeryDissatisfiedIcon />
                         </div>
                     </div>
