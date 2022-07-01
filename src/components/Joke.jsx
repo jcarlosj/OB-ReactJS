@@ -10,6 +10,8 @@ import Typography from '@mui/material/Typography';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import Alert from '@mui/material/Alert';
+import SentimentVerySatisfiedOutlinedIcon from '@mui/icons-material/SentimentVerySatisfiedOutlined';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 
 
 const Joke = () => {
@@ -128,8 +130,20 @@ const Joke = () => {
                         onClick={ handleNewJoke }
                     >New Joke!</Button>
                 </CardActions>
-            </Card>  
-            <Alert severity="info">Las votaciones son simuladas. Solo se puede votar una ves por chiste, se puede cambiar el voto haciendo click en el botón contrario.</Alert>  
+                <CardContent>
+                    <div className="icons">
+                        <div className="icon icon-satisfied">
+                            <span>{ likes }</span>
+                            <SentimentVerySatisfiedOutlinedIcon />
+                        </div>
+                        <div className="icon icon-dissatisfied">
+                            <span>{ unlikes }</span>
+                            <SentimentVeryDissatisfiedIcon />
+                        </div>
+                    </div>
+                </CardContent>
+                <Alert severity="info">Las votaciones son simuladas. Solo se puede votar una ves por chiste, se puede cambiar el voto haciendo click en el botón contrario.</Alert>  
+            </Card>
         </div>
     );
 };
