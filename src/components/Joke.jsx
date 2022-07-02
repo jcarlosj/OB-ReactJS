@@ -34,7 +34,7 @@ const Joke = () => {
 
         { current: { like, unlike }, total_votes: { likes, unlikes }, total_not_voted, voted } = stateComponent;
         
-    console.log( joke, loading, error );
+    // console.log( joke, loading, error );
 
     const handleLike = () => {
 
