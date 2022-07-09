@@ -17,7 +17,7 @@ function App() {
 		users = useUsers();
 
 	const [ data, setData ] = useState({
-		logged_user: null,
+		logged_user: undefined,
 		users: [],
 		tasks: []
 	});

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
@@ -14,7 +14,6 @@ const loginSchema = Yup.object().shape({
 });
 
 
-
 /** Functional Component */
 const LoginFormik = ({ data, setData }) => {
 
@@ -24,18 +23,6 @@ const LoginFormik = ({ data, setData }) => {
 		email: '',
 		passwd: ''
 	}
-
-	useEffect( () => {
-
-		setTimeout( () => {
-			console.log( 'data', data );
-			setLoading( false );
-		}, 500 );
-
-		return () => {
-			// console.log( `LoginFormik component is going to unmount` );
-		};
-	}, [ loading, setLoading ] );
 
 	const handleSubmit = ( values ) => {
 

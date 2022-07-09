@@ -1,7 +1,6 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 import { deleteUserCredentialData } from '../../helpers/localStorage';
-import { ROLES } from '../../models/roles.enum';
 
 
 const Navbar = ({ data, setData }) => {
@@ -11,17 +10,12 @@ const Navbar = ({ data, setData }) => {
 	const handleLogout = () => {
 		// console.log( 'Logout' );
 
-		setData({
-			logged_user: {
-				username: '',
-				email: '',
-				passwd: '',
-				role: ROLES.USER
-			},
-			users: [],
-			total_records: 0,
-			logged: false
-		});
+		setData( prevState => ({
+			...prevState,
+			logged_user: undefined,
+		}));
+
+		console.log( !! data.logged_user );
 
 		deleteUserCredentialData();
 		navigate( '/login' );
@@ -100,7 +94,7 @@ const Navbar = ({ data, setData }) => {
 
 								</ul>
 								<ul className="navbar-nav ml-auto">
-									{	data?.logged
+									{	!! data.logged_user
 											?	<>
 													<li className="nav-item dropdown">
 

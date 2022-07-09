@@ -20,7 +20,7 @@ const useAuth = () => {
 		};
 	}, [] );
 
-	return data ? data : {};
+	return data ? data : undefined;
 }
 
 

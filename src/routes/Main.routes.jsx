@@ -31,13 +31,13 @@ const MainRoutes = ({ data, setData }) => {
 					<Route path="faqs" element={ <AboutPage /> } />
 
 					{/** Rutas Restringidas: Exclusivamente se accede sin login */}
-					<Route element={ <RestrictedRouter isLogged={ true } /> } >
+					<Route element={ <RestrictedRouter isLogged={ !! data.logged_user } /> } >
 						<Route path="login" element={ <LoginPage data={ data } setData={ setData } /> } />
 						<Route path="register" element={ <RegisterPage data={ data } setData={ setData } /> } />
 					</Route>
 
 					{/** Rutas Protegidas: Exclusivamente se accede con login */}
-					<Route element={ <ProtectedRouter isLogged={ false } /> } >
+					<Route element={ <ProtectedRouter isLogged={ !! data.logged_user } /> } >
 						<Route path="dashboard" element={ <DashboardPage /> } />
 						<Route path="profile" element={ <ProfilePage /> } />
 						<Route path="tasks">

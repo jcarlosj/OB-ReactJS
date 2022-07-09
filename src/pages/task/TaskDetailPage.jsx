@@ -15,16 +15,16 @@ const TaskDetailPage = ({ data }) => {
 	useEffect(() => {
 
 		if( tasks.length > 0 ) {
-			setTask( tasks.find( task => task.id == id ) );
+			setTask( tasks.find( task => task.id === id ) );
 		}
 
-	}, [ tasks ]);
+	}, [id, tasks]);
 
 	return (
 		<div className="container mt-5">
 			<h1>Task Detail Page - { id }</h1>
-			<p><b>Name: </b>{ task.name }</p>
-			<p><b>Description: </b>{ task.description }</p>
+			<p><b>Name: </b>{ task?.name }</p>
+			<p><b>Description: </b>{ task?.description }</p>
 			<Footer />
 		</div>
 	);

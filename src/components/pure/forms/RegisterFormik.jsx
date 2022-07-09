@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
@@ -39,7 +38,6 @@ const registerSchema = Yup.object().shape({
 /** Functional Component */
 const RegisterFormik = ({ data, setData }) => {
 
-	const navigate = useNavigate();
 	const [ loading, setLoading ] = useState( true );
 
 	const initialValues = {
@@ -49,17 +47,6 @@ const RegisterFormik = ({ data, setData }) => {
 		passwd_confirm: '',
 		role: ROLES.USER
 	}
-
-	useEffect( () => {
-		setTimeout( () => {
-			console.log( 'data', data );
-			setLoading( false );
-		}, 500 );
-
-		return () => {
-			// console.log( `RegisterFormik component is going to unmount` );
-		};
-	}, [ loading, setLoading ] );
 
 	const handleSubmit = ( values ) => {
 
