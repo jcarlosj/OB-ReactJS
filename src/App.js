@@ -1,99 +1,61 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import MainRoutes from './routes/Main.routes';
+import useAuth from './hooks/useAuth';
+import useUsers from './hooks/useUsers';
 
-import { ROLES } from '../src/models/roles.enum';
-
-import { getRegisteredUserData, getUserCredentialData, getAuthenticatedUser } from '../src/helpers/localStorage';
 import { getStaticTaskRecords } from '../src/helpers/staticRecords';
 
 import './App.scss';
 import './App.css';
 
 function App() {
+	const isEffectRun = useRef( false );
+
+	const
+		logged_user = useAuth(),
+		users = useUsers();
 
 	const [ data, setData ] = useState({
-		logged_user: {
-			username: '',
-			email: '',
-			passwd: '',
-			role: ROLES.USER
-		},
+		logged_user: null,
 		users: [],
-		total_records: 0,
-		logged: false,
 		tasks: []
 	});
-	const [ loading, setLoading ] = useState( true );
 
-	/** Seguimiento a cambios en el estado para obtener usuarios registrados */
 	useEffect( () => {
 
-		setLoading( false );
+		// ! Si el efecto NO se ha lanzado obtiene datos estaticos
+		if( ! isEffectRun.current ) {
+			setData( prevState => ({
+				...prevState,
+				tasks: getStaticTaskRecords()
+			}));
 
-		( async() => {
+		} // ! Si el efecto se ha lanzado obtiene datos del localStorage
+		else {
+			setData( prevState => ({
+				...prevState,
+				logged_user,
+				users
+			}));
 
-			const registered_users = await getRegisteredUserData();
-			// console.log( registered_users );
+		}
 
-			if( registered_users?.length > 0 ) {
-				setData( ( prevData ) => ({
-					...prevData,
-					users: registered_users,
-					total_records: registered_users.length
-				}));
-				setLoading( true );
-			}
+		console.log( 'isEffectRun', isEffectRun.current );
+		console.log( data );
 
-			setLoading( false );
-		})();
-
-		( async() => {
-
-			const dataTasks = getStaticTaskRecords();
-
-			if( dataTasks.length > 0 ) {
-				// console.log( dataTasks );
-				setData( ( prevData ) => ( {
-					...prevData,
-					tasks: dataTasks
-				}));
-				setLoading( true );
-			}
-
-			setLoading( false );
-		})();
-
-	}, [ setLoading ] );
-
-	useEffect(() => {
-
-		setLoading( false );
-
-		( async() => {
-			const auth_user = await getUserCredentialData();
-
-			// console.log( auth_user );
-			// console.log( data.users );
-
-			const user_credentials = getAuthenticatedUser( data.users, auth_user );
-
-			// console.log( user_credentials );
-			if( user_credentials ) {
-				setData( ( prevData ) => ({
-					...prevData,
-					logged_user: user_credentials,
-					logged: true
-				}));
-				setLoading( true );
-			}
-
-
-		})();
-
-	}, [ data.users, setLoading ]);
-
-	console.log( 'App', data );
+		return () => {
+			 // ! Verifica que el efecto no se ha lanzado
+			if( ! isEffectRun ) {
+                console.log( 'Simulate unmount hook useFetch !' );    // ! Nunca se ejecuta por que isEffect para este momento siempre sera 'true'
+            }
+            else {
+                console.log( 'Unmount hook useFetch!' );
+                isEffectRun.current = true;                           // ! Cambia el estado del inmutable que controla consulta del API una sola ves ante la duplicidad de la ejecucion del hoook useEffect sobre el Hook u Componente
+            }
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [ data.users ] );
 
 	return (
 		<>

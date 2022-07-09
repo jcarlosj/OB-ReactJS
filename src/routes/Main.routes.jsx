@@ -17,6 +17,8 @@ import Navbar from '../components/ui/Navbar';
 
 const MainRoutes = ({ data, setData }) => {
 
+	// console.log( data );
+
 	return (
 		<>
 			<BrowserRouter>
@@ -29,13 +31,13 @@ const MainRoutes = ({ data, setData }) => {
 					<Route path="faqs" element={ <AboutPage /> } />
 
 					{/** Rutas Restringidas: Exclusivamente se accede sin login */}
-					<Route element={ <RestrictedRouter isLogged={ data?.logged } /> } >
+					<Route element={ <RestrictedRouter isLogged={ true } /> } >
 						<Route path="login" element={ <LoginPage data={ data } setData={ setData } /> } />
 						<Route path="register" element={ <RegisterPage data={ data } setData={ setData } /> } />
 					</Route>
 
 					{/** Rutas Protegidas: Exclusivamente se accede con login */}
-					<Route element={ <ProtectedRouter isLogged={ data?.logged } /> } >
+					<Route element={ <ProtectedRouter isLogged={ false } /> } >
 						<Route path="dashboard" element={ <DashboardPage /> } />
 						<Route path="profile" element={ <ProfilePage /> } />
 						<Route path="tasks">
