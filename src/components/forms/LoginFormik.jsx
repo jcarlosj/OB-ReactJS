@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import { login, getAllUsers, getAllPagedUsers, getUserById } from '../../services/axios.services';
+import { 
+    login, 
+    getAllUsers, getAllPagedUsers, getUserById, 
+    createUser, updateUserById, deleteUserById
+} from '../../services/axios.services';
 
 /** Define esquema de analisis para la validacion valores */
 const loginSchema = Yup.object().shape({
@@ -56,8 +60,13 @@ const LoginFormik = () => {
     const handleAllUsers = () => {
         getAllUsers()
             .then( response => {
-                alert( 'Se han obtenido todos los usuarios' );
-                console.log( response.data.data );
+                if( response.data.data && response.status === 200 ) {
+                    alert( `Obtiene todos los usuarios` );
+                    console.log( response.data.data );
+                }
+                else {
+                    throw new Error( `No users found!` );
+                }
             })
             .catch( err => {
                 console.log( `Something went wrong: ${ err }` );
@@ -67,8 +76,15 @@ const LoginFormik = () => {
     const handleAllPagedUsers = ( page ) => {
         getAllPagedUsers( page )
             .then( response => {
-                alert( `Usuarios pagina ${ page }` );
-                console.log( response.data.data );
+
+                if( response.data.data && response.status === 200 ) {
+                    alert( `Usuarios de la pagina ${ page }` );
+                    console.log( response.data.data );
+                }
+                else {
+                    throw new Error( `No users found in page ${ page }!` );
+                }
+
             })
             .catch( err => {
                 console.log( `Something went wrong: ${ err }` );
@@ -77,12 +93,70 @@ const LoginFormik = () => {
 
     const handleUserById = id => {
         getUserById( id ).then( response => {
-            alert( `Usuario con ID ${ id }` );
-            console.log( response.data.data );
+
+            if( response.data.data && response.status === 200 ) {
+                alert( `Usuario con ID ${ id }` );
+                console.log( response.data.data );
+            }
+            else {
+                throw new Error( `User not found!` );
+            }
+
         })
         .catch( err => {
             console.log( `Something went wrong: ${ err }` );
         });
+    }
+
+    const handleCreateNewUser = ( name, job ) => {
+        createUser( name, job ).then( response => {
+            if( response.data && response.status === 201 ) {
+                alert( `Usuario creado` );
+                console.log( response.data );
+            }
+            else {
+                throw new Error( `User not created!` );
+            }
+        })
+        .catch( err => {
+            console.log( `Something went wrong: ${ err }` );
+        });
+    }
+
+    const handleUpdateUserById = ( id, name, job ) => {
+        updateUserById( id, name, job )
+            .then( response => {
+
+                if( response.data && response.status === 200 ) {
+                    alert( `Usuario con ID ${ id }` );
+                    console.log( response.data );
+                }
+                else {
+                    throw new Error( `User not found and not updated!` );
+                }
+
+            })
+            .catch( err => {
+                console.log( `Something went wrong: ${ err }` );
+            });
+    }
+
+    const handleDeleteUserById = id => {
+        deleteUserById( id )
+            .then( response => {
+
+                if( response.status === 204 ) {
+                    alert( `Usuario con ID ${ id } ha sido eliminado exitosamente!` );
+                    console.log( `User with id ${ id } has been successfully deleted!` );
+                }
+                else {
+                    throw new Error( `User not found and not deleted!` );
+                }
+
+            })
+            .catch( err => {
+                console.log( `Something went wrong: ${ err }` );
+            });
     }
 
 	return (
@@ -166,6 +240,20 @@ const LoginFormik = () => {
                     onClick={ () => handleAllPagedUsers( 3 ) }
                 >3</button>
             </div>
+                <div style={{ margin: '1rem 0' }}>
+                    <button
+                        type="button"
+                        onClick={ () => handleCreateNewUser( 'morpheus', 'leader' ) }
+                    >Crea nuevo usuario</button>
+                    <button
+                        type="button"
+                        onClick={ () => handleUpdateUserById( 1, 'morpheus', 'developer' ) }
+                    >Actualiza usuario</button>
+                    <button
+                        type="button"
+                        onClick={ () => handleDeleteUserById( 2 ) }
+                    >Elimina usuario</button>
+                </div>
 		</div>
 	);
 };

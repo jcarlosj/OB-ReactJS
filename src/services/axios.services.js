@@ -38,3 +38,29 @@ export function getUserById( id ) {
 
     return reqresInstance.get( `/users/${ id }` );
 }
+
+// ! API - https://reqres.in: Simula la creacion de un usuario
+export function createUser( name, job ) {
+    const body = {
+        name, job
+    }       
+    
+    // Return the response with a Promise
+    return reqresInstance.post( '/users', body );
+}
+
+// ! API - https://reqres.in: Simula la actualizacion de un usuario
+export function updateUserById( id, name, job ) {
+    const body = {
+        name, job
+    }       
+    
+    // Return the response with a Promise
+    return reqresInstance.put( `/users/${ id }`, body );
+}
+
+// ! API - https://reqres.in: Simula eliminar un usuario por ID
+export function deleteUserById( id ) {
+
+    return reqresInstance.delete( `/users/${ id }` );
+}
