@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import { login } from '../../services/axios.services';
+import { login, getAllUsers, getAllPagedUsers, getUserById } from '../../services/axios.services';
 
 /** Define esquema de analisis para la validacion valores */
 const loginSchema = Yup.object().shape({
@@ -53,6 +53,38 @@ const LoginFormik = () => {
             .finally( () => console.log( `Finally Done!` ) );
     }
 
+    const handleAllUsers = () => {
+        getAllUsers()
+            .then( response => {
+                alert( 'Se han obtenido todos los usuarios' );
+                console.log( response.data.data );
+            })
+            .catch( err => {
+                console.log( `Something went wrong: ${ err }` );
+            });
+    }
+
+    const handleAllPagedUsers = ( page ) => {
+        getAllPagedUsers( page )
+            .then( response => {
+                alert( `Usuarios pagina ${ page }` );
+                console.log( response.data.data );
+            })
+            .catch( err => {
+                console.log( `Something went wrong: ${ err }` );
+            });
+    }
+
+    const handleUserById = id => {
+        getUserById( id ).then( response => {
+            alert( `Usuario con ID ${ id }` );
+            console.log( response.data.data );
+        })
+        .catch( err => {
+            console.log( `Something went wrong: ${ err }` );
+        });
+    }
+
 	return (
 		<div className="container mt-5">
 			<h4>Login Formik</h4>
@@ -100,17 +132,40 @@ const LoginFormik = () => {
 						<button type="submit">Login</button>
 						{	isSubmitting ? <p>Login you credentials</p> : null }
 
-                        <div style={{ margin: '2rem 0' }}>
-                            <b>Usuario valido: </b>
-                            <code>
-                                email: eve.holt@reqres.in & password: cityslicka
-                            </code>
-                        </div>
-
 					</Form>
 				)}
 
 			</Formik>
+            <div style={{ margin: '1rem 0', fontSize: '1.2rem' }}>
+                <b>Usuario valido: </b>
+                <code>
+                    email: eve.holt@reqres.in & password: cityslicka
+                </code>
+            </div>
+            <div style={{ margin: '1rem 0' }}>
+                <button
+                    type="button"
+                    onClick={ handleAllUsers }
+                >Todos los usuarios</button>
+                <button
+                    type="button"
+                    onClick={ () => handleUserById( 4 ) }
+                >Usuario con ID 4</button>
+            </div>
+            <div style={{ margin: '1rem 0' }}>
+                <button
+                    type="button"
+                    onClick={ () => handleAllPagedUsers( 1 ) }
+                >1</button>
+                <button
+                    type="button"
+                    onClick={ () => handleAllPagedUsers( 2 ) }
+                >2</button>
+                <button
+                    type="button"
+                    onClick={ () => handleAllPagedUsers( 3 ) }
+                >3</button>
+            </div>
 		</div>
 	);
 };

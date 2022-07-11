@@ -11,7 +11,7 @@ export function getRandomUser() {
     });        
 }
 
-// ! API - https://reqres.in
+// ! API - https://reqres.in: Simulacion de Login
 export function login( email, password ) {
     const body = {
         email, password
@@ -19,4 +19,22 @@ export function login( email, password ) {
     
     // Return the response with a Promise
     return reqresInstance.post( '/login', body );
+}
+
+// ! API - https://reqres.in: Obtiene todos los usuarios
+export function getAllUsers() {
+
+    return reqresInstance.get( '/users' );
+}
+
+// ! API - https://reqres.in: Obtiene todos los usuarios con paginacion
+export function getAllPagedUsers( page ) {
+
+    return reqresInstance.get( `/users?page=${ page }` );
+}
+
+// ! API - https://reqres.in: Obtiene usuario por ID
+export function getUserById( id ) {
+
+    return reqresInstance.get( `/users/${ id }` );
 }
