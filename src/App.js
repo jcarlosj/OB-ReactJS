@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 
-import AxiosComponent from './components/AxiosComponent';
+import AxiosCRUD from './components/AxiosCRUD';
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <div className="example-components">
-          <AxiosComponent></AxiosComponent>
+          <AxiosCRUD></AxiosCRUD>
         </div>
       </header>
     </div>
