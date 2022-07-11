@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 
-import AxiosCRUD from './components/AxiosCRUD';
+import LoginFormik from './components/forms/LoginFormik';
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <div className="example-components">
-          <AxiosCRUD></AxiosCRUD>
+          <LoginFormik></LoginFormik>
         </div>
       </header>
     </div>
