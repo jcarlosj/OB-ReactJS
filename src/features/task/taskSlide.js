@@ -1,7 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 
-const initialState = [];
+export const completionFilters = {
+    ALL: "ALL",
+    COMPLETED: "COMPLETED",
+    NOT_COMPLETED: "NOT_COMPLETED"
+}
+
+const initialState = {
+    dataList: [],
+    filterByCompletion: completionFilters.ALL
+};
 
 // 3. Create a Redux State Slice
 export const taskSlice = createSlice({
@@ -10,12 +19,12 @@ export const taskSlice = createSlice({
     reducers: {
         // 5. Define casos del reducer
         add: ( state, action ) => {
-            state.push( action.payload );
+            state.dataList.push( action.payload );
         },
         toggle: ( state, action ) => {
             const id = action.payload;
 
-            state = state.map( ( task ) => {
+            state.dataList = state.dataList.map( ( task ) => {
                 if( task.id === id )
                     task.completed = ! task.completed;
             
@@ -25,20 +34,23 @@ export const taskSlice = createSlice({
         remove: ( state, action ) => {
             const id = action.payload;
 
-            const indexOfObject = state.findIndex( task => {
+            const indexOfObject = state.dataList.findIndex( task => {
                 return task.id === id;
             });
 
-            state.splice( indexOfObject, 1 );
+            state.dataList.splice( indexOfObject, 1 );
         },
         update: ( state, action ) => {
             const { id, data } = action.payload;
 
-            const indexOfObject = state.findIndex( task => {
+            const indexOfObject = state.dataList.findIndex( task => {
                 return task.id === id;
             });
 
-            state[ indexOfObject ] = { id, ...data };
+            state.dataList[ indexOfObject ] = { id, ...data };
+        },
+        filterByCompletion( state, action ) {
+            state.filterByCompletion = action.payload
         }
     }
 });
@@ -47,4 +59,4 @@ export const taskSlice = createSlice({
 // Los creadores de acciones se generan para cada función de reducción de casos.
 export const { add, toggle, remove, update } = taskSlice.actions;
 
-export default taskSlice.reducer
+export default taskSlice.reducer;
