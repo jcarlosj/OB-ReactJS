@@ -1,15 +1,23 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { fetchLogin } from '../../../features/auth/authSlide.js'
 
 import { useForm } from '../../../hooks/useForm';
 
 import { validateEmail, validatePassword } from '../../../helpers/validate';
 import { loginUser } from '../../../helpers/localStorage';
 
+
+
 const Login = ({ setUserLogged }) => {
 
+    const dispatch = useDispatch();
+    const { loading, data, error } = useSelector( ( state ) => state );
+
     const
-        [ loading, setLoading ] = useState( true ),
+        [ isLoading, setIsLoading ] = useState( true ),
         [ message, setMessage ] = useState( '' ),
         [ formValues, handleInputChange, setError, reset ] = useForm({
             email: '',
@@ -19,16 +27,21 @@ const Login = ({ setUserLogged }) => {
         { email, password, errorMessages } = formValues;
 
     useEffect(() => {
-
+        dispatch( 
+            fetchLogin({
+                "email": "sofia@correo.co",
+                "password": "pokepigy"
+            }) 
+        );
         console.log( errorMessages );
 
-        setLoading( false );
-    }, [ loading, errorMessages ]);
+        setIsLoading( false );
+    }, [ isLoading, errorMessages ]);
 
     const isFormValid = () => {
 
         setError({});           //  Inicializa campos de error cada que se valida el formulario
-        setLoading( true );
+        setIsLoading( true );
 
         /** Validaciones: Agregara mensajes de error de ser necesario */
         const

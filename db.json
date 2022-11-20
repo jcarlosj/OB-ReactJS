@@ -1,0 +1,10 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Sofia Gutiérrez",
+      "email": "sofia@correo.co",
+      "password": "pokepigy"
+    }
+  ]
+}
