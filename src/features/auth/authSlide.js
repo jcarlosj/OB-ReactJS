@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchLogin } from './authActions.js';
+import { fetchLogin, fetchRegister } from './authActions.js';
 
 
 // ! initial state ( default values )
@@ -22,6 +22,7 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     extraReducers: ( builder ) => {
+        // Casos para login de usuario
         builder
             .addCase( fetchLogin.pending, state => {
                 state.loading = true;
@@ -48,6 +49,31 @@ const authSlice = createSlice({
                     success: ''
                 };
             });
+        // Casos para registro de usuario
+        builder
+            .addCase( fetchRegister.pending , state => {
+                state.loading = true;
+            })
+            .addCase( fetchRegister.fulfilled , ( state, action ) => {
+                state.loading = false;
+
+                state.msg = {
+                    error: '',
+                    success: action.payload.msg
+                };
+            })
+            .addCase( fetchRegister.rejected , ( state, action ) => {
+                state.loading = false;
+                state.data = {
+                    user: {},
+                    token: null
+                };
+                state.msg = {
+                    error: action.payload,
+                    success: ''
+                };
+            });
+        
     }
 });
 

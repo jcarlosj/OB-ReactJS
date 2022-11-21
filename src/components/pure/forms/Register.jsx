@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { fetchRegister } from '../../../features/auth/authActions';
 
 import { useForm } from '../../../hooks/useForm';
 
@@ -8,8 +11,11 @@ import { registerUser } from '../../../helpers/localStorage';
 
 const Register = () => {
 
+    const dispatch = useDispatch();
+    const { loading, data, error } = useSelector( ( state ) => state );
+
     const
-        [ loading, setLoading ] = useState( true ),
+        [ isLoading, setIsLoading ] = useState( true ),
         [ message, setMessage ] = useState( '' ),
         [ formValues, handleInputChange, setError, reset ] = useForm({
             name: '',
@@ -20,12 +26,24 @@ const Register = () => {
         }),
         { name, email, password, confirm_password, errorMessages } = formValues;
 
+
     useEffect(() => {
 
         // console.log( errorMessages );
 
-        setLoading( false );
-    }, [ loading ]);
+        setIsLoading( false );
+    }, [ isLoading ]);
+
+    useEffect( () => {
+        dispatch( 
+            fetchRegister({
+                "name": "Eva Sofía",
+                "email": "sofia@correo.co",
+                "password": "pokepigy"
+            }) 
+        );
+    }, [] );
+
 
     const isFormValid = () => {
         
@@ -121,7 +139,7 @@ const Register = () => {
                     <button
                         type="submit"
                         className="btn btn-primary btn-block mtb-3"
-                        // disabled={ loading }
+                        // disabled={ isLoading }
                     >
                         Register
                     </button>

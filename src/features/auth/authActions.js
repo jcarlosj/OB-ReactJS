@@ -35,3 +35,30 @@ export const fetchLogin = createAsyncThunk(
         // ! NOTA: No requerimos el catch ya que el error es manejado         
     }
 );
+
+export const fetchRegister = createAsyncThunk(
+    'auth/register',
+    async ({ name, email, password }) => {
+        const
+            response = await fetch( 'http://localhost:4000/users', {
+                method: 'POST',
+                body: JSON.stringify({
+                    id: new Date().valueOf(),
+                    name,
+                    email,
+                    password
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+            data = response.json();
+
+        console.log( data );
+
+        return {
+            user: { name, email },
+            msg: 'Successful register'
+        };
+    }
+);
