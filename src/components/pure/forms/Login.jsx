@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchLogin } from '../../../features/auth/authSlide.js'
+import { fetchLogin } from '../../../features/auth/authActions';
 
 import { useForm } from '../../../hooks/useForm';
 
@@ -27,16 +27,19 @@ const Login = ({ setUserLogged }) => {
         { email, password, errorMessages } = formValues;
 
     useEffect(() => {
+        console.log( errorMessages );
+
+        setIsLoading( false );
+    }, [ isLoading, errorMessages ]);
+
+    useEffect( () => {
         dispatch( 
             fetchLogin({
                 "email": "sofia@correo.co",
                 "password": "pokepigy"
             }) 
         );
-        console.log( errorMessages );
-
-        setIsLoading( false );
-    }, [ isLoading, errorMessages ]);
+    }, [] );
 
     const isFormValid = () => {
 
