@@ -54,13 +54,6 @@ const Login = ({ setUserLogged }) => {
         event.preventDefault();
 
         if( isFormValid() ) {
-            // console.log( JSON.stringify({ email, password }) );
-
-            // const { message, authenticated_user } = await loginUser({ email, password });
-            // setMessage( message );
-            // console.log( message );
-            // console.log( authenticated_user );
-            // if( authenticated_user ) {
 
             dispatch( 
                 fetchLogin({
@@ -68,9 +61,6 @@ const Login = ({ setUserLogged }) => {
                     password
                 }) 
             );
-
-                // setUserLogged( authenticated_user );
-            // }
             
             reset();
 

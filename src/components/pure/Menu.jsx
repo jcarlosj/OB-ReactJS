@@ -1,19 +1,24 @@
 import { useNavigate, Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { logoutUser } from '../../helpers/localStorage';
 
+import { logout } from '../../features/auth/authSlice.js';
+
 const Menu = ({ userLogged, setUserLogged }) => {
 
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const navigateTo = path => {
 		navigate( path );
 	}
 
-	const logout = () => {
+	const handleLogout = () => {
 		logoutUser();
 		setUserLogged();
-		console.log( 'Logout!' )
+		console.log( 'Logout!' );
+		dispatch( logout() );
 	}
 
 	return (
@@ -49,7 +54,7 @@ const Menu = ({ userLogged, setUserLogged }) => {
 						</li>
 						<li className="item">
 							<Link to="/"
-								onClick={ () => logout() }
+								onClick={ () => handleLogout() }
 							>Logout</Link>
 						</li>
 					</ul>

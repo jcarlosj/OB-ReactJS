@@ -21,6 +21,19 @@ const initialState = {
 const authSlice = createSlice({
     name: 'auth',
     initialState,
+    reducers: {
+        logout: ( state, action ) => {
+            console.log( 'Logout' );
+            state.data = {
+                user: {},
+                token: null,
+            };
+            state.msg = {
+                error: '',
+                success: 'Successful logout'
+            };
+        }
+    },
     extraReducers: ( builder ) => {
         // Casos para login de usuario
         builder
@@ -56,7 +69,6 @@ const authSlice = createSlice({
             })
             .addCase( fetchRegister.fulfilled , ( state, action ) => {
                 state.loading = false;
-
                 state.msg = {
                     error: '',
                     success: action.payload.msg
@@ -77,5 +89,7 @@ const authSlice = createSlice({
     }
 });
 
+
+export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;         // ? Exportamos sus reducers
