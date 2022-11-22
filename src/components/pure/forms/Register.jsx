@@ -34,16 +34,6 @@ const Register = () => {
         setIsLoading( false );
     }, [ isLoading ]);
 
-    useEffect( () => {
-        dispatch( 
-            fetchRegister({
-                "name": "Eva Sofía",
-                "email": "sofia@correo.co",
-                "password": "pokepigy"
-            }) 
-        );
-    }, [] );
-
 
     const isFormValid = () => {
         
@@ -60,14 +50,22 @@ const Register = () => {
         return nameValid && emailValid && passwordValid && confirmPasswordValid;
     }
 
-    const handleRegister = async ( event ) => {
+    const handleOnSubmit = async ( event ) => {
         event.preventDefault();
 
         if( isFormValid() ) {
             // console.log( JSON.stringify({ name, email, password }) );
 
-            const confirmationMessage = await registerUser({ name, email, password });
-            setMessage( confirmationMessage );
+            // const confirmationMessage = await registerUser({ name, email, password });
+            // setMessage( confirmationMessage );
+
+            dispatch( 
+                fetchRegister({
+                    name,
+                    email,
+                    password
+                }) 
+            );
 
             reset();
 
@@ -83,7 +81,7 @@ const Register = () => {
             <h1 className="page_title page_register">Register Page</h1>
             <p className="text-center">(Restricted: unauthenticated is required)</p>
             <form
-                onSubmit={ handleRegister }
+                onSubmit={ handleOnSubmit }
             >
                 {
                     errorMessages &&

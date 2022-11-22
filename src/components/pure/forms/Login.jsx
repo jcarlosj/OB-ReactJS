@@ -10,8 +10,9 @@ import { validateEmail, validatePassword } from '../../../helpers/validate';
 import { loginUser } from '../../../helpers/localStorage';
 
 
-
 const Login = ({ setUserLogged }) => {
+
+    // Set initial state, or retrieve the key if the state already exists in local storage
 
     const dispatch = useDispatch();
     const { loading, data, error } = useSelector( ( state ) => state );
@@ -33,12 +34,7 @@ const Login = ({ setUserLogged }) => {
     }, [ isLoading, errorMessages ]);
 
     useEffect( () => {
-        dispatch( 
-            fetchLogin({
-                "email": "sofia@correo.co",
-                "password": "pokepigy"
-            }) 
-        );
+        
     }, [] );
 
     const isFormValid = () => {
@@ -54,19 +50,27 @@ const Login = ({ setUserLogged }) => {
         return emailValid && passwordValid;
     }
 
-    const handleLogin = async ( event ) => {
+    const handleOnSubmit = async ( event ) => {
         event.preventDefault();
 
         if( isFormValid() ) {
-            console.log( JSON.stringify({ email, password }) );
+            // console.log( JSON.stringify({ email, password }) );
 
-            const { message, authenticated_user } = await loginUser({ email, password });
-            setMessage( message );
-            console.log( message );
-            console.log( authenticated_user );
-            if( authenticated_user ) {
-                setUserLogged( authenticated_user );
-            }
+            // const { message, authenticated_user } = await loginUser({ email, password });
+            // setMessage( message );
+            // console.log( message );
+            // console.log( authenticated_user );
+            // if( authenticated_user ) {
+
+            dispatch( 
+                fetchLogin({
+                    email,
+                    password
+                }) 
+            );
+
+                // setUserLogged( authenticated_user );
+            // }
             
             reset();
 
@@ -84,7 +88,7 @@ const Login = ({ setUserLogged }) => {
             <h1 className="page_title page_login">Login Page</h1>
             <p className="text-center">(Restricted: unauthenticated is required)</p>
             <form
-                onSubmit={ handleLogin }
+                onSubmit={ handleOnSubmit }
             >
                 {
                     errorMessages &&

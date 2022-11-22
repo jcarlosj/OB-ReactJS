@@ -27,8 +27,13 @@ export const fetchLogin = createAsyncThunk(
         if( authenticatedUser.length === 0 )
             return rejectWithValue( 'User authentication failed' );
 
+        const authUser = authenticatedUser[ 0 ];
+
+        delete authUser[ 'password' ];
+        console.log( authUser );
+
         return {
-            user: { email, password },
+            user: authUser,
             token: 'here-token',
             msg: 'Successful login'
         };
@@ -46,7 +51,11 @@ export const fetchRegister = createAsyncThunk(
                     id: new Date().valueOf(),
                     name,
                     email,
-                    password
+                    password,
+                    roles: [
+                        'editor',
+                        'user'
+                    ]
                 }),
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
