@@ -26,7 +26,8 @@
 	list-style: none;
 }
 
-.item a {
+.item a,
+.item .link {
 	border: 1px dotted gray;
 	padding: .5rem 1rem;
 }

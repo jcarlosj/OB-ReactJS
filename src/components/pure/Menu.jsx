@@ -1,25 +1,8 @@
-import { useNavigate, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { logoutUser } from '../../helpers/localStorage';
-
-import { logout } from '../../features/auth/authSlice.js';
+import Logout from '../pure/Logout.jsx';
 
 const Menu = ({ userLogged, setUserLogged }) => {
-
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
-
-	const navigateTo = path => {
-		navigate( path );
-	}
-
-	const handleLogout = () => {
-		logoutUser();
-		setUserLogged();
-		console.log( 'Logout!' );
-		dispatch( logout() );
-	}
 
 	return (
 		<div className="container bg-menu">
@@ -53,9 +36,7 @@ const Menu = ({ userLogged, setUserLogged }) => {
 							<Link to="/register">Register</Link>
 						</li>
 						<li className="item">
-							<Link to="/"
-								onClick={ () => handleLogout() }
-							>Logout</Link>
+							<Logout />
 						</li>
 					</ul>
 				</nav>
