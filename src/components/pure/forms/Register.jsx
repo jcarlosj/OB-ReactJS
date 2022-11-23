@@ -7,12 +7,10 @@ import { fetchRegister } from '../../../features/auth/authActions';
 import { useForm } from '../../../hooks/useForm';
 
 import { validateName, validateEmail, validatePassword, validateAndConfirmPassword } from '../../../helpers/validate';
-import { registerUser } from '../../../helpers/localStorage';
 
 const Register = () => {
 
     const dispatch = useDispatch();
-    const { loading, data, error } = useSelector( ( state ) => state );
 
     const
         [ isLoading, setIsLoading ] = useState( true ),
@@ -54,11 +52,7 @@ const Register = () => {
         event.preventDefault();
 
         if( isFormValid() ) {
-            // console.log( JSON.stringify({ name, email, password }) );
-
-            // const confirmationMessage = await registerUser({ name, email, password });
-            // setMessage( confirmationMessage );
-
+            
             dispatch( 
                 fetchRegister({
                     name,
