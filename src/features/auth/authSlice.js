@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { fetchLogin, fetchRegister } from './authActions.js';
+import { AUTH_KEY, saveLocalStorage, removeLocalStorage } from '../../helpers/localStorage.js';
 
 
 // ! initial state ( default values )
@@ -32,6 +33,7 @@ const authSlice = createSlice({
                 error: '',
                 success: 'Successful logout'
             };
+            removeLocalStorage( AUTH_KEY );
         }
     },
     extraReducers: ( builder ) => {
@@ -50,6 +52,10 @@ const authSlice = createSlice({
                     error: '',
                     success: action.payload.msg
                 };
+                saveLocalStorage( AUTH_KEY, {
+                    user: action.payload.user,
+                    token: action.payload.token
+                });
             })
             .addCase( fetchLogin.rejected, ( state, action ) => {
                 state.loading = false;

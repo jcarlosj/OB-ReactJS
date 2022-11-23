@@ -112,10 +112,24 @@ const registerUsersByDefault = async () => {
     return true;
 }
 
+// RTK: LocalStorage
+const AUTH_KEY = 'auth_user';
+
+const saveLocalStorage = ( key, value ) => {
+    localStorage.setItem( key, JSON.stringify( value ) );
+}
+
+const removeLocalStorage = ( key ) => {
+    localStorage.removeItem( key );
+}
+
 export {
+    AUTH_KEY,
     registerUser,
     loginUser,
     getAuthenticatedUser,
     logoutUser,
-    registerUsersByDefault
+    registerUsersByDefault,
+    saveLocalStorage,
+    removeLocalStorage
 }
