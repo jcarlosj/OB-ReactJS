@@ -22,6 +22,12 @@
 	gap: .5rem;
 }
 
+.greeting {
+    font-size: .8rem;
+    margin: 0.4rem;
+	text-align: right;
+}
+
 .item {
 	list-style: none;
 }

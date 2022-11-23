@@ -123,6 +123,10 @@ const removeLocalStorage = ( key ) => {
     localStorage.removeItem( key );
 }
 
+const getLocalStorage = ( key ) => {
+    return JSON.parse( localStorage.getItem( key ) );
+}
+
 export {
     AUTH_KEY,
     registerUser,
@@ -131,5 +135,6 @@ export {
     logoutUser,
     registerUsersByDefault,
     saveLocalStorage,
-    removeLocalStorage
+    removeLocalStorage,
+    getLocalStorage
 }

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import Logout from '../pure/Logout.jsx';
 
-const Menu = ({ userLogged, setUserLogged }) => {
+const Menu = ({ isLoggedIn, user }) => {
 
 	return (
 		<div className="container bg-menu">
@@ -41,6 +41,7 @@ const Menu = ({ userLogged, setUserLogged }) => {
 					</ul>
 				</nav>
 			</header>
+			{	isLoggedIn && <p className="greeting">Welcome, { user.name }!</p> }
 		</div>
 	);
 };

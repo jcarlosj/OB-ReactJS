@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { fetchLogin, fetchRegister } from './authActions.js';
-import { AUTH_KEY, saveLocalStorage, removeLocalStorage } from '../../helpers/localStorage.js';
+import { AUTH_KEY, saveLocalStorage, removeLocalStorage, getLocalStorage } from '../../helpers/localStorage.js';
 
 
 // ! initial state ( default values )
@@ -34,6 +34,17 @@ const authSlice = createSlice({
                 success: 'Successful logout'
             };
             removeLocalStorage( AUTH_KEY );
+        },
+        getAuthUser: ( state ) => {
+
+            const authData = getLocalStorage( AUTH_KEY );
+            console.log( authData );
+
+            if ( authData !== null && authData?.user && authData?.token ) {
+                console.log( 'Data LocalStorage' );
+                state.data.user = authData?.user;
+                state.data.token = authData?.token;
+            }
         }
     },
     extraReducers: ( builder ) => {
@@ -96,6 +107,6 @@ const authSlice = createSlice({
 });
 
 
-export const { logout } = authSlice.actions;
+export const { logout, getAuthUser } = authSlice.actions;
 
 export default authSlice.reducer;         // ? Exportamos sus reducers

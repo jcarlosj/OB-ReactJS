@@ -1,21 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { fetchLogin } from '../../../features/auth/authActions';
-
 import { useForm } from '../../../hooks/useForm';
-
 import { validateEmail, validatePassword } from '../../../helpers/validate';
-import { loginUser } from '../../../helpers/localStorage';
 
 
 const Login = ({ setUserLogged }) => {
 
-    // Set initial state, or retrieve the key if the state already exists in local storage
-
     const dispatch = useDispatch();
-    const { loading, data, error } = useSelector( ( state ) => state );
 
     const
         [ isLoading, setIsLoading ] = useState( true ),
@@ -27,15 +21,13 @@ const Login = ({ setUserLogged }) => {
         }),
         { email, password, errorMessages } = formValues;
 
+
     useEffect(() => {
-        console.log( errorMessages );
+        // console.log( errorMessages );
 
         setIsLoading( false );
     }, [ isLoading, errorMessages ]);
 
-    useEffect( () => {
-        
-    }, [] );
 
     const isFormValid = () => {
 
