@@ -2,11 +2,17 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useForm } from '../../../hooks/useForm';
+import { fetchLogin } from '../../../services/fetchAuth.js';
 
 import { validateEmail, validatePassword } from '../../../helpers/validate';
 import { loginUser } from '../../../helpers/localStorage';
 
+import { useAuthContext } from '../../../store/auth/authProvider.js';
+import { authTypes } from '../../../store/auth/authTypes.js';
+
 const Login = ({ setUserLogged }) => {
+
+    const [ state, dispatch ] = useAuthContext();
 
     const
         [ loading, setLoading ] = useState( true ),
@@ -38,10 +44,51 @@ const Login = ({ setUserLogged }) => {
         return emailValid && passwordValid;
     }
 
-    const handleLogin = async ( event ) => {
+    const handleSubmit = async ( event ) => {
         event.preventDefault();
 
         if( isFormValid() ) {
+
+            // LOGIN_LOADING
+            dispatch({
+                type: authTypes.LOGIN_PENDING
+            });
+
+            const data = await fetchLogin( email, password );
+            console.log( data );
+
+                // Verifica si se obtienen datos
+            if( data.length === 0 )
+                // LOGIN_FAILED
+                dispatch({
+                    type: authTypes.LOGIN_REJECTED,
+                    payload: 'Error getting data'
+                });
+
+            const authenticatedUser = data.filter( user => user.email === email && user.password === password );
+
+            // Verifica si se logro la autenticacion del usuario
+            if( authenticatedUser.length === 0 )
+                // LOGIN_FAILED
+                dispatch({
+                    type: authTypes.LOGIN_REJECTED,
+                    payload: 'User authentication failed'
+                });
+
+            const authUser = authenticatedUser[ 0 ];
+
+            delete authUser[ 'password' ];
+            console.log( authUser );
+
+            // LOGIN_SUCCESS
+            dispatch({
+                type: authTypes.LOGIN_FULFILLED,
+                payload: {
+                    token: 'here-token',
+                    user: authUser,
+                }
+            });
+            
             console.log( JSON.stringify({ email, password }) );
 
             const { message, authenticated_user } = await loginUser({ email, password });
@@ -68,7 +115,7 @@ const Login = ({ setUserLogged }) => {
             <h1 className="page_title page_login">Login Page</h1>
             <p className="text-center">(Restricted: unauthenticated is required)</p>
             <form
-                onSubmit={ handleLogin }
+                onSubmit={ handleSubmit }
             >
                 {
                     errorMessages &&
