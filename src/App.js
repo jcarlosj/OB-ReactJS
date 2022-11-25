@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
 
 import MainRoute from './routes/Main.route';
+import { useAuthContext } from './store/auth/authProvider';
 
 import { getAuthenticatedUser, registerUsersByDefault } from './helpers/localStorage';
 
 import './App.css';
 
 function App() {
+
+	const [ state, dispatch ] = useAuthContext();
+	console.log( state );
 
 	const
 		[ defaultLogs, setDefaultLogs ] = useState( false ),

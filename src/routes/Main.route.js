@@ -14,9 +14,9 @@ import ProtectedRoute from '../routes/ProtectedRoute';
 import RestrictedRoute from '../routes/RestrictedRoute';
 
 const MainRoute = ({ userLogged, setUserLogged }) => {
-    console.log( 'userLogged', userLogged );        // * Sin loguear (undefined) / Logueado {} objecto con la data
-    console.log( '!userLogged', !userLogged );      // * Sin loguear true / Logueado false
-    console.log( '!!userLogged', !!userLogged );    // * Sin loguear false / Logueado true
+    // console.log( 'userLogged', userLogged );        // * Sin loguear (undefined) / Logueado {} objecto con la data
+    // console.log( '!userLogged', !userLogged );      // * Sin loguear true / Logueado false
+    // console.log( '!!userLogged', !!userLogged );    // * Sin loguear false / Logueado true
 
     return (
         <div>
