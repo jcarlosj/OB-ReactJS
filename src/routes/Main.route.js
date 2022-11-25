@@ -13,38 +13,37 @@ import NotFoundPage from '../components/pure/NotFoundPage';
 import ProtectedRoute from '../routes/ProtectedRoute';
 import RestrictedRoute from '../routes/RestrictedRoute';
 
-const MainRoute = ({ userLogged, setUserLogged }) => {
-    // console.log( 'userLogged', userLogged );        // * Sin loguear (undefined) / Logueado {} objecto con la data
-    // console.log( '!userLogged', !userLogged );      // * Sin loguear true / Logueado false
-    // console.log( '!!userLogged', !!userLogged );    // * Sin loguear false / Logueado true
+const MainRoute = ({ isLoggedIn, user, setUserLogged }) => {
+
+    console.log( isLoggedIn, user );
 
     return (
         <div>
-            <Menu userLogged={ userLogged } setUserLogged={ setUserLogged } />
+            <Menu isLoggedIn={ isLoggedIn } user={ user } />
             <Routes>
                 {/* Define componentes de diseño <Outlet> permitiendo a rutas con el mismo nivel de autorizacion a ser anidadas bajo el mismo componente de ruta restringida */}
                 <Route path="/" element={ <Home /> } />
-                <Route element={ <RestrictedRoute isAllowed={ !!userLogged } /> }>
+                <Route element={ <RestrictedRoute isAllowed={ isLoggedIn } /> }>
                     <Route path="/register" element={ <Register /> } />
                     <Route path="/login" element={ <Login setUserLogged={ setUserLogged }/> } />
                 </Route>
                 {/* Define componentes de diseño <Outlet> permitiendo a rutas con el mismo nivel de autorizacion a ser anidadas bajo el mismo componente de ruta protegida */}
-                <Route element={ <ProtectedRoute isAllowed={ !!userLogged && userLogged.roles.includes( 'superadmin' ) } /> } >
+                <Route element={ <ProtectedRoute isAllowed={ isLoggedIn && user?.roles.includes( 'superadmin' ) } /> } >
                     <Route path="/admin" element={ <Admin /> } />
                 </Route>
                 {/* Define componentes de diseño <Outlet> permitiendo a rutas con el mismo nivel de autorizacion a ser anidadas bajo el mismo componente de ruta protegida */}
-                <Route element={ <ProtectedRoute isAllowed={ !!userLogged && userLogged.roles.includes( 'admin' ) } /> } >
+                <Route element={ <ProtectedRoute isAllowed={ isLoggedIn && user?.roles.includes( 'admin' ) } /> } >
                     <Route path="/dashboard" element={ <Dashboard /> } />
                 </Route>
                 {/* Define componentes de diseño <Outlet> permitiendo a rutas con el mismo nivel de autorizacion a ser anidadas bajo el mismo componente de ruta protegida */}
-                <Route element={ <ProtectedRoute isAllowed={ !!userLogged && userLogged.roles.includes( 'editor' ) } /> } >
+                <Route element={ <ProtectedRoute isAllowed={ isLoggedIn && user?.roles.includes( 'editor' ) } /> } >
                     <Route path="/task-list" element={ <TaskList /> } />
                 </Route>
                 {/* Define componente de envoltura, que requiere un envoltorio separado para cada componente de ruta protegida y/o restringida */}
                 <Route
                     path="/profile"
                     element={
-                        <ProtectedRoute isAllowed={ !!userLogged && userLogged.roles.includes( 'user' ) }>
+                        <ProtectedRoute isAllowed={ isLoggedIn && user?.roles.includes( 'user' ) }>
                             <Profile />
                         </ProtectedRoute>
                     }

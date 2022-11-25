@@ -48,8 +48,8 @@ const Register = () => {
         if( isFormValid() ) {
             // console.log( JSON.stringify({ name, email, password }) );
 
-            const confirmationMessage = await registerUser({ name, email, password });
-            setMessage( confirmationMessage );
+            // const confirmationMessage = await registerUser({ name, email, password });
+            // setMessage( confirmationMessage );
 
             reset();
 

@@ -89,16 +89,6 @@ const Login = ({ setUserLogged }) => {
                 }
             });
             
-            console.log( JSON.stringify({ email, password }) );
-
-            const { message, authenticated_user } = await loginUser({ email, password });
-            setMessage( message );
-            console.log( message );
-            console.log( authenticated_user );
-            if( authenticated_user ) {
-                setUserLogged( authenticated_user );
-            }
-            
             reset();
 
             setTimeout( () => {

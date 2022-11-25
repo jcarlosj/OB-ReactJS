@@ -1,4 +1,5 @@
 import { authTypes } from './authTypes.js';
+import { AUTH_KEY, saveLocalStorage, removeLocalStorage, getLocalStorage } from '../../helpers/localStorage.js';
 
 
 // Define State
@@ -28,6 +29,11 @@ const authReducer = ( state, action ) => {
                 error: ''
             };
         case authTypes.LOGIN_FULFILLED:
+            saveLocalStorage( AUTH_KEY, {
+                user: action.payload.user,
+                token: action.payload.token
+            });
+
             return {
                 ...state,
                 loading: false,
@@ -46,6 +52,8 @@ const authReducer = ( state, action ) => {
                 error: 'Invalid Username or Password'
             };
         case authTypes.LOGOUT:
+            removeLocalStorage( AUTH_KEY );
+
             return {
                 ...state,
                 data: {
@@ -56,6 +64,26 @@ const authReducer = ( state, action ) => {
                 loggedIn: false,
                 error: ''
             };
+        case authTypes.GET_AUTH_USER:
+            const authData = getLocalStorage( AUTH_KEY );
+            console.log( authData );
+
+            if ( authData !== null && authData?.user && authData?.token ) {
+                console.log( 'Get Auth User LocalStorage' );
+
+                return {
+                    ...state,
+                    loggedIn: true,
+                    data: {
+                        user: authData?.user,
+                        token: authData?.token
+                    }
+                };
+            }
+
+            console.error( 'No authenticated user in local storage' );
+
+            return state;
 
         default:
             return state;

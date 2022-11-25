@@ -1,21 +1,9 @@
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import { logoutUser } from '../../helpers/localStorage';
+import Logout from '../../components/pure/Logout.jsx';
 
+// Functional Component
 const Menu = ({ userLogged, setUserLogged }) => {
-
-	const navigate = useNavigate();
-
-	const navigateTo = path => {
-		navigate( path );
-	}
-
-	const logout = () => {
-		logoutUser();
-		setUserLogged();
-		console.log( 'Logout!' )
-	}
-
 	return (
 		<div className="container bg-menu">
 			<header className="header-page">
@@ -48,9 +36,7 @@ const Menu = ({ userLogged, setUserLogged }) => {
 							<Link to="/register">Register</Link>
 						</li>
 						<li className="item">
-							<Link to="/"
-								onClick={ () => logout() }
-							>Logout</Link>
+							<Logout />
 						</li>
 					</ul>
 				</nav>
