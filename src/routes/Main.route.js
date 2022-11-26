@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Menu from '../components/pure/Menu';
 import Home from '../components/Home';
 import Login from '../components/pure/forms/Login.jsx';
-import Register from '../components/pure/forms/Register';
+import Register from '../components/containers/Register';
 import Admin from '../components/containers/Admin';
 import Dashboard from '../components/containers/Dashboard';
 import Profile from '../components/containers/Profile';

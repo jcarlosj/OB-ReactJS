@@ -21,16 +21,6 @@
         "editor",
         "user"
       ]
-    },
-    {
-      "id": 1669484298687,
-      "name": "Ana Maria",
-      "email": "anamaria@correo.co",
-      "password": "anamaria",
-      "roles": [
-        "editor",
-        "user"
-      ]
     }
   ]
 }

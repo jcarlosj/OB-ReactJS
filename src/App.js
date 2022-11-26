@@ -30,7 +30,7 @@ function App() {
 			});		//  Action: Solicita usuario autenticado
 
 		// Verifica que exista un usuario autenticado en el Store
-		if( 'email' in data.user )
+		if( data.user.hasOwnProperty( 'email' ) )
 			setUserLogged({
 				isLoggedIn: true,
 				user: data?.user

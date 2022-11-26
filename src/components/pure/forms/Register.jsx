@@ -6,9 +6,14 @@ import { fetchRegister } from '../../../services/fetchAuth.js';
 
 import { validateName, validateEmail, validatePassword, validateAndConfirmPassword } from '../../../helpers/validate';
 
+import { useRegisterContext } from '../../../store/auth/providers/registerProvider.js';
+import { authTypes } from '../../../store/auth/types.js';
+
 
 // Functional Component
-const Register = () => {
+const FormRegister = () => {
+
+    const [ state, dispatch ] = useRegisterContext();
 
     const
         [ loading, setLoading ] = useState( true ),
@@ -49,12 +54,33 @@ const Register = () => {
 
         if( isFormValid() ) {
 
+            // REGISTER_LOADING
+            dispatch({
+                type: authTypes.REGISTER_PENDING
+            });
+
             const data = await fetchRegister( name, email, password );
             console.log( data );         
+
+            // // REGISTER_FAILED
+            // dispatch({
+            //     type: authTypes.REGISTER_REJECTED,
+            //     payload: data.error
+            // });
+            // setMessage( data.error );
+
+            // REGISTER_SUCCESS
+            dispatch({
+                type: authTypes.REGISTER_FULFILLED
+            });
 
             reset();
 
             setTimeout( () => {
+                // REGISTER_RESET
+                dispatch({
+                    type: authTypes.REGISTER_RESET
+                });
                 setMessage( '' );
             }, 2000 );
         }
@@ -147,4 +173,4 @@ const Register = () => {
 };
 
 
-export default Register;
+export default FormRegister;
