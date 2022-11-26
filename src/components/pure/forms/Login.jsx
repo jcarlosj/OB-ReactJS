@@ -5,14 +5,13 @@ import { useForm } from '../../../hooks/useForm';
 import { fetchLogin } from '../../../services/fetchAuth.js';
 
 import { validateEmail, validatePassword } from '../../../helpers/validate';
-import { loginUser } from '../../../helpers/localStorage';
 
 import { useAuthContext } from '../../../store/auth/authProvider.js';
 import { authTypes } from '../../../store/auth/authTypes.js';
 
 const Login = ({ setUserLogged }) => {
 
-    const [ state, dispatch ] = useAuthContext();
+    const [ _, dispatch ] = useAuthContext();
 
     const
         [ loading, setLoading ] = useState( true ),

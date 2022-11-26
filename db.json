@@ -1,36 +1,36 @@
 {
-    "users": [
-        {
-            "id": 1669059040763,
-            "name": "Eva Sofía",
-            "email": "admin@correo.co",
-            "password": "admin",
-            "roles": [
-                "admin",
-                "editor",
-                "user"
-            ]
-        },
-        {
-            "id": 1669059625978,
-            "name": "Juan",
-            "email": "superadmin@correo.co",
-            "password": "superadmin",
-            "roles": [
-                "superadmin",
-                "editor",
-                "user"
-            ]
-        },
-        {
-            "id": 1669060229145,
-            "name": "Milo Jimenez",
-            "email": "editor@correo.co",
-            "password": "editor",
-            "roles": [
-                "editor",
-                "user"
-            ]
-        }
-    ]
+  "users": [
+    {
+      "id": 1669059040763,
+      "name": "Eva Sofía",
+      "email": "admin@correo.co",
+      "password": "admin",
+      "roles": [
+        "admin",
+        "editor",
+        "user"
+      ]
+    },
+    {
+      "id": 1669059625978,
+      "name": "Juan",
+      "email": "superadmin@correo.co",
+      "password": "superadmin",
+      "roles": [
+        "superadmin",
+        "editor",
+        "user"
+      ]
+    },
+    {
+      "id": 1669484298687,
+      "name": "Ana Maria",
+      "email": "anamaria@correo.co",
+      "password": "anamaria",
+      "roles": [
+        "editor",
+        "user"
+      ]
+    }
+  ]
 }

@@ -2,11 +2,18 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useForm } from '../../../hooks/useForm';
+import { fetchRegister } from '../../../services/fetchAuth.js';
 
 import { validateName, validateEmail, validatePassword, validateAndConfirmPassword } from '../../../helpers/validate';
-import { registerUser } from '../../../helpers/localStorage';
 
+import { useAuthContext } from '../../../store/auth/authProvider.js';
+import { authTypes } from '../../../store/auth/authTypes.js';
+
+
+// Functional Component
 const Register = () => {
+
+    const [ _, dispatch ] = useAuthContext();
 
     const
         [ loading, setLoading ] = useState( true ),
@@ -46,10 +53,9 @@ const Register = () => {
         event.preventDefault();
 
         if( isFormValid() ) {
-            // console.log( JSON.stringify({ name, email, password }) );
 
-            // const confirmationMessage = await registerUser({ name, email, password });
-            // setMessage( confirmationMessage );
+            const data = await fetchRegister( name, email, password );
+            console.log( data );         
 
             reset();
 
