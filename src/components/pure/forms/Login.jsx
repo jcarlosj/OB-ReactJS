@@ -6,12 +6,12 @@ import { fetchLogin } from '../../../services/fetchAuth.js';
 
 import { validateEmail, validatePassword } from '../../../helpers/validate';
 
-import { useAuthContext } from '../../../store/auth/authProvider.js';
-import { authTypes } from '../../../store/auth/authTypes.js';
+import { useLoginContext } from '../../../store/auth/providers/loginProvider.js';
+import { authTypes } from '../../../store/auth/types.js';
 
 const Login = ({ setUserLogged }) => {
 
-    const [ _, dispatch ] = useAuthContext();
+    const [ _, dispatch ] = useLoginContext();
 
     const
         [ loading, setLoading ] = useState( true ),

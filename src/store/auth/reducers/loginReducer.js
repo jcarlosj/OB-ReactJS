@@ -1,9 +1,9 @@
-import { authTypes } from './authTypes.js';
-import { AUTH_KEY, saveLocalStorage, removeLocalStorage, getLocalStorage } from '../../helpers/localStorage.js';
+import { authTypes } from '../types.js';
+import { AUTH_KEY, saveLocalStorage, removeLocalStorage, getLocalStorage } from '../../../helpers/localStorage.js';
 
 
 // Define State
-export const initialState = {
+export const loginInitialState = {
     name: 'Auth',
     loading: false,
     data: {
@@ -15,7 +15,7 @@ export const initialState = {
 };
 
 // Auth Reducer
-const authReducer = ( state, action ) => {
+const loginReducer = ( state, action ) => {
     switch ( action.type ) {
         case authTypes.FIELD:
             return {
@@ -91,4 +91,4 @@ const authReducer = ( state, action ) => {
 }
 
 
-export default authReducer;
+export default loginReducer;

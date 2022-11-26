@@ -6,14 +6,9 @@ import { fetchRegister } from '../../../services/fetchAuth.js';
 
 import { validateName, validateEmail, validatePassword, validateAndConfirmPassword } from '../../../helpers/validate';
 
-import { useAuthContext } from '../../../store/auth/authProvider.js';
-import { authTypes } from '../../../store/auth/authTypes.js';
-
 
 // Functional Component
 const Register = () => {
-
-    const [ _, dispatch ] = useAuthContext();
 
     const
         [ loading, setLoading ] = useState( true ),

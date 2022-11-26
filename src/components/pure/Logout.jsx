@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom';
 
-import { useAuthContext } from '../../store/auth/authProvider.js';
-import { authTypes } from '../../store/auth/authTypes.js';
+import { useLoginContext } from '../../store/auth/providers/loginProvider.js';
+import { authTypes as types } from '../../store/auth/types.js';
 
 
 const Logout = () => {
 
-    const [ _, dispatch ] = useAuthContext();
+    const [ _, dispatch ] = useLoginContext();
 
     const handleLogout = () => {
 		console.log( 'Logout!' );
 		dispatch({
-            type: authTypes.LOGOUT
+            type: types.LOGOUT
         });
 	}
 

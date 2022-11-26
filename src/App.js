@@ -1,17 +1,15 @@
 import { useState, useEffect } from 'react';
 
 import MainRoute from './routes/Main.route';
-import { useAuthContext } from './store/auth/authProvider';
-import { authTypes } from './store/auth/authTypes.js';
-
-import { getAuthenticatedUser, registerUsersByDefault } from './helpers/localStorage';
+import { useLoginContext } from './store/auth/providers/loginProvider.js';
+import { authTypes } from './store/auth/types.js';
 
 import './App.css';
 
 function App() {
 
 	const
-		[ state, dispatch ] = useAuthContext(),
+		[ state, dispatch ] = useLoginContext(),
 		{ data } = state;
 
 	const
@@ -42,33 +40,6 @@ function App() {
 				isLoggedIn: false,
 				user: {}
 			});
-		
-		// console.log( { ...userLogged } );
-
-
-
-		// async function fetchData() {
-		// 	const user = await getAuthenticatedUser();
-
-		// 	if( ! defaultLogs ) {
-		// 		registerUsersByDefault();
-		// 		setDefaultLogs( true );
-		// 	}
-			
-
-		// 	console.group( 'state component' );
-		// 	console.log( user );
-		// 	console.log( loading );
-		// 	console.groupEnd();
-
-		// 	if( user ) {
-		// 		setUserLogged( user );
-		// 		setLoading( true );
-		// 	}
-		// }
-		// fetchData();
-
-		// setLoading( false );
 
 	}, [ data ]);
 
