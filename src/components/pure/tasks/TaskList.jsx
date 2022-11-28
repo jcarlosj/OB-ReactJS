@@ -14,18 +14,19 @@ const TaskList = () => {
 
     const
         fetchedData = useFetch( 'http://localhost:4000/tasks' ),
-        { loading, data, status, error } = fetchedData;
+        { data, status, error } = fetchedData;
 
     console.log( fetchedData );
     console.log( state );
 
 
     useEffect( () => {
+        // De acuerdo al estado de la peticion agrega data obtenida del API (data, error, mensaje), al ContextAPI
         if( status === REQUEST_STATUS.FETCHING ) {
             dispatch({
                 type: taskTypes.TASK_PENDING
             });
-            console.log( 'pending' );
+            console.log( 'Pending...' );
         }
 
         if( status === REQUEST_STATUS.NOT_FOUND || status === REQUEST_STATUS.ERROR ) {
@@ -33,7 +34,7 @@ const TaskList = () => {
                 type: taskTypes.TASK_REJECTED,
                 payload: error
             });
-            console.log( 'rejected' );
+            console.log( 'Rejected: ', error );
         }
         
         if( status === REQUEST_STATUS.SUCCESS ) {
@@ -41,38 +42,42 @@ const TaskList = () => {
                 type: taskTypes.TASK_FULFILLED,
                 payload: data
             });
-            console.log( 'success' );
+            console.log( 'Success!' );
         }
+
     }, [ fetchedData ] );
 
 
     return (
         <div className="container">
             <h1 className="page_title page_register">
-                Taks List Page
+                Task List Page
                 <div className="title_note">
-                    <small>(Static page)</small>
+                    <small>(Dinamic page)</small>
                 </div>
             </h1>
             <p className="text-center">(Protected: authenticated user required)</p>
-            <table className="table-task-list">
-                <thead>
-                    <tr>
-                        <th>Name Task</th>
-                        <th>Details</th>
-                        <th>State</th>
-                        <th>Level</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {}
-                    {   data.map( task => 
-                            <Task key={ task.id } { ...task } /> 
-                        )
-                    }
-                </tbody>
-            </table>
+            {   ( status === REQUEST_STATUS.FETCHING ) && <p className="loading">Loading...</p> }
+            {   ( status === REQUEST_STATUS.NOT_FOUND || status === REQUEST_STATUS.ERROR ) && <p className="error">{ error }</p> }
+            {   ( status === REQUEST_STATUS.SUCCESS ) && 
+                    <table className="table-task-list">
+                        <thead>
+                            <tr>
+                                <th>Name Task</th>
+                                <th>Details</th>
+                                <th>State</th>
+                                <th>Level</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {   data.map( task => 
+                                    <Task key={ task.id } { ...task } /> 
+                                )
+                            }
+                        </tbody>
+                    </table>
+            }
         </div>
     );
 };

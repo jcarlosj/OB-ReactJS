@@ -61,6 +61,19 @@
 	color: green;
 }
 
+.loading {
+	color: gray;
+	font-size: 1.6rem;
+	text-align: center;
+}
+
+.error {
+	color: red;
+	font-size: 1.6rem;
+	font-weight: bold;
+	text-align: center;
+}
+
 .form-control {
     padding: 0.3rem 1rem;
     text-align: center;
