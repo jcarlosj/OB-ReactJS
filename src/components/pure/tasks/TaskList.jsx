@@ -1,7 +1,14 @@
 import { Link } from 'react-router-dom';
 
+import useFetch from '../../../hooks/useFetch.jsx';
 
+
+// Functional Component
 const TaskList = () => {
+    const tasks = useFetch( 'http://localhost:4000/tasks' );
+    console.log( tasks );
+    
+
     return (
         <div className="container">
             <h1 className="page_title page_register">
