@@ -1,10 +1,20 @@
 import { useState, useEffect } from 'react';
 
 
+// Request statuses
+export const REQUEST_STATUS = {
+    IDLE:       'idle',
+    FETCHING:   'fetching',
+    ERROR:      'error',
+    NOT_FOUND:  'not found',
+    SUCCESS:    'success'
+}
+
 // Hook Initial State
 const initialState = {
+    status: REQUEST_STATUS.IDLE,  // idle | fetching | error | not-found | success
     data: [],
-    state: 'idle'
+    error: ''
 };
 
 // Custom Hook: Fetch API
@@ -17,7 +27,7 @@ const useFetch = ( url ) => {
 
         setStateHook({
             ...stateHook,
-            state: 'fetching'
+            status: REQUEST_STATUS.FETCHING
         });
 
         const getAllTasks = async () => {
@@ -36,7 +46,8 @@ const useFetch = ( url ) => {
             if( ! Array.isArray( data ) ) {
                 return setStateHook({
                     ...stateHook,
-                    state: 'error'
+                    status: REQUEST_STATUS.ERROR,
+                    error: 'Request Error'
                 });
             }
 
@@ -44,14 +55,15 @@ const useFetch = ( url ) => {
             if( data.length === 0 ) {
                 return setStateHook({
                     ...stateHook,
-                    state: 'not-found-data'
+                    status: REQUEST_STATUS.NOT_FOUND,
+                    error: 'Data Not Found'
                 });
             }
 
             setStateHook({
                 ...stateHook,
                 data,
-                state: 'fetched'
+                status: REQUEST_STATUS.SUCCESS
             });
         }
         getAllTasks();

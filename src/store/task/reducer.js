@@ -13,12 +13,23 @@ export const taskInitialState = {
 const taskReducer = ( state, action ) => {
     switch ( action.type ) {
         case taskTypes.TASK_PENDING:
-            return {};
+            return {
+                ...state,
+                loading: true
+            };
         case taskTypes.TASK_FULFILLED:
             console.log( action.payload );
-            return {};
+            return {
+                ...state,
+                loading: false,
+                data: action.payload
+            };
         case taskTypes.TASK_REJECTED:
-            return {};
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            };
 
         default:
             return state;
