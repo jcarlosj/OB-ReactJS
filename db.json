@@ -22,5 +22,28 @@
         "user"
       ]
     }
+  ],
+  "tasks" : [
+    {
+      "id": 1669660194636,
+      "name": "Learning Angular",
+      "description": "Devtalles (Fernando Herrera)",
+      "completed": false,
+      "level": "normal"
+    },
+    {
+      "id": 1669660198483,
+      "name": "Learning Vue",
+      "description": "Udemy (Fernando Herrera)",
+      "completed": false,
+      "level": "urgent"
+    },
+    {
+      "id": 1669660200011,
+      "name": "Learning Node",
+      "description": "Udemy (Juan Pablo de la Torre Valdez)",
+      "completed": false,
+      "level": "blocking"
+    }
   ]
 }
