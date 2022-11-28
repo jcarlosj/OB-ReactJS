@@ -4,7 +4,7 @@ import { AUTH_KEY, saveLocalStorage, removeLocalStorage, getLocalStorage } from 
 
 // Define State
 export const loginInitialState = {
-    name: 'Auth',
+    name: 'Auth-Login: Initial State',
     loading: false,
     data: {
         user: {},
