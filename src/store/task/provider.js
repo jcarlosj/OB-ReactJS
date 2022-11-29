@@ -17,7 +17,7 @@ const TaskProvider = ({ children }) => {
     // * Define State Component > useReducer: Gestiona el estado global a través de actualizaciones profundas en todos los componentes 
     const [ state, dispatch ] = useReducer( taskReducer, taskInitialState );
 
-    console.log( state );
+    // console.log( state );
 
     return (
         <TaskContext.Provider

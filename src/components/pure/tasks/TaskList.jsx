@@ -16,8 +16,8 @@ const TaskList = () => {
         fetchedData = useFetch( 'http://localhost:4000/tasks' ),
         { data, status, error } = fetchedData;
 
-    console.log( fetchedData );
-    console.log( state );
+    // console.log( fetchedData );
+    // console.log( state );
 
 
     useEffect( () => {
@@ -26,7 +26,7 @@ const TaskList = () => {
             dispatch({
                 type: taskTypes.TASK_PENDING
             });
-            console.log( 'Pending...' );
+            // console.log( 'Pending...' );
         }
 
         if( status === REQUEST_STATUS.NOT_FOUND || status === REQUEST_STATUS.ERROR ) {
@@ -34,7 +34,7 @@ const TaskList = () => {
                 type: taskTypes.TASK_REJECTED,
                 payload: error
             });
-            console.log( 'Rejected: ', error );
+            // console.log( 'Rejected: ', error );
         }
         
         if( status === REQUEST_STATUS.SUCCESS ) {
@@ -42,7 +42,7 @@ const TaskList = () => {
                 type: taskTypes.TASK_FULFILLED,
                 payload: data
             });
-            console.log( 'Success!' );
+            // console.log( 'Success!' );
         }
 
     }, [ fetchedData ] );

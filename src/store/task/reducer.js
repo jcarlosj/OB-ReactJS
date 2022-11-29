@@ -18,7 +18,7 @@ const taskReducer = ( state, action ) => {
                 loading: true
             };
         case taskTypes.TASK_FULFILLED:
-            console.log( action.payload );
+            // console.log( action.payload );
             return {
                 ...state,
                 loading: false,
