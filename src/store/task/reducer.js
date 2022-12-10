@@ -5,26 +5,26 @@ import { taskTypes } from './types.js';
 export const taskInitialState = {
     name: 'Task: Initial State',
     loading: false,
-    data: {},
+    data: [],
     error: ''
 };
 
 // Task Reducer
 const taskReducer = ( state, action ) => {
     switch ( action.type ) {
-        case taskTypes.TASK_PENDING:
+        case taskTypes.GET_TASKS_PENDING:
             return {
                 ...state,
                 loading: true
             };
-        case taskTypes.TASK_FULFILLED:
+        case taskTypes.GET_TASKS_FULFILLED:
             // console.log( action.payload );
             return {
                 ...state,
                 loading: false,
                 data: action.payload
             };
-        case taskTypes.TASK_REJECTED:
+        case taskTypes.GET_TASKS_REJECTED:
             return {
                 ...state,
                 loading: false,

@@ -1,5 +1,5 @@
 export const taskTypes = {
-    TASK_PENDING:      '[Task] Get Tasks pending',
-    TASK_FULFILLED:    '[Task] Get Tasks success',
-    TASK_REJECTED:     '[Task] Get Tasks failed',
+    GET_TASKS_PENDING:      '[Task] Get Tasks pending',
+    GET_TASKS_FULFILLED:    '[Task] Get Tasks success',
+    GET_TASKS_REJECTED:     '[Task] Get Tasks failed',
 };
