@@ -34,5 +34,5 @@ export const useForm = ( initialState = { errorMessages: [] } ) => {
         }));
     }
 
-    return [ values, handleInputChange, setError, reset ];
+    return [ values, handleInputChange, setError, reset, setValues ];
 }

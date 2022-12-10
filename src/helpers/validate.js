@@ -65,3 +65,19 @@ exports.validateName = ( name, setError ) => {
 
     return nameValid;
 }
+
+exports.isRequired = ({ nameField, valueField, errorMessage }, setError ) => {
+    let isValid = false;
+
+    if( ! valueField ) {
+        const obj = {};
+    
+        obj[ nameField ] = `${ errorMessage }`;    
+        setError( obj );
+    }
+    else {
+        isValid = true;
+    }
+
+    return isValid;
+}

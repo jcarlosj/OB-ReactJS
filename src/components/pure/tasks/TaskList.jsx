@@ -4,7 +4,9 @@ import { useTaskContext } from '../../../store/task/provider.js';
 import { taskTypes } from '../../../store/task/types.js';
 
 import { fetchTask } from '../../../services/fetchTask.js';
+
 import Task from './Task.jsx';
+import FormTask from './forms/FormTask.jsx';
 
 
 // Functional Component
@@ -96,6 +98,7 @@ const TaskList = () => {
                 </div>
             </h1>
             <p className="text-center">(Protected: authenticated user required)</p>
+            <FormTask />
             {   loading && <p className="loading">Loading...</p> }
             {   error !== '' && <p className="error">{ error }</p> }
             {   data.length === 0
