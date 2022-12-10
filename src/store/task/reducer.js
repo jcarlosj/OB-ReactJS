@@ -12,6 +12,7 @@ export const taskInitialState = {
 // Task Reducer
 const taskReducer = ( state, action ) => {
     switch ( action.type ) {
+        // Casuistica para obtener todas las tareas
         case taskTypes.GET_TASKS_PENDING:
             return {
                 ...state,
@@ -25,6 +26,24 @@ const taskReducer = ( state, action ) => {
                 data: action.payload
             };
         case taskTypes.GET_TASKS_REJECTED:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            };
+        // Casuistica para eliminar una tarea por ID
+        case taskTypes.DELETE_TASK_PENDING: 
+            return {
+                ...state,
+                loading: true
+            }
+        case taskTypes.DELETE_TASK_FULFILLED:
+            return {
+                ...state,
+                loading: false,
+                data: state.data.filter( task => task.id !== action.payload )
+            }
+        case taskTypes.DELETE_TASK_REJECTED:
             return {
                 ...state,
                 loading: false,

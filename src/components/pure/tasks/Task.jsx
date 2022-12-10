@@ -1,8 +1,5 @@
-import { Link } from 'react-router-dom';
-
-
 // Functional Component
-const Task = ({ id, name, description, completed, level }) => {
+const Task = ({ id, name, description, completed, level, handleDeleteTask, handleEditTask }) => {
     return (
         <tr>
             <td>{ name }</td>
@@ -11,14 +8,20 @@ const Task = ({ id, name, description, completed, level }) => {
             <td>{ level }</td>
             <td className="actions">
                 <span className="item">
-                    <Link to="#" >
+                    <span
+                        className="btn"
+                        onClick={ () => handleEditTask( id ) }
+                    >
                         edit
-                    </Link>
+                    </span>
                 </span>
                 <span className="item">
-                    <Link to="#" >
+                    <span
+                        className="btn"
+                        onClick={ () => handleDeleteTask( id ) }
+                    >
                         delete
-                    </Link>
+                    </span>
                 </span>
             </td>
         </tr>
