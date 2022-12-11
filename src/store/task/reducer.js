@@ -49,6 +49,24 @@ const taskReducer = ( state, action ) => {
                 loading: false,
                 error: action.payload
             };
+        // Casuistica para agregar tarea
+        case taskTypes.ADD_TASK_PENDING:
+            return {
+                ...state,
+                loading: true
+            }
+        case taskTypes.ADD_TASK_FULFILLED:
+            return {
+                ...state,
+                loading: false,
+                data: [ ...state.data, action.payload ]
+            }
+        case taskTypes.ADD_TASK_REJECTED:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            };
 
         default:
             return state;
