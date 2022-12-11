@@ -66,18 +66,24 @@ exports.validateName = ( name, setError ) => {
     return nameValid;
 }
 
-exports.isRequired = ({ nameField, valueField, errorMessage }, setError ) => {
+exports.isRequired = ({ input, errorMessage }, setError ) => {
+    const
+        nameField = Object.keys( input )[ 0 ],
+        valueField = input[ nameField ]; 
+    
     let isValid = false;
+    const obj = {};
+
+    // console.info( input );
+    // console.info( nameField, ':', valueField );
+    // console.info( input[ nameField ] );
 
     if( ! valueField ) {
-        const obj = {};
-    
         obj[ nameField ] = `${ errorMessage }`;    
         setError( obj );
     }
-    else {
+    else
         isValid = true;
-    }
 
     return isValid;
 }

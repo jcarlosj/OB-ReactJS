@@ -16,7 +16,7 @@ const FormTask = () => {
             description: '',
             completed: false,
             level: '',
-            errorMessages: []
+            errorMessages: [],
         }),
         { name, description, completed, level, errorMessages } = formValues;
 
@@ -29,19 +29,23 @@ const FormTask = () => {
     }, [ loading ]);
 
     const isFormValid = () => {
-        
         setError({});           //  Inicializa campos de error cada que se valida el formulario
-        // setLoading( true );
 
-        /** Validaciones: Agregara mensajes de error de ser necesario */
-        const
-            nameValid = isRequired({ nameField: 'name', valueField: name, errorMessage: 'Name is required!' }, setError ),
-            descriptionValid = isRequired({ nameField: 'description', valueField: description, errorMessage: 'Description is required!' }, setError );
-            
+        const isDataValid = [
+            isRequired({ input: { name }, errorMessage: 'Name is required!' }, setError ),
+            isRequired({ input: { description }, errorMessage: 'Description is required!' }, setError )
+        ];
+
+        // Establece por defecto el nivel como 'normal' cuando no ha sido seleccionado
         if( formValues.level === '' )
             formValues.level = LEVELS.NORMAL;
 
-        return nameValid && descriptionValid;
+        const isFormValid = isDataValid.every( ( value ) => value )
+        if( isFormValid ) {
+            setError({});
+        }
+
+        return isFormValid;
     }
 
     const handleOnSubmit = async ( event ) => {

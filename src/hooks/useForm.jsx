@@ -17,6 +17,8 @@ export const useForm = ( initialState = { errorMessages: [] } ) => {
     }
 
     const setError = ( error ) => {
+        console.log( Object.keys( error ).length );
+        console.log( error );
 
         /** Si el objeto tiene propiedades */
         if( Object.keys( error ).length === 0 ) {
