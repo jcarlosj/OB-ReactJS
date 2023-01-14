@@ -91,6 +91,69 @@ const TaskList = () => {
         });
     }
 
+    const handleCompletedTask = async ( task ) => {
+        console.log( 'CompletedTask', task );
+
+        dispatch({
+            type: taskTypes.COMPLETE_TASK_PENDING
+        });
+
+        // * 1. Obtener la tarea a actualizar
+        let response = await fetchTask( `tasks/${ task.id }`, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            }),
+            taskFound = await response.json();
+
+        console.log( response );
+        console.log( taskFound );
+
+        if( response.status > 400 ) {
+            dispatch({
+                type: taskTypes.COMPLETE_TASK_REJECTED,
+                payload: response.statusText
+            });
+
+            return;
+        }
+
+        // * 2. Actualizar estado de la tarea
+        taskFound.completed = ! taskFound.completed;
+        console.log( taskFound );
+
+        response = await fetchTask( `tasks/${ task.id }`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                completed: taskFound.completed,
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            }
+        });
+        
+        const taskUpdated = await response.json();
+
+        console.log( response );
+        console.log( taskUpdated );
+
+        if( response.status > 400 ) {
+            dispatch({
+                type: taskTypes.COMPLETE_TASK_REJECTED,
+                payload: response.statusText
+            });
+
+            return;
+        }
+
+        dispatch({
+            type: taskTypes.COMPLETE_TASK_FULFILLED,
+            payload: taskFound
+        });
+    }
+
+
     return (
         <div className="container">
             <h1 className="page_title page_register">
@@ -121,6 +184,7 @@ const TaskList = () => {
                                             key={ task.id } { ...task }
                                             handleEditTask = { handleEditTask }
                                             handleDeleteTask={ handleDeleteTask } 
+                                            handleCompletedTask={ handleCompletedTask }
                                         /> 
                                     )
                                 }

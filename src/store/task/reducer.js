@@ -29,7 +29,7 @@ const taskReducer = ( state, action ) => {
             return {
                 ...state,
                 loading: false,
-                error: action.payload
+                error: action.payload,
             };
         // Casuistica para eliminar una tarea por ID
         case taskTypes.DELETE_TASK_PENDING: 
@@ -56,14 +56,52 @@ const taskReducer = ( state, action ) => {
                 loading: true
             }
         case taskTypes.ADD_TASK_FULFILLED:
-            console.log( action.payload );
-
+            // console.log( action.payload );
             return {
                 ...state,
                 loading: false,
                 data: [ ...state.data, action.payload ]
             }
         case taskTypes.ADD_TASK_REJECTED:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            };
+        // Casuistica para obtener tarea por ID
+        case taskTypes.GET_TASK_PENDING:
+            return {
+                ...state
+            };
+        case taskTypes.GET_TASK_FULFILLED:
+            console.log( action.payload );
+            return {
+                ...state,
+            };
+        case taskTypes.GET_TASK_REJECTED:
+            return {
+                ...state,
+                error: action.payload,
+            };
+        // Casuistica para cambiar estado de la tarea
+        case taskTypes.COMPLETE_TASK_PENDING:
+            return {
+                ...state,
+                loading: true
+            };
+        case taskTypes.COMPLETE_TASK_FULFILLED:
+            console.log( action.payload );
+            return {
+                ...state,
+                loading: false,
+                data: state.data.map( task => {
+                    if ( task.id === action.payload.id )
+                        return action.payload;
+                    else
+                        return task;
+                })
+            }
+        case taskTypes.COMPLETE_TASK_REJECTED:
             return {
                 ...state,
                 loading: false,

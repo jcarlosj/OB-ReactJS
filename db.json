@@ -25,13 +25,6 @@
   ],
   "tasks": [
     {
-      "id": 1669660194636,
-      "name": "Learning Angular",
-      "description": "Devtalles (Fernando Herrera)",
-      "completed": false,
-      "level": "normal"
-    },
-    {
       "id": 1669660198483,
       "name": "Learning Vue",
       "description": "Udemy (Fernando Herrera)",
@@ -49,13 +42,6 @@
       "id": 1673717371613,
       "name": "AWS",
       "description": "AWS Educate",
-      "completed": false,
-      "level": "normal"
-    },
-    {
-      "id": 1673717642432,
-      "name": "Agile",
-      "description": "Netzum",
       "completed": false,
       "level": "normal"
     }
