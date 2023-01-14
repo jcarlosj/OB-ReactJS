@@ -7,6 +7,7 @@ import { fetchTask } from '../../../../services/fetchTask';
 
 import { useTaskContext } from '../../../../store/task/provider.js';
 import { taskTypes } from '../../../../store/task/types.js';
+import Task from '../../../../models/Task.js';
 
 
 // Functional Component
@@ -20,6 +21,7 @@ const FormTask = () => {
         [ message, setMessage ] = useState( '' ),
         [ levels, setLevels ] = useState([]),
         [ formValues, handleInputChange, setError, reset ] = useForm({
+            id: null,
             name: '',
             description: '',
             completed: false,
@@ -60,8 +62,12 @@ const FormTask = () => {
         event.preventDefault();
 
         if( isFormValid() ) {
-            // console.log( formValues );
+            const newID = new Date().valueOf();
+
             delete formValues.errorMessages;
+            formValues.id = newID;
+
+            console.log( formValues );
 
             dispatch({
                 type: taskTypes.ADD_TASK_PENDING
@@ -70,13 +76,13 @@ const FormTask = () => {
             const
                 response = await fetchTask( 'tasks', {
                     method: 'POST',
-                    body: JSON.stringify( formValues ),
+                    body: JSON.stringify( { id: newID, ...formValues } ),
                     headers: {
                         'Content-type': 'application/json; charset=UTF-8',
                     }
                 });
 
-            // console.log( response );
+            console.log( response );
 
             if( response.status > 400 ) {
                 dispatch({
@@ -86,10 +92,19 @@ const FormTask = () => {
     
                 return;
             }
+
+            /** Crea una instancia del modelo 'Task' */
+            const newTask = new Task(
+                newID,                      // Add ID
+                formValues.name,
+                formValues.description,
+                formValues.completed,
+                formValues.level
+            );
             
             dispatch({
                 type: taskTypes.ADD_TASK_FULFILLED,
-                payload: formValues
+                payload: newTask
             });
 
             reset();

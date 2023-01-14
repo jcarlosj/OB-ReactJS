@@ -1,5 +1,5 @@
 // Functional Component
-const Task = ({ id, name, description, completed, level, handleDeleteTask, handleEditTask }) => {
+const TaskDetails = ({ id, name, description, completed, level, handleDeleteTask, handleEditTask }) => {
     return (
         <tr>
             <td>{ name }</td>
@@ -28,4 +28,4 @@ const Task = ({ id, name, description, completed, level, handleDeleteTask, handl
     );
 }
 
-export default Task;
+export default TaskDetails;

@@ -5,7 +5,7 @@ import { taskTypes } from '../../../store/task/types.js';
 
 import { fetchTask } from '../../../services/fetchTask.js';
 
-import Task from './Task.jsx';
+import TaskDetails from './TaskDetails.jsx';
 import FormTask from './forms/FormTask.jsx';
 
 
@@ -19,40 +19,42 @@ const TaskList = () => {
 
     // console.log( state );
 
-    const fetchData = async () => {
-        dispatch({
-            type: taskTypes.GET_TASKS_PENDING
-        });
-
-        const 
-            response = await fetchTask( 'tasks', {
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                }
-            }),
-            data = await response.json();
-
-        console.log( response );
-
-        if( response.status > 400 ) {
-            dispatch({
-                type: taskTypes.GET_TASKS_REJECTED,
-                payload: response.statusText
-            });
-
-            return;
-        }
-        
-        dispatch({
-            type: taskTypes.GET_TASKS_FULFILLED,
-            payload: data
-        });
-
-    }
-
     useEffect( () => {
+
+        const fetchData = async () => {
+            dispatch({
+                type: taskTypes.GET_TASKS_PENDING
+            });
+    
+            const 
+                response = await fetchTask( 'tasks', {
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                    }
+                }),
+                data = await response.json();
+    
+            console.log( response );
+            console.log( data );
+    
+            if( response.status > 400 ) {
+                dispatch({
+                    type: taskTypes.GET_TASKS_REJECTED,
+                    payload: response.statusText
+                });
+    
+                return;
+            }
+            
+            dispatch({
+                type: taskTypes.GET_TASKS_FULFILLED,
+                payload: data
+            });
+    
+        }
+
         fetchData();
-    }, [] );
+    }, [ dispatch ] );
 
     const handleEditTask = ( task_id ) => {
         console.log( 'EditTask', task_id );
@@ -115,7 +117,7 @@ const TaskList = () => {
                             </thead>
                             <tbody>
                                 {   data.map( task => 
-                                        <Task
+                                        <TaskDetails
                                             key={ task.id } { ...task }
                                             handleEditTask = { handleEditTask }
                                             handleDeleteTask={ handleDeleteTask } 
