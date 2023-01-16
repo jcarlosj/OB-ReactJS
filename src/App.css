@@ -84,6 +84,13 @@
 	text-align: center;
 }
 
+.filter {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding: 0.5rem 3rem;
+}
+
 .form-control {
     padding: 0.3rem 1rem;
     text-align: center;
@@ -91,7 +98,6 @@
 
 .table-task-list {
 	border: 1px dotted gray;
-	margin: 1.5rem auto;
 	padding: 0.4rem;
 	width: 100%;
 }

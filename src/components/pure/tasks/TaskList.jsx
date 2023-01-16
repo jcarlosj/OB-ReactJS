@@ -7,10 +7,17 @@ import { fetchTask } from '../../../services/fetchTask.js';
 
 import TaskDetails from './TaskDetails.jsx';
 import FormTask from './forms/FormTask.jsx';
+import Select from './Select.jsx';
 
 
 // Functional Component
 const TaskList = () => {
+
+    const selectOptions = [
+        [ 'all', 'All' ],
+        [ 'completed', 'Completed' ],
+        [ 'uncompleted', 'Uncompleted' ]
+    ];
 
     const
         [ state, dispatch ] = useTaskContext(),
@@ -153,6 +160,10 @@ const TaskList = () => {
         });
     }
 
+    const handleSelectChange = ( value ) => {
+        console.log( `> ${ value }` );
+    }
+
 
     return (
         <div className="container">
@@ -166,9 +177,18 @@ const TaskList = () => {
             <FormTask />
             {   loading && <p className="loading">Loading...</p> }
             {   error !== '' && <p className="error">{ error }</p> }
-            {   data.length === 0
+            {   ! loading && data.length === 0
                     ?   <p className="message">There are no registered tasks</p>
-                    :   <table className="table-task-list">
+                    :   <>  
+                            <div className="filter">
+                                <Select
+                                    values={ selectOptions }
+                                    selectedValue="all"
+                                    onValueChange={ value => handleSelectChange( value ) }
+                                    className="filter-state"
+                                />
+                            </div>
+                            <table className="table-task-list">
                             <thead>
                                 <tr>
                                     <th>Name Task</th>
@@ -190,6 +210,7 @@ const TaskList = () => {
                                 }
                             </tbody>
                         </table>
+                        </>
             }
         </div>
     );
