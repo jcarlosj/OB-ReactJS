@@ -107,6 +107,33 @@ const taskReducer = ( state, action ) => {
                 loading: false,
                 error: action.payload
             };
+        // Casuistica para filtrar lista tareas por estado de la tarea
+        case taskTypes.FILTER_TASK_PENDING:
+            return {
+                ...state,
+                loading: true
+            }
+        case taskTypes.FILTER_TASK_ALL_FULFILLED:
+            return {
+                ...state,
+                data: state.data
+            }
+        case taskTypes.FILTER_TASK_COMPLETED_FULFILLED:
+            return {
+                ...state,
+                data: state.data.filter( task => task.completed )
+            }
+        case taskTypes.FILTER_TASK_UNCOMPLETED_FULFILLED:
+            return {
+                ...state,
+                data: state.data.filter( task => ! task.completed )
+            }
+        case taskTypes.FILTER_TASK_REJECTED:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
 
         default:
             return state;

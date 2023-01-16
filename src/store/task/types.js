@@ -10,5 +10,10 @@ export const taskTypes = {
     ADD_TASK_REJECTED:          '[Task] Add Task failed',
     COMPLETE_TASK_PENDING:      '[Task] Complete Task pending',
     COMPLETE_TASK_FULFILLED:    '[Task] Complete Task success',
-    COMPLETE_TASK_REJECTED:     '[Task] Complete Task failed'
+    COMPLETE_TASK_REJECTED:     '[Task] Complete Task failed',
+    FILTER_TASK_PENDING:                '[Task] Filter Task pending',
+    FILTER_TASK_ALL_FULFILLED:          '[Task] Filter Task all success',
+    FILTER_TASK_COMPLETED_FULFILLED:    '[Task] Filter Task completed success',
+    FILTER_TASK_UNCOMPLETED_FULFILLED:  '[Task] Filter Task uncompleted success',
+    FILTER_TASK_REJECTED:               '[Task] Filter Task failed'
 };
