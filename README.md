@@ -1,11 +1,12 @@
 # OpenBootcamp
 ## ReactJS
-### Ejercicios sesion 18: Aplicando renderizado condicional a la aplicación
+### Ejercicios sesion 26: Avance en el proyecto evolutivo
 
 **(Entregables)**
 
-#### Ejercicio 16, 17, 18:
-Crear el sistema de enrutado de la aplicación en React:
+#### Ejercicio 26, 27:
+Utiliza useReducer y useContext para poder gestionar tareas en un proyecto de React. El proyecto debe permitir:
 
-- Permitir la navegación de Login a Registro y viceversa
-- No podremos acceder a Tareas a no ser que nos hayamos logeado primero.
+- Crear tareas
+- Borrar tareas
+- Filtrar tareas
