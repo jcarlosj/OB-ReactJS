@@ -28,7 +28,7 @@
       "id": 1669660198483,
       "name": "Learning Vue",
       "description": "Udemy (Fernando Herrera)",
-      "completed": false,
+      "completed": true,
       "level": "urgent"
     },
     {
@@ -44,6 +44,20 @@
       "description": "AWS Educate",
       "completed": false,
       "level": "normal"
+    },
+    {
+      "id": 1673913382295,
+      "name": "Facebook Ads",
+      "description": "Facebook Marketing",
+      "completed": false,
+      "level": "normal"
+    },
+    {
+      "id": 1673913561629,
+      "name": "Google Ads",
+      "description": "Google Marketing",
+      "completed": false,
+      "level": "urgent"
     }
   ]
 }

@@ -71,16 +71,19 @@ const taskReducer = ( state, action ) => {
         // Casuistica para obtener tarea por ID
         case taskTypes.GET_TASK_PENDING:
             return {
-                ...state
+                ...state,
+                loading: true
             };
         case taskTypes.GET_TASK_FULFILLED:
             console.log( action.payload );
             return {
                 ...state,
+                loading: false,
             };
         case taskTypes.GET_TASK_REJECTED:
             return {
                 ...state,
+                loading: false,
                 error: action.payload,
             };
         // Casuistica para cambiar estado de la tarea
@@ -116,17 +119,22 @@ const taskReducer = ( state, action ) => {
         case taskTypes.FILTER_TASK_ALL_FULFILLED:
             return {
                 ...state,
-                data: state.data
+                loading: false,
+                data: action.payload
             }
         case taskTypes.FILTER_TASK_COMPLETED_FULFILLED:
+            console.log( action.payload.filter( task => task.completed ) );
             return {
                 ...state,
-                data: state.data.filter( task => task.completed )
+                loading: false,
+                data: action.payload.filter( task => task.completed )
             }
         case taskTypes.FILTER_TASK_UNCOMPLETED_FULFILLED:
+            console.log( action.payload.filter( task => ! task.completed ) );
             return {
                 ...state,
-                data: state.data.filter( task => ! task.completed )
+                loading: false,
+                data: action.payload.filter( task => ! task.completed )
             }
         case taskTypes.FILTER_TASK_REJECTED:
             return {

@@ -26,41 +26,84 @@ const TaskList = () => {
 
     // console.log( state );
 
-    useEffect( () => {
+    const fetchAllTasks = async ( filter ) => {
 
-        const fetchData = async () => {
+        if( filter === '' ) {
             dispatch({
                 type: taskTypes.GET_TASKS_PENDING
             });
-    
-            const 
-                response = await fetchTask( 'tasks', {
-                    headers: {
-                        'Content-type': 'application/json; charset=UTF-8',
-                    }
-                }),
-                data = await response.json();
-    
-            console.log( response );
-            console.log( data );
-    
-            if( response.status > 400 ) {
+        }
+        else {
+            dispatch({
+                type: taskTypes.FILTER_TASK_PENDING
+            });
+        }
+        
+
+        const 
+            response = await fetchTask( 'tasks', {
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            }),
+            data = await response.json();
+
+        console.log( response );
+        console.log( data );
+
+        if( response.status > 400 ) {
+            if( filter === '' ) {
                 dispatch({
                     type: taskTypes.GET_TASKS_REJECTED,
                     payload: response.statusText
                 });
-    
-                return;
+            }
+            else {
+                dispatch({
+                    type: taskTypes.FILTER_TASK_REJECTED,
+                    payload: response.statusText
+                });
             }
             
+
+            return;
+        }
+
+        console.log( filter );
+
+        if( undefined === filter ) {
+            console.log( 'Obtiene todos los registros' );
             dispatch({
                 type: taskTypes.GET_TASKS_FULFILLED,
                 payload: data
             });
-    
+        }
+        if( 'all' === filter ) {
+            console.log( 'Filtra todos los registros' );
+            dispatch({
+                type: taskTypes.FILTER_TASK_ALL_FULFILLED,
+                payload: data
+            });
+        }
+        if( 'completed' === filter ) {
+            console.log( 'Filtra todos los registros completos' );
+            dispatch({
+                type: taskTypes.FILTER_TASK_COMPLETED_FULFILLED,
+                payload: data
+            });
+        }
+        if( 'uncompleted' === filter ) {
+            console.log( 'Filtra todos los registros incompletos' );
+            dispatch({
+                type: taskTypes.FILTER_TASK_UNCOMPLETED_FULFILLED,
+                payload: data
+            });
         }
 
-        fetchData();
+    }
+
+    useEffect( () => {
+        fetchAllTasks();
     }, [ dispatch ] );
 
     const handleEditTask = ( task_id ) => {
@@ -162,6 +205,7 @@ const TaskList = () => {
 
     const handleSelectChange = ( value ) => {
         console.log( `> ${ value }` );
+        fetchAllTasks( value );
     }
 
 
@@ -181,11 +225,16 @@ const TaskList = () => {
                     ?   <p className="message">There are no registered tasks</p>
                     :   <>  
                             <div className="filter">
+                                <label
+                                    for="filter-state"
+                                    className="filter-label-state"
+                                >Filter: </label>
                                 <Select
+                                    id="filter-state"
+                                    className="filter-state"
                                     values={ selectOptions }
                                     selectedValue="all"
                                     onValueChange={ value => handleSelectChange( value ) }
-                                    className="filter-state"
                                 />
                             </div>
                             <table className="table-task-list">
